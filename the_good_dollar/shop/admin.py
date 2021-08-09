@@ -11,7 +11,7 @@ admin.site.register(Banner, BannerAdmin)
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('title', 'image_tag')
+    list_display = ('title', 'image_tag', 'color_code')
 
 
 admin.site.register(Category, CategoryAdmin)

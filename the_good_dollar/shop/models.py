@@ -19,7 +19,8 @@ class Banner(models.Model):
 
 class Category(models.Model):
     title = models.CharField(max_length=50)
-    image = models.ImageField(upload_to="cat_imgs/")
+    image = models.ImageField(upload_to="cat_imgs/", blank=True, null=True)
+    color_code = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = 'Categories'

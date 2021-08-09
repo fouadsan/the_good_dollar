@@ -1,4 +1,21 @@
-const cardEls = document.querySelectorAll('.product_cards .card');
+let cardEls;
+
+const getCookie = (name) => {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
 
 // Load Filters
 function loadFilters() {
@@ -10,30 +27,111 @@ function loadFilters() {
 }
 
 // Get Data
-function getData() {
-    const categoryColor = document.getElementById('category-color');
-    const productImg = document.getElementById('product-img');
-    const productName = document.getElementById('product-name');
-    const productDesc = document.getElementById('product-desc');
-    const oldPrice = document.getElementById('product-old-price');
-    const currentPrice = document.getElementById('product-current-price');
-    const actionsEl = document.getElementById('action-el');
+const getData = () => {
+    const productsUrl = 'products/data/';
 
-    const animated_bgs = document.querySelectorAll('.animated-bg');
-    const animated_bg_texts = document.querySelectorAll('.animated-bg-text');
+    const productsContainer = document.querySelector('.product_cards');
 
-    categoryColor.style.backgroundColor = "#1d1d1d";
-    productImg.classList.add('img__ready');
-    productImg.style.backgroundImage = "url('/static/assets/img/product/motherboard.png')";
-    productName.innerHTML = "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet";
-    productDesc.innerHTML = "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet";
-    oldPrice.innerHTML = "$9,999";
-    currentPrice.innerHTML = "$7,999";
-    oldPrice.style.textDecoration = "line-through";
-    actionsEl.classList.remove('not-visible');
+    $.ajax({
+        type: 'GET',
+        url: productsUrl,
+        success: function (response) {
+            const data = response.data
+            console.log(data)
 
-    animated_bgs.forEach((bg) => bg.classList.remove('animated-bg'));
-    animated_bg_texts.forEach((bg) => bg.classList.remove('animated-bg-text'));
+            data.forEach(el => {
+
+                productsContainer.innerHTML = `
+                        <div class="card col-lg-4 col-md-12 col-sm-6 col-12">
+                        <div class="wrapper">
+                            <div class="product__header">
+                                <div class="color__category animated-bg" id="category-color-${data.id}"></div>
+                                <div class="img__product animated-bg" id="product-img-${data.id}"></div>
+                            </div>
+                            <div class="info__product">
+                                <div class="product__header__text">
+                                    <p class="product__name animated-bg animated-bg-text" id="product-name-${data.id}">
+                                        &nbsp;
+                                    </p>
+                                    <p class="product__description animated-bg animated-bg-text" id="product-desc-${data.id}">
+                                        &nbsp;
+                                        <span class="animated-bg animated-bg-text">&nbsp;</span>
+                                        <span class="animated-bg animated-bg-text">&nbsp;</span>
+                                        <span class="animated-bg animated-bg-text">&nbsp;</span>
+                                    </p>
+                                </div>
+                                <div class="actions">
+                                    <div class="price__group">
+                                        <p class="product__price price__offer animated-bg animated-bg-text"
+                                            id="product-old-price-${data.id}">&nbsp;</p>
+                                        <p class="product__price price__current animated-bg animated-bg-text"
+                                            id="product-current-price-${data.id}">&nbsp;</p>
+                                    </div>
+                                    <div class="not-visible" id="action-el-${data.id}">
+                                        <div class="card__icon action card__wishlist">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+                                                <path
+                                                    d="M47 5c-6.5 0-12.9 4.2-15 10-2.1-5.8-8.5-10-15-10A15 15 0 0 0 2 20c0 13 11 26 30 39 19-13 30-26 30-39A15 15 0 0 0 47 5z">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                        <div class="card__icon action card__cart">
+                                            <svg class="in__cart" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 64 64">
+                                                <title>Remove from cart</title>
+                                                <path d="M30 22H12M2 6h6l10 40h32l3.2-9.7"></path>
+                                                <circle cx="20" cy="54" r="4"></circle>
+                                                <circle cx="46" cy="54" r="4"></circle>
+                                                <circle cx="46" cy="22" r="16"></circle>
+                                                <path d="M53 18l-8 9-5-5"></path>
+                                            </svg>
+                                            <svg class="out__cart" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 64 64">
+                                                <title>Add to cart</title>
+                                                <path d="M2 6h10l10 40h32l8-24H16"></path>
+                                                <circle cx="23" cy="54" r="4"></circle>
+                                                <circle cx="49" cy="54" r="4"></circle>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+
+                let categoryColor = document.getElementById(`category-color-${data.id}`);
+                let productImg = document.getElementById(`product-img-${data.id}`);
+                let productName = document.getElementById(`product-name-${data.id}`);
+                let productDesc = document.getElementById(`product-desc-${data.id}`);
+                let oldPrice = document.getElementById(`product-old-price-${data.id}`);
+                let currentPrice = document.getElementById(`product-current-price-${data.id}`);
+                let actionsEl = document.getElementById(`action-el-${data.id}`);
+
+                const animated_bgs = document.querySelectorAll('.animated-bg');
+                const animated_bg_texts = document.querySelectorAll('.animated-bg-text');
+
+                setTimeout(() => {
+                    categoryColor.style.backgroundColor = el.category_color;
+                    productImg.classList.add('img__ready');
+                    productImg.style.backgroundImage = `url('${el.image}')`;
+                    productName.innerHTML = el.title;
+                    productDesc.innerHTML = el.detail;
+                    oldPrice.innerHTML = "$9,999";
+                    currentPrice.innerHTML = `$${el.price}`;
+                    oldPrice.style.textDecoration = "line-through";
+                    actionsEl.classList.remove('not-visible');
+
+                    animated_bgs.forEach((bg) => bg.classList.remove('animated-bg'));
+                    animated_bg_texts.forEach((bg) => bg.classList.remove('animated-bg-text'));
+                }, 2500);
+
+                cardEls = document.querySelectorAll('.product_cards .card');
+
+            });
+
+        }
+    })
 
 }
 
@@ -380,11 +478,13 @@ function hideListview() {
 function start() {
     setTimeout(() => {
         loadFilters();
-        getData();
         priceRange();
         addToFav();
         addToCart();
         hideListview();
     }, 2500);
 }
+
+getData();
 start();
+
