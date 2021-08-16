@@ -1,15 +1,27 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 
-from .models import Product
+from .models import Category, Subcategory, Product
 
 
 def home(request):
-    return render(request, 'shop/shop.html', {'title': 'Shop'})
+    categories = Category.objects.all()
+    subcategories = Subcategory.objects.all()
+
+    context = {
+        'categories': categories,
+        'subcategories': subcategories
+    }
+
+    return render(request, 'shop/shop.html', context)
 
 
-def load_products(request):
+def load_products(request, num):
+    visible = 3
     qs = Product.objects.all()
+    upper = num
+    lower = upper - visible
+    size = qs.count()
     data = []
     for obj in qs:
         item = {
@@ -29,6 +41,7 @@ def load_products(request):
         data.append(item)
 
     response = {
-        'data': data
+        'data': data[lower:upper],
+        'size': size
     }
     return JsonResponse(response)

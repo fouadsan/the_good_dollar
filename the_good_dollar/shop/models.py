@@ -17,22 +17,43 @@ class Banner(models.Model):
         return self.alt_text
 
 
-class Category(models.Model):
+class Departement(models.Model):
     title = models.CharField(max_length=50)
-    image = models.ImageField(upload_to="cat_imgs/", blank=True, null=True)
+    image = models.ImageField(upload_to="depart_imgs/", blank=True, null=True)
     color_code = models.CharField(max_length=50, blank=True, null=True)
-
-    class Meta:
-        verbose_name_plural = 'Categories'
 
     def image_tag(self):
         return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
+
+    def color_bg(self):
+        return mark_safe('<div style="width:30px; height:30px; background-color:%s"></div>' % (self.color_code))
 
     def __str__(self):
         return self.title
 
 
-# Brand
+class Category(models.Model):
+    departement = models.ForeignKey(Departement, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name_plural = 'Categories'
+
+    def __str__(self):
+        return self.title
+
+
+class Subcategory(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name_plural = 'Subcategories'
+
+    def __str__(self):
+        return self.title
+
+
 class Brand(models.Model):
     title = models.CharField(max_length=50)
     image = models.ImageField(upload_to="brand_imgs/")

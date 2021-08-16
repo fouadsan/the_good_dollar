@@ -3,217 +3,30 @@
     <div class="sidebar__item">
         <div class="categories-menu">
             <div class="category-heading">
-                <h4> Department</h4>
+                <h4>Browse Categories</h4>
             </div>
             <div class="category-menu-list">
                 <ul>
-                    <li><a href="#">Women’s Clothing <i class="zmdi zmdi-chevron-right"></i></a>
+                    {% for category in categories %}
+                    <li><a href="#"> {{ category.title }} <i class="zmdi zmdi-chevron-right"></i></a>
+                        {% if subcategories %}
                         <div class="category-menu-dropdown">
-                            <div class="category-part-1 category-common mb--30">
-                                <h4 class="categories-subtitle"> Jewelry & Watches</h4>
+                            <div class="category-common">
+                                <h4 class="categories-subtitle"> {{ category.title }}</h4>
                                 <ul>
-                                    <li><a href="#"> Men’s Clothing</a></li>
-                                    <li><a href="#"> Computer & Office</a></li>
-                                    <li><a href="#"> Jewelry & Watches</a></li>
-                                    <li><a href="#"> Bags & Shoes</a></li>
-                                    <li><a href="#"> Phones & Accessories</a></li>
-                                </ul>
-                            </div>
-                            <div class="category-part-2 category-common mb--30">
-                                <h4 class="categories-subtitle"> Jewelry & Watches</h4>
-                                <ul>
-                                    <li><a href="#"> Men’s Clothing</a></li>
-                                    <li><a href="#"> Computer & Office</a></li>
-                                    <li><a href="#"> Jewelry & Watches</a></li>
-                                    <li><a href="#"> Bags & Shoes</a></li>
-                                    <li><a href="#"> Phones & Accessories</a></li>
-                                </ul>
-                            </div>
-                            <div class="category-part-3 category-common">
-                                <h4 class="categories-subtitle"> Jewelry & Watches</h4>
-                                <ul>
-                                    <li><a href="#"> Men’s Clothing</a></li>
-                                    <li><a href="#"> Computer & Office</a></li>
-                                    <li><a href="#"> Jewelry & Watches</a></li>
-                                    <li><a href="#"> Bags & Shoes</a></li>
-                                    <li><a href="#"> Phones & Accessories</a></li>
-                                </ul>
-                            </div>
-                            <div class="category-part-4 category-common">
-                                <h4 class="categories-subtitle"> Jewelry & Watches</h4>
-                                <ul>
-                                    <li><a href="#"> Men’s Clothing</a></li>
-                                    <li><a href="#"> Computer & Office</a></li>
-                                    <li><a href="#"> Jewelry & Watches</a></li>
-                                    <li><a href="#"> Bags & Shoes</a></li>
-                                    <li><a href="#"> Phones & Accessories</a></li>
+                                    {% for subcategory in subcategories %}
+                                    <li><a href="#"> {{ subcategory.title }}</a></li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>
+                        {% endif %}
                     </li>
-                    <li><a href="#"> Man Fashion <i class="zmdi zmdi-chevron-right"></i></a>
-                        <div class="category-menu-dropdown">
-                            <div class="category-part-1 category-common2 mb--30">
-                                <h4 class="categories-subtitle"> Jewelry & Watches</h4>
-                                <ul>
-                                    <li><a href="#"> Men’s Clothing</a></li>
-                                    <li><a href="#"> Computer & Office</a></li>
-                                    <li><a href="#"> Jewelry & Watches</a></li>
-                                    <li><a href="#"> Bags & Shoes</a></li>
-                                    <li><a href="#"> Phones & Accessories</a></li>
-                                </ul>
-                            </div>
-                            <div class="category-part-2 category-common2 mb--30">
-                                <h4 class="categories-subtitle"> Jewelry & Watches</h4>
-                                <ul>
-                                    <li><a href="#"> Men’s Clothing</a></li>
-                                    <li><a href="#"> Computer & Office</a></li>
-                                    <li><a href="#"> Jewelry & Watches</a></li>
-                                    <li><a href="#"> Bags & Shoes</a></li>
-                                    <li><a href="#"> Phones & Accessories</a></li>
-                                </ul>
-                            </div>
-                            <div class="category-part-3 category-common2 mb--30">
-                                <h4 class="categories-subtitle">dress</h4>
-                                <ul>
-                                    <li><a href="#"> Men’s Clothing</a></li>
-                                    <li><a href="#"> Computer & Office</a></li>
-                                    <li><a href="#"> Jewelry & Watches</a></li>
-                                    <li><a href="#"> Bags & Shoes</a></li>
-                                    <li><a href="#"> Phones & Accessories</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                    {% empty %}
+                    <li>
+                        <p>No Categories...</p>
                     </li>
-                    <li><a href="#"> Computer & Office <i class="zmdi zmdi-chevron-right"></i></a>
-                        <div class="category-menu-dropdown">
-                            <div class="category-menu-dropdown-top">
-                                <div class="category-part-1 category-common2 mb--30">
-                                    <h4 class="categories-subtitle"> Jewelry & Watches</h4>
-                                    <ul>
-                                        <li><a href="#"> Men’s Clothing</a></li>
-                                        <li><a href="#"> Computer & Office</a></li>
-                                        <li><a href="#"> Jewelry & Watches</a></li>
-                                        <li><a href="#"> Bags & Shoes</a></li>
-                                        <li><a href="#"> Phones & Accessories</a></li>
-                                    </ul>
-                                </div>
-                                <div class="category-part-2 category-common2 mb--30">
-                                    <h4 class="categories-subtitle"> Jewelry & Watches</h4>
-                                    <ul>
-                                        <li><a href="#"> Men’s Clothing</a></li>
-                                        <li><a href="#"> Computer & Office</a></li>
-                                        <li><a href="#"> Jewelry & Watches</a></li>
-                                        <li><a href="#"> Bags & Shoes</a></li>
-                                        <li><a href="#"> Phones & Accessories</a></li>
-                                    </ul>
-                                </div>
-                                <div class="category-part-3 category-common2 mb--30">
-                                    <h4 class="categories-subtitle">Jewelry & Watches</h4>
-                                    <ul>
-                                        <li><a href="#"> Men’s Clothing</a></li>
-                                        <li><a href="#"> Computer & Office</a></li>
-                                        <li><a href="#"> Jewelry & Watches</a></li>
-                                        <li><a href="#"> Bags & Shoes</a></li>
-                                        <li><a href="#"> Phones & Accessories</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="category-menu-dropdown-bottom">
-
-                            </div>
-                        </div>
-                    </li>
-                    <li><a href="#"> Jewelry & Watches <i class="zmdi zmdi-chevron-right"></i></a>
-                        <div class="category-menu-dropdown">
-                            <div class="category-menu-dropdown-left">
-                                <div class="category-part-1 category-common mb--30">
-                                    <h4 class="categories-subtitle"> Jewelry & Watches</h4>
-                                    <ul>
-                                        <li><a href="#"> Men’s Clothing</a></li>
-                                        <li><a href="#"> Computer & Office</a></li>
-                                        <li><a href="#"> Jewelry & Watches</a></li>
-                                        <li><a href="#"> Bags & Shoes</a></li>
-                                        <li><a href="#"> Phones & Accessories</a></li>
-                                    </ul>
-                                </div>
-                                <div class="category-part-2 category-common mb--30">
-                                    <h4 class="categories-subtitle"> Jewelry & Watches</h4>
-                                    <ul>
-                                        <li><a href="#"> Men’s Clothing</a></li>
-                                        <li><a href="#"> Computer & Office</a></li>
-                                        <li><a href="#"> Jewelry & Watches</a></li>
-                                        <li><a href="#"> Bags & Shoes</a></li>
-                                        <li><a href="#"> Phones & Accessories</a></li>
-                                    </ul>
-                                </div>
-                                <div class="category-part-3 category-common">
-                                    <h4 class="categories-subtitle"> Jewelry & Watches</h4>
-                                    <ul>
-                                        <li><a href="#"> Men’s Clothing</a></li>
-                                        <li><a href="#"> Computer & Office</a></li>
-                                        <li><a href="#"> Jewelry & Watches</a></li>
-                                        <li><a href="#"> Bags & Shoes</a></li>
-                                        <li><a href="#"> Phones & Accessories</a></li>
-                                    </ul>
-                                </div>
-                                <div class="category-part-4 category-common">
-                                    <h4 class="categories-subtitle"> Jewelry & Watches</h4>
-                                    <ul>
-                                        <li><a href="#"> Men’s Clothing</a></li>
-                                        <li><a href="#"> Computer & Office</a></li>
-                                        <li><a href="#"> Jewelry & Watches</a></li>
-                                        <li><a href="#"> Bags & Shoes</a></li>
-                                        <li><a href="#"> Phones & Accessories</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="category-menu-dropdown-right">
-
-                            </div>
-                        </div>
-                    </li>
-                    <li><a href="#"> Men’s Clothing <i class="zmdi zmdi-chevron-right"></i></a>
-                        <div class="category-menu-dropdown">
-                            <div class="category-menu-dropdown-left">
-                                <div class="category-part-1 category-common">
-                                    <h4 class="categories-subtitle"> Jewelry & Watches</h4>
-                                    <ul>
-                                        <li><a href="#"> Men’s Clothing</a></li>
-                                        <li><a href="#"> Computer & Office</a></li>
-                                        <li><a href="#"> Jewelry & Watches</a></li>
-                                        <li><a href="#"> Bags & Shoes</a></li>
-                                        <li><a href="#"> Phones </a></li>
-                                        <li><a href="#"> Computer & Office</a></li>
-                                        <li><a href="#"> Phones & Accessories</a></li>
-                                    </ul>
-                                </div>
-                                <div class="category-part-2 category-common">
-                                    <h4 class="categories-subtitle"> Jewelry & Watches</h4>
-                                    <ul>
-                                        <li><a href="#"> Men’s Clothing</a></li>
-                                        <li><a href="#"> Computer & Office</a></li>
-                                        <li><a href="#"> Jewelry & Watches</a></li>
-                                        <li><a href="#"> Bags & Shoes</a></li>
-                                        <li><a href="#"> Phones </a></li>
-                                        <li><a href="#"> Computer & Office</a></li>
-                                        <li><a href="#"> Phones & Accessories</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="category-menu-dropdown-right">
-
-                            </div>
-                        </div>
-                    </li>
-                    <li><a href="#"> Bags & Shoes</a></li>
-                    <li><a href="#"> Toys & Kids & Baby</a>
-                    </li>
-                    <li><a href="#"> Automobiles </a></li>
-                    <li><a href="#"> Jewelry & Watches</a>
-                    </li>
-                    <li><a href="#"> Consumer Electronics</a>
-                    </li>
+                    {% endfor %}
                     <li><a href="#"> all Accessories</a></li>
                 </ul>
             </div>

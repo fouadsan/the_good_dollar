@@ -6,5 +6,5 @@ app_name = 'shop'
 
 urlpatterns = [
     path('', home, name='shop-home'),
-    path('products/data/', load_products, name='products-data'),
+    path('products/data/<int:num>/', load_products, name='products-data'),
 ]
