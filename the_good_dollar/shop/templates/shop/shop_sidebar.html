@@ -56,15 +56,17 @@
                     <div class="accordion-body">
                         <div class="shop__sidebar__categories">
                             <ul class="nice-scroll">
-                                <li><a href="#">Men (20)</a></li>
-                                <li><a href="#">Women (20)</a></li>
-                                <li><a href="#">Bags (20)</a></li>
-                                <li><a href="#">Clothing (20)</a></li>
-                                <li><a href="#">Shoes (20)</a></li>
-                                <li><a href="#">Accessories (20)</a></li>
-                                <li><a href="#">Kids (20)</a></li>
-                                <li><a href="#">Kids (20)</a></li>
-                                <li><a href="#">Kids (20)</a></li>
+                                {% for category in categories %}
+                                <li class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                      {{ category.title }} ({{ category.product_set.all.count}})
+                                    </label>
+                                </li>
+                                {% empty %}
+                                <li>
+                                    <p>No Filters...</p>
+                                </li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
@@ -75,7 +77,7 @@
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                         data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
                         aria-controls="panelsStayOpen-collapseTwo">
-                        Branding
+                        Brands
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show"
@@ -83,10 +85,15 @@
                     <div class="accordion-body">
                         <div class="shop__sidebar__brand">
                             <ul>
-                                <li><a href="#">Louis Vuitton</a></li>
-                                <li><a href="#">Chanel</a></li>
-                                <li><a href="#">Hermes</a></li>
-                                <li><a href="#">Gucci</a></li>
+                                {% for brand in brands %}
+                                <li class="form-check"><input class="form-check-input" type="checkbox" value="" id="brd-{{ brand.id }}">
+                                    <label class="form-check-label" for="brd-{{ brand.id }}">
+                                      {{ brand.name }} ({{ brand.product_set.all.count }})
+                                    </label>
+                                </li>
+                                {% empty %}
+                                <li><p>No Filters...</p></li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
@@ -123,30 +130,13 @@
                     aria-labelledby="panelsStayOpen-headingFour">
                     <div class="accordion-body">
                         <div class="shop__sidebar__size">
-                            <label for="xs">xs
-                                <input type="radio" id="xs">
+                            {% for size in sizes %}
+                            <label for="{{ size.title }}">{{ size.title }}
+                                <input type="radio" id="{{ size.title }}">
                             </label>
-                            <label for="sm">s
-                                <input type="radio" id="sm">
-                            </label>
-                            <label for="md">m
-                                <input type="radio" id="md">
-                            </label>
-                            <label for="xl">xl
-                                <input type="radio" id="xl">
-                            </label>
-                            <label for="2xl">2xl
-                                <input type="radio" id="2xl">
-                            </label>
-                            <label for="xxl">xxl
-                                <input type="radio" id="xxl">
-                            </label>
-                            <label for="3xl">3xl
-                                <input type="radio" id="3xl">
-                            </label>
-                            <label for="4xl">4xl
-                                <input type="radio" id="4xl">
-                            </label>
+                            {% empty %}
+                            <p>No Filters...</p>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -163,61 +153,17 @@
                     aria-labelledby="panelsStayOpen-headingFive">
                     <div class="accordion-body">
                         <div class="shop__sidebar__color">
-                            <label class="c-1" for="sp-1" style="background-color: #153a82;">
-                                <input type="radio" id="sp-1">
-                            </label>
-                            <label class="c-2" for="sp-2" style="background-color: #153a82;">
-                                <input type="radio" id="sp-2">
-                            </label>
-                            <label class="c-3" for="sp-3" style="background-color: #153a82;">
-                                <input type="radio" id="sp-3">
-                            </label>
-                            <label class="c-4" for="sp-4" style="background-color: #153a82;">
-                                <input type="radio" id="sp-4">
-                            </label>
-                            <label class="c-5" for="sp-5" style="background-color: #153a82;">
-                                <input type="radio" id="sp-5">
-                            </label>
-                            <label class="c-6" for="sp-6" style="background-color: #153a82;">
-                                <input type="radio" id="sp-6">
-                            </label>
-                            <label class="c-7" for="sp-7" style="background-color: #153a82;">
-                                <input type="radio" id="sp-7">
-                            </label>
-                            <label class="c-8" for="sp-8" style="background-color: #153a82;">
-                                <input type="radio" id="sp-8">
-                            </label>
-                            <label class="c-9" for="sp-9" style="background-color: #153a82;">
-                                <input type="radio" id="sp-9">
-                            </label>
+                            {% for color in colors %}
+                                <label class="c-1" for="col-{{ color.id }}" style="background: {{ color.color_code }};">
+                                    <input type="radio" id="col-{{ color.id }}">
+                                </label>
+                            {% empty %}
+                            <p>No Filters...</p>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-headingSix">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false"
-                        aria-controls="panelsStayOpen-collapseSix">
-                        Tags
-                    </button>
-                </h2>
-                <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse"
-                    aria-labelledby="panelsStayOpen-headingSix">
-                    <div class="accordion-body">
-                        <div class="shop__sidebar__tags">
-                            <a href="#">Product</a>
-                            <a href="#">Bags</a>
-                            <a href="#">Shoes</a>
-                            <a href="#">Fashio</a>
-                            <a href="#">Clothing</a>
-                            <a href="#">Hats</a>
-                            <a href="#">Accessories</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>

@@ -118,7 +118,7 @@ function addDataToDom(data, size, visible) {
                 </div>
             </div>
         `
-        productCountEl.textContent = `Showing ${visible} of ${size} results`;
+        visible <= size ? productCountEl.textContent = `Showing ${visible} of ${size} results`: productCountEl.textContent = `Showing ${size} of ${size} results`;
         cardEls = document.querySelectorAll('.product_cards .card');
 
         setTimeout(() => {
@@ -529,6 +529,7 @@ function loadMoreData() {
     })
 }
 
+// Reorder data by price
 function reorderByPrice() {
     // Price Comparison
     function comparePrice(a, b) {
@@ -546,6 +547,7 @@ function reorderByPrice() {
     addDataToDom(allData, size, visible);
 }
 
+// Sort by price
 function SwitchSortBy() {
     if (allData.length) {
         const sortEl = document.getElementById('sort-el');
@@ -566,6 +568,9 @@ function SwitchSortBy() {
         })
     }
 }
+
+// Filter Data
+
 
 function startDOM() {
     setTimeout(() => {
