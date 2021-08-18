@@ -57,9 +57,9 @@
                         <div class="shop__sidebar__categories">
                             <ul class="nice-scroll">
                                 {% for category in categories %}
-                                <li class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                      {{ category.title }} ({{ category.product_set.all.count}})
+                                <li class="form-check"><input class="form-check-input" type="checkbox" value="" id="cat-{{ category.id }}">
+                                    <label class="form-check-label" for="cat-{{ brand.id }}">
+                                      {{ category.title }} ({{ category.product_set.all.count }})
                                     </label>
                                 </li>
                                 {% empty %}

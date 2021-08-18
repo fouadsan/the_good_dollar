@@ -51,3 +51,52 @@ def load_products(request, num):
         'size': size
     }
     return JsonResponse(response)
+
+
+def filter_products(request):
+    filter_ids = request.GET.get('data')
+    print(filter_ids)
+    # products = Product.objects.all()
+    # data = []
+
+    # if (filter_id.startswith("cat")):
+    #     products = products.filter(category_id=filter_id.split('-')[1]) 
+    #     for obj in products:
+    #         item = {
+    #         'id': obj.id,
+    #         'title': obj.title,
+    #         'slug': obj.slug,
+    #         'detail': obj.detail,
+    #         'specs': obj.specs,
+    #         'category': obj.category.title,
+    #         'category_color': obj.category.color.color_code,
+    #         'brand': obj.brand.name,
+    #         'status': obj.status,
+    #         'is_featured': obj.is_featured,
+    #         'price': obj.productattribute_set.first().price,
+    #         'image': obj.productattribute_set.first().image.url
+    #     }
+    #     data.append(item)
+
+    # elif (filter_id.startswith("brd")):
+    #     products = products.filter(brand_id=filter_id.split('-')[1])
+    #     for obj in products:
+    #         item = {
+    #         'id': obj.id,
+    #         'title': obj.title,
+    #         'slug': obj.slug,
+    #         'detail': obj.detail,
+    #         'specs': obj.specs,
+    #         'category': obj.category.title,
+    #         'category_color': obj.category.color.color_code,
+    #         'brand': obj.brand.name,
+    #         'status': obj.status,
+    #         'is_featured': obj.is_featured,
+    #         'price': obj.productattribute_set.first().price,
+    #         'image': obj.productattribute_set.first().image.url
+    #     }
+    #     data.append(item)
+    # print(len(data))
+    return JsonResponse({'data': 'slm'})
+
+    

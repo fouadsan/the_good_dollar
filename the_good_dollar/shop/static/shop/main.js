@@ -32,8 +32,6 @@ function getData() {
             const data = response.data
             size = response.size
 
-            console.log(data);
-
             if (data.length) {
                 addDataToDom(data, size, visible);
             } else {
