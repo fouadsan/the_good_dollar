@@ -21,13 +21,17 @@ function loadFilters() {
 }
 
 // Get Data
-function getData() {
+function getData(fData) {
 
     let productsUrl = `products/data/${visible}`;
 
+    console.log(fData)
     $.ajax({
         type: 'GET',
         url: productsUrl,
+        data: fData ? {
+            'filters-data': JSON.stringify(fData),
+        } : null,
         success: function (response) {
             const data = response.data
             size = response.size
@@ -116,7 +120,7 @@ function addDataToDom(data, size, visible) {
                 </div>
             </div>
         `
-        visible <= size ? productCountEl.textContent = `Showing ${visible} of ${size} results`: productCountEl.textContent = `Showing ${size} of ${size} results`;
+        visible <= size ? productCountEl.textContent = `Showing ${visible} of ${size} results` : productCountEl.textContent = `Showing ${size} of ${size} results`;
         cardEls = document.querySelectorAll('.product_cards .card');
 
         setTimeout(() => {

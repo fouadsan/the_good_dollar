@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+import json
 
 from .models import Category, Subcategory, Product, Brand, Size, Color
+from .utils import get_object
 
 
 def home(request):
@@ -29,74 +31,33 @@ def load_products(request, num):
     lower = upper - visible
     size = qs.count()
     data = []
-    for obj in qs:
-        item = {
-            'id': obj.id,
-            'title': obj.title,
-            'slug': obj.slug,
-            'detail': obj.detail,
-            'specs': obj.specs,
-            'category': obj.category.title,
-            'category_color': obj.category.color.color_code,
-            'brand': obj.brand.name,
-            'status': obj.status,
-            'is_featured': obj.is_featured,
-            'price': obj.productattribute_set.first().price,
-            'image': obj.productattribute_set.first().image.url
-        }
-        data.append(item)
+
+    # Filters
+    filter_request = request.GET.get('filters-data')
+    print(filter_request)
+    try:
+        filter_ids = json.loads(filter_request)
+        print(filter_ids)
+        if filter_ids:
+            print(filter_ids)
+            for filter_id in filter_ids:
+                f_id = filter_id.split('-')[1]
+                if (filter_id.startswith("cat")):
+                    qs = Product.objects.filter(
+                        category_id=f_id)
+                    get_object(qs, data)
+
+                elif (filter_id.startswith("brd")):
+                    qs = Product.objects.filter(brand_id=f_id)
+
+                    get_object(qs, data)
+    except TypeError:
+        pass
+
+        get_object(qs, data)
 
     response = {
         'data': data[lower:upper],
         'size': size
     }
     return JsonResponse(response)
-
-
-def filter_products(request):
-    filter_ids = request.GET.get('data')
-    print(filter_ids)
-    # products = Product.objects.all()
-    # data = []
-
-    # if (filter_id.startswith("cat")):
-    #     products = products.filter(category_id=filter_id.split('-')[1]) 
-    #     for obj in products:
-    #         item = {
-    #         'id': obj.id,
-    #         'title': obj.title,
-    #         'slug': obj.slug,
-    #         'detail': obj.detail,
-    #         'specs': obj.specs,
-    #         'category': obj.category.title,
-    #         'category_color': obj.category.color.color_code,
-    #         'brand': obj.brand.name,
-    #         'status': obj.status,
-    #         'is_featured': obj.is_featured,
-    #         'price': obj.productattribute_set.first().price,
-    #         'image': obj.productattribute_set.first().image.url
-    #     }
-    #     data.append(item)
-
-    # elif (filter_id.startswith("brd")):
-    #     products = products.filter(brand_id=filter_id.split('-')[1])
-    #     for obj in products:
-    #         item = {
-    #         'id': obj.id,
-    #         'title': obj.title,
-    #         'slug': obj.slug,
-    #         'detail': obj.detail,
-    #         'specs': obj.specs,
-    #         'category': obj.category.title,
-    #         'category_color': obj.category.color.color_code,
-    #         'brand': obj.brand.name,
-    #         'status': obj.status,
-    #         'is_featured': obj.is_featured,
-    #         'price': obj.productattribute_set.first().price,
-    #         'image': obj.productattribute_set.first().image.url
-    #     }
-    #     data.append(item)
-    # print(len(data))
-    return JsonResponse({'data': 'slm'})
-
-    
