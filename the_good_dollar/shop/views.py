@@ -34,30 +34,42 @@ def load_products(request, num):
 
     # Filters
     filter_request = request.GET.get('filters-data')
-    print(filter_request)
+
     try:
+
         filter_ids = json.loads(filter_request)
-        print(filter_ids)
+
         if filter_ids:
-            print(filter_ids)
             for filter_id in filter_ids:
                 f_id = filter_id.split('-')[1]
                 if (filter_id.startswith("cat")):
                     qs = Product.objects.filter(
                         category_id=f_id)
-                    get_object(qs, data)
 
                 elif (filter_id.startswith("brd")):
                     qs = Product.objects.filter(brand_id=f_id)
 
-                    get_object(qs, data)
-    except TypeError:
-        pass
+                elif (filter_id.startswith("sz")):
+                    qs = Product.objects.filter(
+                        productattribute__size__id=f_id)
 
+                elif (filter_id.startswith("col")):
+                    qs = Product.objects.filter(
+                        productattribute__color__id=f_id)
+
+                get_object(qs, data)
+
+    except TypeError:
         get_object(qs, data)
 
-    response = {
-        'data': data[lower:upper],
-        'size': size
-    }
+    if (size >= upper):
+        response = {
+            'data': data[lower:upper],
+            'size': size
+        }
+    else:
+        response = {
+            'data': data,
+            'size': size
+        }
     return JsonResponse(response)

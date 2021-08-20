@@ -38,7 +38,7 @@
 
     <div class="sidebar__item">
         <div class="d-flex justify-content-center">
-            <div class="spinner-border text-secondary" role="status" id="filter-spinner-box">
+            <div class="spinner-border text-danger" role="status" id="filter-spinner-box">
                 <span class="sr-only">Loading...</span>
             </div>
         </div>
@@ -57,9 +57,11 @@
                         <div class="shop__sidebar__categories">
                             <ul class="nice-scroll">
                                 {% for category in categories %}
-                                <li class="form-check"><input class="form-check-input" type="checkbox" value="" id="cat-{{ category.id }}">
-                                    <label class="form-check-label" for="cat-{{ brand.id }}">
-                                      {{ category.title }} ({{ category.product_set.all.count }})
+                                <li class="form-check">
+                                    <label class="form-check-label" for="cat-{{ category.id }}">
+                                        {{ category.title }} ({{ category.product_set.all.count }})
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="cat-{{ category.id }}">
                                     </label>
                                 </li>
                                 {% empty %}
@@ -86,13 +88,17 @@
                         <div class="shop__sidebar__brand">
                             <ul>
                                 {% for brand in brands %}
-                                <li class="form-check"><input class="form-check-input" type="checkbox" value="" id="brd-{{ brand.id }}">
+                                <li class="form-check">
                                     <label class="form-check-label" for="brd-{{ brand.id }}">
-                                      {{ brand.name }} ({{ brand.product_set.all.count }})
+                                        {{ brand.name }} ({{ brand.product_set.all.count }})
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="brd-{{ brand.id }}">
                                     </label>
                                 </li>
                                 {% empty %}
-                                <li><p>No Filters...</p></li>
+                                <li>
+                                    <p>No Filters...</p>
+                                </li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -131,8 +137,9 @@
                     <div class="accordion-body">
                         <div class="shop__sidebar__size">
                             {% for size in sizes %}
-                            <label for="{{ size.title }}">{{ size.title }}
-                                <input type="radio" id="{{ size.title }}">
+                            <label for="sz-{{ size.id }}">{{ size.title }}
+                                <input type="checkbox" class="form-check-input checkmarked" id="sz-{{ size.id }}">
+                                <div class="not-visible">✅</div>
                             </label>
                             {% empty %}
                             <p>No Filters...</p>
@@ -154,9 +161,10 @@
                     <div class="accordion-body">
                         <div class="shop__sidebar__color">
                             {% for color in colors %}
-                                <label class="c-1" for="col-{{ color.id }}" style="background: {{ color.color_code }};">
-                                    <input type="radio" id="col-{{ color.id }}">
-                                </label>
+                            <label class="c-1" for="col-{{ color.id }}" style="background: {{ color.color_code }};">
+                                <input type="checkbox" class="form-check-input checkmarked" id="col-{{ color.id }}">
+                                <div class="not-visible">✅</div>
+                            </label>
                             {% empty %}
                             <p>No Filters...</p>
                             {% endfor %}

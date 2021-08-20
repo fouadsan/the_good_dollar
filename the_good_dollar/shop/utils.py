@@ -14,4 +14,5 @@ def get_object(qs, data):
             'price': obj.productattribute_set.first().price,
             'image': obj.productattribute_set.first().image.url
         }
-        data.append(item)
+        if item not in data:
+            data.append(item)
