@@ -138,8 +138,8 @@
                         <div class="shop__sidebar__size">
                             {% for size in sizes %}
                             <label for="sz-{{ size.id }}">{{ size.title }}
-                                <input type="checkbox" class="form-check-input checkmarked" id="sz-{{ size.id }}">
-                                <div class="not-visible">✅</div>
+                                <input type="checkbox" class="form-check-input to_checkmark" id="sz-{{ size.id }}">
+                                <i class="fas fa-check"></i>
                             </label>
                             {% empty %}
                             <p>No Filters...</p>
@@ -161,9 +161,9 @@
                     <div class="accordion-body">
                         <div class="shop__sidebar__color">
                             {% for color in colors %}
-                            <label class="c-1" for="col-{{ color.id }}" style="background: {{ color.color_code }};">
-                                <input type="checkbox" class="form-check-input checkmarked" id="col-{{ color.id }}">
-                                <div class="not-visible">✅</div>
+                            <label for="col-{{ color.id }}" style="background: {{ color.color_code }};">
+                                <input type="checkbox" class="form-check-input to_checkmark" id="col-{{ color.id }}">
+                                <i class="fas fa-check"></i>
                             </label>
                             {% empty %}
                             <p>No Filters...</p>

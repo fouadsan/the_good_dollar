@@ -27,3 +27,10 @@ function removeArr(arr) {
     }
     return arr;
 }
+
+// Load Element 
+// Load Filters
+function loadHideElements(elemnt1, element2) {
+    hideElement(elemnt1);
+    showElement(element2);
+}

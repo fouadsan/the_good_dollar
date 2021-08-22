@@ -3276,3 +3276,7 @@ width: 100%;
 	position: absolute;
 	visibility: hidden;
 }
+
+.shop__sidebar__size label i, .shop__sidebar__color label i {
+	display: none;
+}
