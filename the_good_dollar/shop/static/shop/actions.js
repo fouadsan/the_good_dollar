@@ -1,8 +1,7 @@
-let filtersData = [];
-
 // Filter Data
 function filterData() {
-
+    
+    let filtersData = [];
     const filterEls = document.querySelectorAll('.form-check-input');
 
     filterEls.forEach(filterEl => {
@@ -33,6 +32,8 @@ function filterData() {
 
 // Price range
 function priceRange() {
+    
+    let priceRange = [];
 
     (function ($) {
         "use strict";
@@ -173,6 +174,11 @@ function priceRange() {
 
                 });
 
+                priceRange[0] = values[0].value;
+                priceRange[1] = values[1].value;
+
+                // console.log(priceRange);
+                getData(null, priceRange);
                 // console.log(values[0].value) !!Important min value
                 // console.log(values[1].value) !!Important max value
 
