@@ -21,14 +21,16 @@ function loadFilters() {
 }
 
 // Get Data
-function getData(fData) {
+function getData(fData, pRange) {
     let productsUrl = `products/data/${visible}`;
     $.ajax({
         type: 'GET',
         url: productsUrl,
         data: fData ? {
             'filters-data': JSON.stringify(fData),
-        } : null,
+        } : {
+            'price-range': JSON.stringify(pRange),
+        },
         success: function (response) {
             const data = response.data
             size = response.size
