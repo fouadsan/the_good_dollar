@@ -1,4 +1,5 @@
 {% load static %}
+
 <div class="sidebar">
     <div class="sidebar__item">
         <div class="categories-menu">
@@ -8,14 +9,15 @@
             <div class="category-menu-list">
                 <ul>
                     {% for category in categories %}
-                    <li><a href="#"> {{ category.title }} <i class="zmdi zmdi-chevron-right"></i></a>
+                    <li><a href="#"> {{ category.title }}</a>
                         {% if subcategories %}
                         <div class="category-menu-dropdown">
                             <div class="category-common">
-                                <h4 class="categories-subtitle"> {{ category.title }}</h4>
+                                <i class="fas fa-question-circle fa-2x"></i>
+                                <h4 class="categories-subtitle">{{ category.title }}</h4>
                                 <ul>
                                     {% for subcategory in subcategories %}
-                                    <li><a href="#"> {{ subcategory.title }}</a></li>
+                                    <li> {{ subcategory.title }}</li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -48,7 +50,7 @@
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                         data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
                         aria-controls="panelsStayOpen-collapseOne">
-                        Categories
+                        Subcategories
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
@@ -56,18 +58,16 @@
                     <div class="accordion-body">
                         <div class="shop__sidebar__categories">
                             <ul class="nice-scroll">
-                                {% for category in categories %}
+                                {% for subcategory in subcategories %}
                                 <li class="form-check">
-                                    <label class="form-check-label" for="cat-{{ category.id }}">
-                                        {{ category.title }} ({{ category.product_set.all.count }})
+                                    <label class="form-check-label" for="cat-{{ subcategory.id }}">
+                                        {{ subcategory.title }} ({{ subcategory.product_set.all.count }})
                                         <input class="form-check-input" type="checkbox" value=""
-                                            id="cat-{{ category.id }}">
+                                            id="cat-{{ subcategory.id }}">
                                     </label>
                                 </li>
                                 {% empty %}
-                                <li>
-                                    <p>No Filters...</p>
-                                </li>
+                                <p>No Filters...</p>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -96,9 +96,7 @@
                                     </label>
                                 </li>
                                 {% empty %}
-                                <li>
-                                    <p>No Filters...</p>
-                                </li>
+                                <p>No Filters...</p>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -116,11 +114,15 @@
                 <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show"
                     aria-labelledby="panelsStayOpen-headingThree">
                     <div class="accordion-body">
-                        <div class="range-slider" id="facet-price-range-slider"
-                            data-options='{"output":{"prefix":"$"},"maxSymbol":"+"}'>
-                            <input id="max-price" name="range-1" value="0" min="0" max="1250" step="1" type="range">
-                            <input name="range-2" value="1250" min="0" max="1250" step="1" type="range">
-                        </div>
+                        {% if max__price %}
+                            <div class="range-slider" id="facet-price-range-slider"
+                                data-options='{"output":{"prefix":"$"},"maxSymbol":"+"}'>
+                                <input id="max-price" name="range-1" value="0" min="0" max="{{ max_price.price__max }}" step="1" type="range">
+                                <input name="range-2" value="{{ max_price.price__max }}" min="0" max="{{ max_price.price__max }}" step="1" type="range">
+                            </div>
+                        {% else %}
+                            <p>No Filters...</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -161,7 +163,7 @@
                     <div class="accordion-body">
                         <div class="shop__sidebar__color">
                             {% for color in colors %}
-                            <label for="col-{{ color.id }}" style="background: {{ color.color_code }};">
+                            <label for="col-{{ color.id }}">{{ color.title }}
                                 <input type="checkbox" class="form-check-input to_checkmark" id="col-{{ color.id }}">
                                 <i class="fas fa-check"></i>
                             </label>

@@ -6,7 +6,7 @@ function filterData() {
 
     filterEls.forEach(filterEl => {
         filterEl.addEventListener('change', () => {
-            allData = [],
+            // allData = [],
                 productsContainer.innerHTML = "";
                 if (filterEl.checked) {
                     if (filterEl.classList.contains('to_checkmark')) {
@@ -23,6 +23,7 @@ function filterData() {
                     }
                     removeArr(filtersData, filterEl.id);
                 }
+                console.log(filtersData);
                 getFilteredData(filtersData);
                     
         })
@@ -178,6 +179,7 @@ function priceRange() {
                 priceRange[1] = values[1].value;
 
                 // console.log(priceRange);
+                productsContainer.innerHTML = "";
                 getData(null, priceRange);
                 // console.log(values[0].value) !!Important min value
                 // console.log(values[1].value) !!Important max value

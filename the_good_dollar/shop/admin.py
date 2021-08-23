@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Banner, Category, Subcategory, Brand, Color, Size, Product, ProductAttribute
+from .models import Banner, Departement, Category, Brand, Color, Size, Product, ProductAttribute
 
 
 class BannerAdmin(admin.ModelAdmin):
@@ -10,14 +10,14 @@ class BannerAdmin(admin.ModelAdmin):
 admin.site.register(Banner, BannerAdmin)
 
 
-class CategoryAdmin(admin.ModelAdmin):
+class DepartementAdmin(admin.ModelAdmin):
     list_display = ('title', 'image_tag', 'color')
 
 
-admin.site.register(Category, CategoryAdmin)
+admin.site.register(Departement, DepartementAdmin)
 
 
-admin.site.register(Subcategory)
+admin.site.register(Category)
 
 
 class BrandAdmin(admin.ModelAdmin):

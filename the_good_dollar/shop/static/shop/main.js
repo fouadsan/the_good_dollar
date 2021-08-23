@@ -67,7 +67,7 @@ function addDataToDom(data, size, visible) {
                 <div class="card ${cardSize} col-md-12 col-sm-6 col-12">
                 <div class="wrapper ${listView}">
                     <div class="product__header">
-                        <div class="color__category animated-bg" id="category-color-${el.id}"></div>
+                        <div class="color__departement animated-bg" id="departement-color-${el.id}"></div>
                         <div class="img__product animated-bg" id="product-img-${el.id}"></div>
                     </div>
                     <div class="info__product">
@@ -125,7 +125,7 @@ function addDataToDom(data, size, visible) {
         cardEls = document.querySelectorAll('.product_cards .card');
 
         setTimeout(() => {
-            let categoryColor = document.getElementById(`category-color-${el.id}`);
+            let departementColor = document.getElementById(`departement-color-${el.id}`);
             let productImg = document.getElementById(`product-img-${el.id}`);
             let productName = document.getElementById(`product-name-${el.id}`);
             let productDesc = document.getElementById(`product-desc-${el.id}`);
@@ -136,7 +136,7 @@ function addDataToDom(data, size, visible) {
             const animated_bgs = document.querySelectorAll('.animated-bg');
             const animated_bg_texts = document.querySelectorAll('.animated-bg-text');
 
-            categoryColor.style.backgroundColor = el.category_color;
+            departementColor.style.backgroundColor = el.departement_color;
             productImg.classList.add('img__ready');
             productImg.style.backgroundImage = `url('${el.image}')`;
             productName.innerHTML = el.title;

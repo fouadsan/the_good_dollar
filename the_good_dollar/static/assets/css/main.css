@@ -2418,15 +2418,20 @@ width: 100%;
     visibility: hidden;
     padding: 3rem 1rem;
     position: absolute;
-    text-align: left;
+    text-align: center;
     top: 0;
     transition: all 0.3s ease 0s;
-    width: 500px;
+    width: 350px;
     z-index: 999999999;
+	cursor: auto;
 }
 
 .category-menu-list ul li .category-menu-dropdown ul {
-	width: 450px;
+	width: 100%;
+}
+
+.category-menu-list ul li .category-menu-dropdown ul li{
+	cursor: auto;
 }
 
 .category-menu-list ul li:hover .category-menu-dropdown {
@@ -2435,9 +2440,12 @@ width: 100%;
     visibility: visible;
 }
 .category-menu-list ul li .category-common {
-    float: left;
-    padding-right: 27px;
-    width: 50%;
+
+    width: 100%;
+}
+
+.category-menu-list ul li .category-common i{
+    padding-bottom: 1rem;
 }
 
 .category-menu-list ul li .category-common h4{
@@ -3210,19 +3218,18 @@ width: 100%;
 	height: auto;
 }
 
-.shop__sidebar__size {
+.shop__sidebar__size, .shop__sidebar__color {
 	padding-top: 15px;
 }
 
-.shop__sidebar__size label {
+.shop__sidebar__size label, .shop__sidebar__color label {
 	color: var(--text-color);
 	font-size: 13px;
 	font-weight: 700;
 	background: #ffffff;
-	padding: 5px 18px;
+	padding: 5px 10px;
 	display: inline-block;
 	text-transform: uppercase;
-	margin-right: 6px;
 	margin-bottom: 10px;
 	-webkit-transition: all, 0.3s;
 	-o-transition: all, 0.3s;
@@ -3230,49 +3237,18 @@ width: 100%;
 	cursor: pointer;
 }
 
-.shop__sidebar__size label:hover {
+.shop__sidebar__size label:hover, .shop__sidebar__color label:hover {
 	background: var(--text-color);
 	color: #ffffff;
 }
 
-.shop__sidebar__size label.active {
+.shop__sidebar__size label.active, .shop__sidebar__color label.active {
 	background: var(--text-color);
 	color: #ffffff;
 	border-color: var(--text-color);
 }
 
-.shop__sidebar__size label input {
-	position: absolute;
-	visibility: hidden;
-}
-
-.shop__sidebar__color {
-	padding-top: 15px;
-}
-
-.shop__sidebar__color label {
-	height: 30px;
-	width: 30px;
-	border-radius: 50%;
-	position: relative;
-	margin-right: 10px;
-	display: inline-block;
-	margin-bottom: 10px;
-	cursor: pointer;
-}
-
-.shop__sidebar__color label:after {
-	position: absolute;
-	left: -3px;
-	top: -3px;
-	height: 36px;
-	width: 36px;
-	border: 1px solid var(--text-color);
-	content: "";
-	border-radius: 50%;
-}
-
-.shop__sidebar__color label input {
+.shop__sidebar__size label input, .shop__sidebar__color label input {
 	position: absolute;
 	visibility: hidden;
 }
