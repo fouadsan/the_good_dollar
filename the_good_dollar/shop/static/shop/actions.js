@@ -2,6 +2,7 @@
 function filterData() {
     
     let filtersData = [];
+    
     const filterEls = document.querySelectorAll('.form-check-input');
 
     filterEls.forEach(filterEl => {

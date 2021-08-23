@@ -6,10 +6,12 @@ let allData = [];
 let size = 0;
 let is_ordered = false;
 
+const rootUrl = window.location.origin
+
 const listViewClassName = 'product__listview';
 const productsContainer = document.querySelector('.product_cards');
 const mainSpinnerBox = document.getElementById('main-spinner-box');
-
+ 
 const filterSpinnerBox = document.getElementById('filter-spinner-box');
 const filtersContainer = document.getElementById('accordionPanelsStayOpenExample');
 
@@ -23,6 +25,7 @@ function loadFilters() {
 // Get Data
 function getData(fData, pRange) {
     let productsUrl = `products/data/${visible}`;
+
     $.ajax({
         type: 'GET',
         url: productsUrl,
@@ -39,6 +42,7 @@ function getData(fData, pRange) {
                 if (data.length) {
                     addDataToDom(data, size, visible);
                 } else {
+                    productsContainer.innerHTML ="";
                     displayMsg(productsContainer, "No Product Found...");
                 }
 
@@ -318,6 +322,7 @@ function startDOM() {
 }
 
 getData();
-startDOM();
+if (allData.length)
+    startDOM();
 
 

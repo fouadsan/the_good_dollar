@@ -3,12 +3,11 @@ from django.http import JsonResponse
 import json
 from django.db.models import Max
 
-from .models import Departement, Category, Product, Brand, Size, Color, ProductAttribute
+from .models import Category, Product, Brand, Size, Color, ProductAttribute
 from .utils import get_object
 
 # Shop Home 
 def home_screen(request):
-    departements = Departement.objects.all()
     categories = Category.objects.all()
     brands = Brand.objects.all()
     sizes = Size.objects.all()
@@ -16,7 +15,6 @@ def home_screen(request):
     max_price = ProductAttribute.objects.aggregate(Max('price'))
 
     context = {
-        'departements': departements,
         'categories': categories,
         'brands': brands,
         'sizes': sizes,
@@ -24,8 +22,8 @@ def home_screen(request):
         'max_price': max_price
     }
 
-    return render(request, 'shop/shop.html', context)
-
+    return render(request, 'shop/home_screen.html', context)
+    
 
 # Load Products
 def load_products(request, num):  

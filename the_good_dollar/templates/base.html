@@ -152,17 +152,11 @@
                             <span>All departments</span>
                         </div>
                         <ul>
-                            <li><a href="#">Fresh Meat</a><span></span></li>
-                            <li><a href="#">Vegetables</a></li>
-                            <li><a href="#">Fruit & Nut Gifts</a></li>
-                            <li><a href="#">Fresh Berries</a></li>
-                            <li><a href="#">Ocean Foods</a></li>
-                            <li><a href="#">Butter & Eggs</a></li>
-                            <li><a href="#">Fastfood</a></li>
-                            <li><a href="#">Fresh Onion</a></li>
-                            <li><a href="#">Papayaya & Crisps</a></li>
-                            <li><a href="#">Oatmeal</a></li>
-                            <li><a href="#">Fresh Bananas</a></li>
+                            {% for departement in departements %}
+                            <li class="departement_list_element"><a href="{% url 'shop:home-screen'%}" id="dep-{{ departement.id }}">{{ departement.title }}</a></li>
+                            {% empty %}
+                            <p>No Departement Found</p>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>

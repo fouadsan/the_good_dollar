@@ -4,20 +4,20 @@
     <div class="sidebar__item">
         <div class="categories-menu">
             <div class="category-heading">
-                <h4>Browse Categories</h4>
+                <h4>Browse Departements</h4>
             </div>
             <div class="category-menu-list">
                 <ul>
-                    {% for category in categories %}
-                    <li><a href="#"> {{ category.title }}</a>
-                        {% if subcategories %}
+                    {% for departement in departements %}
+                    <li><a href="#"> {{ departement.title }}</a>
+                        {% if categories %}
                         <div class="category-menu-dropdown">
                             <div class="category-common">
                                 <i class="fas fa-question-circle fa-2x"></i>
-                                <h4 class="categories-subtitle">{{ category.title }}</h4>
+                                <h4 class="categories-subtitle">{{ departement.title }}</h4>
                                 <ul>
-                                    {% for subcategory in subcategories %}
-                                    <li> {{ subcategory.title }}</li>
+                                    {% for category in categories %}
+                                    <li> {{ category.title }}</li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -29,7 +29,6 @@
                         <p>No Categories...</p>
                     </li>
                     {% endfor %}
-                    <li><a href="#"> all Accessories</a></li>
                 </ul>
             </div>
         </div>
@@ -50,7 +49,7 @@
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                         data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
                         aria-controls="panelsStayOpen-collapseOne">
-                        Subcategories
+                        Categories
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
@@ -58,12 +57,12 @@
                     <div class="accordion-body">
                         <div class="shop__sidebar__categories">
                             <ul class="nice-scroll">
-                                {% for subcategory in subcategories %}
+                                {% for category in categories %}
                                 <li class="form-check">
-                                    <label class="form-check-label" for="cat-{{ subcategory.id }}">
-                                        {{ subcategory.title }} ({{ subcategory.product_set.all.count }})
+                                    <label class="form-check-label" for="cat-{{ category.id }}">
+                                        {{ category.title }} ({{ category.product_set.all.count }})
                                         <input class="form-check-input" type="checkbox" value=""
-                                            id="cat-{{ subcategory.id }}">
+                                            id="cat-{{ category.id }}">
                                     </label>
                                 </li>
                                 {% empty %}
