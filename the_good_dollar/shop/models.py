@@ -32,10 +32,13 @@ class Color(models.Model):
         return self.title
 
 
-class Departement(models.Model):
+class Category(models.Model):
     title = models.CharField(max_length=50)
-    image = models.ImageField(upload_to="depart_imgs/", blank=True, null=True)
+    image = models.ImageField(upload_to="cat_imgs/", blank=True, null=True)
     color = models.ForeignKey(Color, on_delete=models.CASCADE, blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = 'categories'
 
     def image_tag(self):
         return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
@@ -47,12 +50,12 @@ class Departement(models.Model):
         return self.title
 
 
-class Category(models.Model):
-    departement = models.ForeignKey(Departement, on_delete=models.CASCADE, blank=True, null=True)
+class Subcategory(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=50)
 
     class Meta:
-        verbose_name_plural = 'categories'
+        verbose_name_plural = 'subcategories'
 
     def __str__(self):
         return self.title
@@ -89,7 +92,7 @@ class Product(models.Model):
     slug = models.CharField(max_length=200)
     detail = models.TextField()
     specs = models.TextField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
+    subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, blank=True, null=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     status = models.BooleanField(default=True)
     is_featured = models.BooleanField(default=False)

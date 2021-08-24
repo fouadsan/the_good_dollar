@@ -3,19 +3,19 @@ from django.http import JsonResponse
 import json
 from django.db.models import Max
 
-from .models import Category, Product, Brand, Size, Color, ProductAttribute
+from .models import Subcategory, Product, Brand, Size, Color, ProductAttribute
 from .utils import get_object
 
 # Shop Home 
 def home_screen(request):
-    categories = Category.objects.all()
+    subcategories = Subcategory.objects.all()
     brands = Brand.objects.all()
     sizes = Size.objects.all()
     colors = Color.objects.all()
     max_price = ProductAttribute.objects.aggregate(Max('price'))
 
     context = {
-        'categories': categories,
+        'subcategories': subcategories,
         'brands': brands,
         'sizes': sizes,
         'colors': colors,
@@ -45,7 +45,11 @@ def load_products(request, num):
                         f_id = filter_id.split('-')[1]
                         if (filter_id.startswith("cat")):
                             qs = Product.objects.filter(
-                                category_id=f_id)
+                                subcategory__category_id=f_id)
+                            get_object(qs, data)
+                        if (filter_id.startswith("sub")):
+                            qs = Product.objects.filter(
+                                subcategory_id=f_id)
                             get_object(qs, data)
                         
                         elif (filter_id.startswith("brd")):
@@ -98,3 +102,35 @@ def load_products(request, num):
             'size': size
         }
     return JsonResponse(response)
+
+
+# Product detail
+def product_screen(request, slug, _id):
+    qs = Product.objects.get(id=_id)
+
+    return render(request, 'shop/product_screen.html', {'qs': qs})
+
+
+def add_to_cart(request):
+    cart_p={}
+    cart_p[str(request.GET['id'])]={
+		'image':request.GET['image'],
+		'title':request.GET['title'],
+        'quantity': request.GET['quantity'],
+		'price':request.GET['price'],
+	}
+
+    if 'cartdata' in request.session:
+        if str(request.GET['id']) in request.session['cartdata']:
+            cart_data=request.session['cartdata']
+            cart_data[str(request.GET['id'])]['quantity']=int(cart_p[str(request.GET['id'])]['quantity'])
+            cart_data.update(cart_data)
+            request.session['cartdata']=cart_data
+        else:
+            cart_data=request.session['cartdata']
+            cart_data.update(cart_p)
+            request.session['cartdata']=cart_data
+    else:
+        request.session['cartdata']=cart_p
+
+    return JsonResponse({'data':request.session['cartdata'],'totalitems':len(request.session['cartdata'])})

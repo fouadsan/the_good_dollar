@@ -3,6 +3,7 @@
 <html lang="en">
 
 <head>
+    
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -96,8 +97,8 @@
                     <div class="d-flex justify-content-end">
                         <div class="mobile-nav__item header__cart">
                             <ul>
-                                <li><a href="#"><i class="fa fa-heart fa-lg"></i> <span>1</span></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-bag fa-lg"></i> <span>3</span></a></li>
+                                <li><a href="#"><i class="fa fa-heart fa-lg"></i><span>1</span></a></li>
+                                <li><a href="#"><i class="fa fa-shopping-bag fa-lg"></i><span class="cart_num">3</span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -130,7 +131,7 @@
                     <div class="header__cart" id="header-cart-lg">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart fa-3x"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag fa-3x"></i> <span>3</span></a></li>
+                            <li><a href="#"><i class="fa fa-shopping-bag fa-3x"></i> <span class="cart_num">3</span></a></li>
                         </ul>
                         <div class="header__cart__price">total: <span>$150.00</span></div>
                     </div>
@@ -149,13 +150,13 @@
                     <div class="hero__categories">
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
-                            <span>All departments</span>
+                            <span>All categories</span>
                         </div>
                         <ul>
-                            {% for departement in departements %}
-                            <li class="departement_list_element"><a href="{% url 'shop:home-screen'%}" id="dep-{{ departement.id }}">{{ departement.title }}</a></li>
+                            {% for category in categories %}
+                            <li><a href="{% url 'shop:home-screen'%}">{{ category.title }}</a></li>
                             {% empty %}
-                            <p>No Departement Found</p>
+                            <p>No Category Found</p>
                             {% endfor %}
                         </ul>
                     </div>

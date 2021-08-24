@@ -1,42 +1,9 @@
 {% load static %}
 
 <div class="sidebar">
-    <div class="sidebar__item">
-        <div class="categories-menu">
-            <div class="category-heading">
-                <h4>Browse Departements</h4>
-            </div>
-            <div class="category-menu-list">
-                <ul>
-                    {% for departement in departements %}
-                    <li><a href="#"> {{ departement.title }}</a>
-                        {% if categories %}
-                        <div class="category-menu-dropdown">
-                            <div class="category-common">
-                                <i class="fas fa-question-circle fa-2x"></i>
-                                <h4 class="categories-subtitle">{{ departement.title }}</h4>
-                                <ul>
-                                    {% for category in categories %}
-                                    <li> {{ category.title }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </div>
-                        {% endif %}
-                    </li>
-                    {% empty %}
-                    <li>
-                        <p>No Categories...</p>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </div>
     <div class="section-title">
         <h3>Filters</h3>
     </div>
-
     <div class="sidebar__item">
         <div class="d-flex justify-content-center">
             <div class="spinner-border text-danger" role="status" id="filter-spinner-box">
@@ -52,17 +19,41 @@
                         Categories
                     </button>
                 </h2>
-                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse show"
                     aria-labelledby="panelsStayOpen-headingOne">
                     <div class="accordion-body">
-                        <div class="shop__sidebar__categories">
+                        <div class="shop__sidebar__color">
+                            {% for category in categories %}
+                            <label for="cat-{{ category.id }}">{{ category.title }}
+                                <input type="checkbox" class="form-check-input to_checkmark" id="cat-{{ category.id }}">
+                                <i class="fas fa-check"></i>
+                            </label>
+                            {% empty %}
+                            <p>No Filters...</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
+                        aria-controls="panelsStayOpen-collapseTwo">
+                        Subcategories
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse show"
+                    aria-labelledby="panelsStayOpen-headingTwo">
+                    <div class="accordion-body">
+                        <div class="shop__sidebar__subcategories">
                             <ul class="nice-scroll">
-                                {% for category in categories %}
+                                {% for subcategory in subcategories %}
                                 <li class="form-check">
-                                    <label class="form-check-label" for="cat-{{ category.id }}">
-                                        {{ category.title }} ({{ category.product_set.all.count }})
+                                    <label class="form-check-label" for="sub-{{ subcategory.id }}">
+                                        {{ subcategory.title }} ({{ subcategory.product_set.all.count }})
                                         <input class="form-check-input" type="checkbox" value=""
-                                            id="cat-{{ category.id }}">
+                                            id="sub-{{ subcategory.id }}">
                                     </label>
                                 </li>
                                 {% empty %}
@@ -74,15 +65,15 @@
                 </div>
             </div>
             <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                <h2 class="accordion-header" id="panelsStayOpen-headingThree">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
-                        aria-controls="panelsStayOpen-collapseTwo">
+                        data-bs-target="#panelsStayOpen-collapseThre" aria-expanded="true"
+                        aria-controls="panelsStayOpen-collapseThre">
                         Brands
                     </button>
                 </h2>
-                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show"
-                    aria-labelledby="panelsStayOpen-headingTwo">
+                <div id="panelsStayOpen-collapseThre" class="accordion-collapse collapse show"
+                    aria-labelledby="panelsStayOpen-headingThre">
                     <div class="accordion-body">
                         <div class="shop__sidebar__brand">
                             <ul>
@@ -103,15 +94,15 @@
                 </div>
             </div>
             <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                <h2 class="accordion-header" id="panelsStayOpen-headingFour">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true"
-                        aria-controls="panelsStayOpen-collapseThree">
+                        data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="true"
+                        aria-controls="panelsStayOpen-collapseFour">
                         Price
                     </button>
                 </h2>
-                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show"
-                    aria-labelledby="panelsStayOpen-headingThree">
+                <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show"
+                    aria-labelledby="panelsStayOpen-headingFour">
                     <div class="accordion-body">
                         {% if max__price %}
                             <div class="range-slider" id="facet-price-range-slider"
@@ -126,15 +117,15 @@
                 </div>
             </div>
             <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+                <h2 class="accordion-header" id="panelsStayOpen-headingFive">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
-                        aria-controls="panelsStayOpen-collapseFour">
+                        data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false"
+                        aria-controls="panelsStayOpen-collapseFive">
                         Size
                     </button>
                 </h2>
-                <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse"
-                    aria-labelledby="panelsStayOpen-headingFour">
+                <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse"
+                    aria-labelledby="panelsStayOpen-headingFive">
                     <div class="accordion-body">
                         <div class="shop__sidebar__size">
                             {% for size in sizes %}
@@ -150,15 +141,15 @@
                 </div>
             </div>
             <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-headingFive">
+                <h2 class="accordion-header" id="panelsStayOpen-headingSix">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false"
-                        aria-controls="panelsStayOpen-collapseFive">
+                        data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false"
+                        aria-controls="panelsStayOpen-collapseSix">
                         Colors
                     </button>
                 </h2>
-                <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse"
-                    aria-labelledby="panelsStayOpen-headingFive">
+                <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse"
+                    aria-labelledby="panelsStayOpen-headingSix">
                     <div class="accordion-body">
                         <div class="shop__sidebar__color">
                             {% for color in colors %}

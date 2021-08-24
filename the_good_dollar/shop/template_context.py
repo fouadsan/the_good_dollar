@@ -1,10 +1,10 @@
-from .models import Departement
+from .models import Category
 
 def get_context(request):
-    departements = Departement.objects.all()
+    categories = Category.objects.all()
 
     context = {
-        'departements': departements,
+        'categories': categories,
     }
 
     return context

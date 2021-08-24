@@ -68,10 +68,10 @@ function addDataToDom(data, size, visible) {
 
     data.forEach(el => {
         productsContainer.innerHTML += `
-                <div class="card ${cardSize} col-md-12 col-sm-6 col-12">
+            <div class="card ${cardSize} col-md-12 col-sm-6 col-12">
                 <div class="wrapper ${listView}">
                     <div class="product__header">
-                        <div class="color__departement animated-bg" id="departement-color-${el.id}"></div>
+                        <div class="color__category animated-bg" id="category-color-${el.id}"></div>
                         <div class="img__product animated-bg" id="product-img-${el.id}"></div>
                     </div>
                     <div class="info__product">
@@ -94,14 +94,14 @@ function addDataToDom(data, size, visible) {
                                     id="product-current-price-${el.id}">&nbsp;</p>
                             </div>
                             <div class="not-visible" id="action-el-${el.id}">
-                                <div class="card__icon action card__wishlist">
+                                <div class="card__icon action card__wishlist" id="${el.id}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
                                         <path
                                             d="M47 5c-6.5 0-12.9 4.2-15 10-2.1-5.8-8.5-10-15-10A15 15 0 0 0 2 20c0 13 11 26 30 39 19-13 30-26 30-39A15 15 0 0 0 47 5z">
                                         </path>
                                     </svg>
                                 </div>
-                                <div class="card__icon action card__cart">
+                                <div class="card__icon action card__cart" id="${el.id}">
                                     <svg class="in__cart" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 64 64">
                                         <title>Remove from cart</title>
@@ -129,7 +129,7 @@ function addDataToDom(data, size, visible) {
         cardEls = document.querySelectorAll('.product_cards .card');
 
         setTimeout(() => {
-            let departementColor = document.getElementById(`departement-color-${el.id}`);
+            let categoryColor = document.getElementById(`category-color-${el.id}`);
             let productImg = document.getElementById(`product-img-${el.id}`);
             let productName = document.getElementById(`product-name-${el.id}`);
             let productDesc = document.getElementById(`product-desc-${el.id}`);
@@ -140,10 +140,10 @@ function addDataToDom(data, size, visible) {
             const animated_bgs = document.querySelectorAll('.animated-bg');
             const animated_bg_texts = document.querySelectorAll('.animated-bg-text');
 
-            departementColor.style.backgroundColor = el.departement_color;
+            categoryColor.style.backgroundColor = el.category_color;
             productImg.classList.add('img__ready');
             productImg.style.backgroundImage = `url('${el.image}')`;
-            productName.innerHTML = el.title;
+            productName.innerHTML = `<a href="${el.slug}/${el.id}">${el.title}<a>`;
             productDesc.innerHTML = el.detail;
             oldPrice.innerHTML = "$9,999";
             currentPrice.innerHTML = `$${el.price}`;
@@ -322,7 +322,7 @@ function startDOM() {
 }
 
 getData();
-if (allData.length)
-    startDOM();
+
+startDOM();
 
 

@@ -2,7 +2,7 @@
 function filterData() {
     
     let filtersData = [];
-    
+
     const filterEls = document.querySelectorAll('.form-check-input');
 
     filterEls.forEach(filterEl => {
@@ -270,17 +270,48 @@ function getFilteredData(DataArr) {
     loadHideElements(filtersContainer, filterSpinnerBox);
     DataArr.length ? getData(DataArr) : getData();
     setTimeout(() => {
-        loadFilters();
+        loadFilters(filterSpinnerBox, filtersContainer);
     }, 2500);
 }
 
 // Add Product to Wishlist or Cart
-function addToWishOrCart(btnEl, class_name) {
-    let cardEl = btnEl.parentElement;
-    while (!cardEl.classList.contains('card'))
-        cardEl = cardEl.parentElement;
+function addToWishOrCart(btnEl, class_name, id) {
+    const addCartUrl = 'add_to_cart'
+    const headerCartEls = document.querySelectorAll('.cart_num');
+    console.log(headerCartEls);
 
-    cardEl.classList.toggle(class_name);
+    let cardinfoEl = btnEl.parentElement;
+
+    let _productImgEl = document.getElementById(`product-img-${id}`);
+    _productImg = _productImgEl.style.backgroundImage.slice(4, -1).replace(/"/g, "");
+    let _productName = document.getElementById(`product-name-${id}`).textContent;
+    let _currentPrice = document.getElementById(`product-current-price-${id}`).textContent;
+
+    while (!cardinfoEl.classList.contains('card'))
+        cardinfoEl = cardinfoEl.parentElement;
+
+    cardinfoEl.classList.toggle(class_name);
+    if (cardinfoEl.classList.contains(class_name)){
+        $.ajax({
+            type: 'GET',
+            url: addCartUrl,
+            data: {
+                'id' : id,
+                'image' : _productImg,
+                'title': _productName,
+                'quantity': 1,
+                'price': _currentPrice,
+            },
+            dataType: 'json',
+            success: function (response) {
+                
+            }
+        })
+    } else {
+        console.log('delete');
+    }
+    
+    
 }
 
 //Add Product to Wishlist
@@ -290,7 +321,7 @@ function addToFav() {
 
     favBtns.forEach(favBtn => {
         favBtn.addEventListener('click', () => {
-            addToWishOrCart(favBtn, "add__fav");
+            addToWishOrCart(favBtn, "add__fav", favBtn.id);
         });
 
     });
@@ -304,7 +335,7 @@ function addToCart() {
 
     cartBtns.forEach(cartBtn => {
         cartBtn.addEventListener('click', () => {
-            addToWishOrCart(cartBtn, "add__cart");
+            addToWishOrCart(cartBtn, "add__cart", cartBtn.id);
         });
 
     });
