@@ -291,7 +291,7 @@ function reorderByPrice() {
 
 // Sort by price
 function SwitchSortBy() {
-    if (allData.length) {
+    if (allData.length > 1) {
         const sortEl = document.getElementById('sort-el');
         sortEl.addEventListener('change', (event) => {
             const result = event.target.value;

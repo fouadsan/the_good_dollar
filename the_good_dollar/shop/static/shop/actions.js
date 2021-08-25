@@ -276,25 +276,38 @@ function getFilteredData(DataArr) {
 
 // Add Product to Wishlist or Cart
 function addToWishOrCart(btnEl, class_name, id) {
-    const addCartUrl = 'add_to_cart'
-    const headerCartEls = document.querySelectorAll('.cart_num');
-    console.log(headerCartEls);
+    let addUrl;
+    let deleteUrl;
+    let totalItems = 0;
+    let headerEls;
 
     let cardinfoEl = btnEl.parentElement;
 
     let _productImgEl = document.getElementById(`product-img-${id}`);
     _productImg = _productImgEl.style.backgroundImage.slice(4, -1).replace(/"/g, "");
     let _productName = document.getElementById(`product-name-${id}`).textContent;
-    let _currentPrice = document.getElementById(`product-current-price-${id}`).textContent;
+    let _currentPrice = document.getElementById(`product-current-price-${id}`).textContent.slice(1);
+
+    if (class_name == "add__cart") {
+        addUrl = 'add_to_cart'
+        deleteUrl = 'delete_from_cart'
+        headerEls = document.querySelectorAll('.cart_num');
+        
+    } else {
+        addUrl = 'add_to_wishlist'
+        deleteUrl = 'delete_from_wishlist'
+        headerEls = document.querySelectorAll('.wishlist_num');
+    }
 
     while (!cardinfoEl.classList.contains('card'))
         cardinfoEl = cardinfoEl.parentElement;
 
     cardinfoEl.classList.toggle(class_name);
+
     if (cardinfoEl.classList.contains(class_name)){
         $.ajax({
             type: 'GET',
-            url: addCartUrl,
+            url: addUrl,
             data: {
                 'id' : id,
                 'image' : _productImg,
@@ -304,15 +317,53 @@ function addToWishOrCart(btnEl, class_name, id) {
             },
             dataType: 'json',
             success: function (response) {
-                
+                console.log(response)
+                totalItems = response.total_items
+                headerEls.forEach(headerEl => {
+                    headerEl.textContent = totalItems;
+                });
             }
         })
+
     } else {
-        console.log('delete');
+
+        $.ajax({
+            type: 'GET',
+            url: deleteUrl,
+            data: {
+                'id' : id,
+            },
+            dataType: 'json',
+            success: function (response) {
+                // delete
+                console.log(response)
+                if (response.total_items)
+                    totalItems = response.total_items;
+                headerEls.forEach(headerEl => {
+                   headerEl.textContent = totalItems;
+                });
+            }
+        })
+
     }
     
     
 }
+
+
+//Add Product to Cart
+function addToCart() {
+
+    let cartBtns = document.querySelectorAll('.card__cart');
+
+    cartBtns.forEach(cartBtn => {
+        cartBtn.addEventListener('click', () => {
+            addToWishOrCart(cartBtn, "add__cart", cartBtn.id);
+        });
+
+    });
+
+};
 
 //Add Product to Wishlist
 function addToFav() {
@@ -328,16 +379,4 @@ function addToFav() {
 
 };
 
-//Add Product to Cart
-function addToCart() {
 
-    let cartBtns = document.querySelectorAll('.card__cart');
-
-    cartBtns.forEach(cartBtn => {
-        cartBtn.addEventListener('click', () => {
-            addToWishOrCart(cartBtn, "add__cart", cartBtn.id);
-        });
-
-    });
-
-};
