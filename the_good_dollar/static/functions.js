@@ -30,7 +30,21 @@ function removeArr(arr) {
 
 // Load Element 
 // Load Filters
-function loadHideElements(elemnt1, element2) {
-    hideElement(elemnt1);
+function loadHideElements(element1, element2) {
+    hideElement(element1);
     showElement(element2);
+}
+
+
+// Poppup Alert Messages
+const handleAlerts = (position, title, msg, type, boolConfirmBtn, timer) => {
+    Swal.fire({
+        position: position,
+        title: title,
+        text: msg,
+        icon: type,
+        showConfirmButton: boolConfirmBtn,
+        timer: timer,
+        confirmButtonText: 'Ok'
+    })
 }

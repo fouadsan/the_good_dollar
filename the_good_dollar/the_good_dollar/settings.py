@@ -132,7 +132,6 @@ STATICFILES_DIRS = [
     BASE_DIR / 'users' / 'static',
     BASE_DIR / 'shop' / 'static',
     BASE_DIR / 'users' / 'static'
-
 ]
 
 MEDIA_URL = '/media/'
