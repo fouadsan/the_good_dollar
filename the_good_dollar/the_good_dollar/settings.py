@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Our own apps,
-    'shop',
+    'shop.apps.ShopConfig',
+    'users.apps.UsersConfig',
 
     # Third party apps,
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -125,7 +127,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
-    BASE_DIR / 'shop' / 'static'
+    BASE_DIR / 'shop' / 'static',
+    BASE_DIR / 'users' / 'static'
 
 ]
 
