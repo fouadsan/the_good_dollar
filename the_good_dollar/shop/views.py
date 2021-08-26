@@ -143,3 +143,8 @@ def delete_wishlist_item(request):
         return delete_or_update_from_cart_or_fav(request, "wishlist_data", "delete")
     return redirect('shop:home-screen')
 
+
+# Favorites Page
+def wishlist_screen(request):
+    context = get_items(request, "wishlist")
+    return render(request, 'shop/wishlist_screen.html',context)

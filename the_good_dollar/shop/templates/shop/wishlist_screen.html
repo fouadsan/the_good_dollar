@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block scripts %}
+
+{% endblock scripts %}
+
+{% block title %}
+Cart
+{% endblock title %}
+    
+{% block content %}
+<!-- Cart Page Begin -->
+    <p>{{ wishlist_data }}</p>
+    <p>{{ total_items }}</p>
+    <p>{{ total_amt }}</p>
+<!-- Cart Page End -->
+{% endblock content %}

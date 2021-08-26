@@ -104,14 +104,14 @@
                 <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show"
                     aria-labelledby="panelsStayOpen-headingFour">
                     <div class="accordion-body">
-                        {% if max__price %}
+                        {% if max_price %}
                             <div class="range-slider" id="facet-price-range-slider"
                                 data-options='{"output":{"prefix":"$"},"maxSymbol":"+"}'>
                                 <input id="max-price" name="range-1" value="0" min="0" max="{{ max_price.price__max }}" step="1" type="range">
                                 <input name="range-2" value="{{ max_price.price__max }}" min="0" max="{{ max_price.price__max }}" step="1" type="range">
                             </div>
                         {% else %}
-                            <p>No Filters...</p>
+                            <p>No fouad...</p>
                         {% endif %}
                     </div>
                 </div>
