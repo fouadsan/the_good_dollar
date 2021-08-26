@@ -119,7 +119,7 @@ def add_to_cart(request):
 
 
 # Delete Product From Cart
-def delete_or_update_cart_item(request):
+def delete_cart_item(request):
     if request.is_ajax():
         return delete_or_update_from_cart_or_fav(request, "cart_data", "delete")
     return redirect('shop:home-screen')
@@ -138,8 +138,8 @@ def add_to_wishlist(request):
 
 
 # Delete Product From Fav
-def delete_or_update_wishlist_item(request):
+def delete_wishlist_item(request):
     if request.is_ajax():
-        return delete_or_update_from_cart_or_fav(request, "wishlist_data", "update")
+        return delete_or_update_from_cart_or_fav(request, "wishlist_data", "delete")
     return redirect('shop:home-screen')
 

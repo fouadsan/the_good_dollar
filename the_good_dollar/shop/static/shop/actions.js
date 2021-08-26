@@ -277,7 +277,7 @@ function getFilteredData(DataArr) {
 // Add Product to Wishlist or Cart
 function addToWishOrCart(btnEl, class_name, id) {
     let addUrl;
-    let delupUrl;
+    let delUrl;
     let headerEls;
     let totalItems = 0;
     const _quantity = 1;
@@ -291,12 +291,12 @@ function addToWishOrCart(btnEl, class_name, id) {
 
     if (class_name == "add__cart") {
         addUrl = 'add_to_cart'
-        delupUrl = 'delete_or_update_from_cart'
+        delUrl = 'delete_from_cart'
         headerEls = document.querySelectorAll('.cart_num');
         
     } else {
         addUrl = 'add_to_wishlist'
-        delupUrl = 'delete_or_update_from_wishlist'
+        delUrl = 'delete_from_wishlist'
         headerEls = document.querySelectorAll('.wishlist_num');
     }
 
@@ -330,7 +330,7 @@ function addToWishOrCart(btnEl, class_name, id) {
 
         $.ajax({
             type: 'GET',
-            url: delupUrl,
+            url: delUrl,
             data: {
                 'id' : id,
                 'quantity': _quantity,
