@@ -277,9 +277,10 @@ function getFilteredData(DataArr) {
 // Add Product to Wishlist or Cart
 function addToWishOrCart(btnEl, class_name, id) {
     let addUrl;
-    let deleteUrl;
-    let totalItems = 0;
+    let delupUrl;
     let headerEls;
+    let totalItems = 0;
+    const _quantity = 1;
 
     let cardinfoEl = btnEl.parentElement;
 
@@ -290,12 +291,12 @@ function addToWishOrCart(btnEl, class_name, id) {
 
     if (class_name == "add__cart") {
         addUrl = 'add_to_cart'
-        deleteUrl = 'delete_from_cart'
+        delupUrl = 'delete_or_update_from_cart'
         headerEls = document.querySelectorAll('.cart_num');
         
     } else {
         addUrl = 'add_to_wishlist'
-        deleteUrl = 'delete_from_wishlist'
+        delupUrl = 'delete_or_update_from_wishlist'
         headerEls = document.querySelectorAll('.wishlist_num');
     }
 
@@ -312,7 +313,7 @@ function addToWishOrCart(btnEl, class_name, id) {
                 'id' : id,
                 'image' : _productImg,
                 'title': _productName,
-                'quantity': 1,
+                'quantity': _quantity,
                 'price': _currentPrice,
             },
             dataType: 'json',
@@ -329,9 +330,10 @@ function addToWishOrCart(btnEl, class_name, id) {
 
         $.ajax({
             type: 'GET',
-            url: deleteUrl,
+            url: delupUrl,
             data: {
                 'id' : id,
+                'quantity': _quantity,
             },
             dataType: 'json',
             success: function (response) {

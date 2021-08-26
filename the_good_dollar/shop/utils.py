@@ -25,7 +25,7 @@ def get_object(qs, data):
 
 
 def add_to_cart_or_fav(request, element):
-    del request.session[f'{element}']
+    del request.session[element]
     element_p = {}
     element_p[str(request.GET['id'])] = {
 		'image':request.GET['image'],
@@ -34,36 +34,69 @@ def add_to_cart_or_fav(request, element):
 		'price':request.GET['price'],
 	}
 
-    if f'{element}' in request.session:
-        if str(request.GET['id']) in request.session[f'{element}']:
-            element=request.session[f'{element}']
-            element[str(request.GET['id'])]['quantity'] = int(element_p[str(request.GET['id'])]['quantity'])
-            element.update(element)
-            request.session[f'{element}'] = element
+    if element in request.session:
+        if str(request.GET['id']) in request.session[element]:
+            if element == "cart_data":
+                cart_data = request.session[element]
+                cart_data[str(request.GET['id'])]['quantity'] = int(element_p[str(request.GET['id'])]['quantity'])
+                cart_data.update(cart_data)
+                request.session[element] = cart_data
+            else:
+                wishlist_data = request.session[element]
+                wishlist_data[str(request.GET['id'])]['quantity'] = int(element_p[str(request.GET['id'])]['quantity'])
+                wishlist_data.update(wishlist_data)
+                request.session[element] = wishlist_data
         else:
-            element=request.session[f'{element}']
-            element.update(element_p)
-            request.session[f'{element}'] = element
+            if element == "cart_data":
+                cart_data=request.session[element]
+                cart_data.update(element_p)
+                request.session[element] = cart_data
+            else:
+                wishlist_data=request.session[element]
+                wishlist_data.update(element_p)
+                request.session[element] = wishlist_data
+
     else:
-        request.session[f'{element}'] = element_p
+        request.session[element] = element_p
 
-    return JsonResponse({'data': request.session[f'{element}'],'total_items': len(request.session[f'{element}'])})
+    return JsonResponse({'data': request.session[element],'total_items': len(request.session[element])})
 
 
-def delete_from_cart_or_fav(request, element):
-    p_id=str(request.GET['id'])
-    if f'{element}' in request.session:
-        if p_id in request.session[f'{element}']:
-            cart_data=request.session[f'{element}']
-            del request.session[f'{element}'][p_id]
-            request.session[f'{element}']=cart_data
-    total_amt=0
-    for p_id,item in request.session[f'{element}'].items():
-        total_amt+=int(item['quantity'])*float(item['price'])
+def delete_or_update_from_cart_or_fav(request, element, action):
+    total_amt = 0
+
+    product_id=str(request.GET['id'])
+
+    product_qty=request.GET['quantity']
+
+    if element in request.session:
+        if product_id in request.session[element]:
+            if element == "cart_data":
+                cart_data = request.session[element]
+
+                if action == "delete":
+                    del request.session[element][product_id]
+                else:
+                    cart_data[str(request.GET['id'])]['quantity']=product_qty
+
+                request.session[element] = cart_data
+               
+            else:
+                wishlist_data = request.session[element]
+
+                if action == "delete":
+                    del request.session[element][product_id]
+                else:
+                    wishlist_data[str(request.GET['id'])]['quantity']=product_qty
+
+                request.session[element] = wishlist_data
+
+    for product_id,item in request.session[element].items():
+        total_amt += int(item['quantity'])*float(item['price'])
 
     data = {
-        f'{element}': request.session[f'{element}'],
-        'total_items': len(request.session[f'{element}']),
+        element : request.session[element],
+        'total_items': len(request.session[element]),
         'total_amt': total_amt
     }
 
@@ -71,24 +104,23 @@ def delete_from_cart_or_fav(request, element):
 
 
 def get_items(request, element):
+    
     total_amt=0
     
-    if f'{element}' in request.session:
-        print(element)
-        for p_id, item in request.session[f'{element}'].items():
+    if request.session[element]:
+             items = request.session[element]
+    else: 
+        items = ''
+
+    if element in request.session:
+        for product_id, item in request.session[element].items():
             total_amt+=int(item['quantity'])*float(item['price'])
-        context = {
-            f'{element}': request.session[f'{element}'],
-            'total_items': len(request.session[f'{element}']),
-            'total_amt': total_amt
-        }
         
-    else:
-
-        context = {
-            f'{element}': '',
-            'total_items': 0,
-            'total_amt': total_amt,
-        }
-
+    context = {
+        element : items,
+        'total_items': len(request.session[element]),
+        'total_amt': total_amt
+    }
+        
+   
     return context

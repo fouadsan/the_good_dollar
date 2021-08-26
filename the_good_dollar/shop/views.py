@@ -4,7 +4,7 @@ import json
 from django.db.models import Max
 
 from .models import Subcategory, Product, Brand, Size, Color, ProductAttribute
-from .utils import get_object, add_to_cart_or_fav, delete_from_cart_or_fav, get_items
+from .utils import get_object, add_to_cart_or_fav, delete_or_update_from_cart_or_fav, get_items
 
 # Shop Home 
 def home_screen(request):
@@ -114,32 +114,32 @@ def product_screen(request, slug, _id):
 # Add Product To Cart
 def add_to_cart(request):
     if request.is_ajax():
-        return add_to_cart_or_fav(request, 'cart_data')
+        return add_to_cart_or_fav(request, "cart_data")
     return redirect('shop:home-screen')
 
 
 # Delete Product From Cart
-def delete_cart_item(request):
+def delete_or_update_cart_item(request):
     if request.is_ajax():
-        return delete_from_cart_or_fav(request, 'cart_data')
+        return delete_or_update_from_cart_or_fav(request, "cart_data", "delete")
     return redirect('shop:home-screen')
 
 
 # Cart Page
 def cart_screen(request):
-    context = get_items(request, 'cart_data')
+    context = get_items(request, "cart_data")
     return render(request, 'shop/cart_screen.html',context)
 
 # Add Product To Wishlist
 def add_to_wishlist(request):
     if request.is_ajax():
-        return add_to_cart_or_fav(request, 'wishlist_data')
+        return add_to_cart_or_fav(request, "wishlist_data")
     return redirect('shop:home-screen')
 
 
 # Delete Product From Fav
-def delete_wishlist_item(request):
+def delete_or_update_wishlist_item(request):
     if request.is_ajax():
-        return delete_from_cart_or_fav(request, 'wishlist_data')
+        return delete_or_update_from_cart_or_fav(request, "wishlist_data", "update")
     return redirect('shop:home-screen')
 
