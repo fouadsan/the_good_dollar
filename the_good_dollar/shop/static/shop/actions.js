@@ -6,26 +6,36 @@ function filterData() {
     const filterEls = document.querySelectorAll('.form-check-input');
 
     filterEls.forEach(filterEl => {
+        
         filterEl.addEventListener('change', () => {
-            // allData = [],
-                productsContainer.innerHTML = "";
-                if (filterEl.checked) {
-                    if (filterEl.classList.contains('to_checkmark')) {
-                        filterEl.nextElementSibling.style.display = 'inline-block';
-                    } else {
-                        filterEl.parentElement.style.color = 'red';
-                    }
-                    !filtersData.includes(filterEl.id) ? filtersData.push(filterEl.id) : null;
-                } else {
-                    if (filterEl.classList.contains('to_checkmark')) {
-                        filterEl.nextElementSibling.style.display = 'none';
-                    } else {
-                        filterEl.parentElement.style.color = '#b7b7b7';
-                    }
-                    removeArr(filtersData, filterEl.id);
-                }
 
-                getFilteredData(filtersData);
+            // allData = [],
+                    if (currentUrl == shopUrl) {
+                        productsContainer.innerHTML = "";
+                        if (filterEl.checked) {
+                            if (filterEl.classList.contains('to_checkmark')) {
+                                filterEl.nextElementSibling.style.display = 'inline-block';
+                            } else {
+                                filterEl.parentElement.style.color = 'red';
+                            }
+                            !filtersData.includes(filterEl.id) ? filtersData.push(filterEl.id) : null;
+                        } else {
+                            if (filterEl.classList.contains('to_checkmark')) {
+                                filterEl.nextElementSibling.style.display = 'none';
+                            } else {
+                                filterEl.parentElement.style.color = '#b7b7b7';
+                            }
+                            removeArr(filtersData, filterEl.id);
+                        }
+                        getFilteredData(filtersData);
+                    } else {
+                        changePrice(filterEl);
+                        filterEls.forEach(element => {
+                            if (element != filterEl)
+                                element.nextElementSibling.style.display = 'none';
+                        });
+                        filterEl.nextElementSibling.style.display = 'inline-block';
+                    }
                     
         })
     });
@@ -265,6 +275,14 @@ function priceRange() {
 
 }
 
+// Change Price According To Product Size
+function changePrice(filterElement) {
+    const productPrice = document.querySelector('.product__details__price')
+    price = filterElement.dataset.price
+    console.log(price)
+    productPrice.textContent = `$${price}`;
+}
+
 // Get Filtered Data
 function getFilteredData(DataArr) {
     loadHideElements(filtersContainer, filterSpinnerBox);
@@ -351,7 +369,7 @@ function addToWishOrCart(btnEl, class_name, id) {
 }
 
 
-//Add Product to Cart
+// Add Product to Cart
 function addToCart() {
 
     let cartBtns = document.querySelectorAll('.card__cart');
@@ -365,7 +383,7 @@ function addToCart() {
 
 };
 
-//Add Product to Wishlist
+// Add Product to Wishlist
 function addToFav() {
 
     let favBtns = document.querySelectorAll('.card__wishlist');

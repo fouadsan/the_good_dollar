@@ -331,11 +331,15 @@ function startDOM() {
         hideListview();
         loadMoreData();
         SwitchSortBy();
-        filterData();
     }, 2500);
 }
 
 getData();
+
+setTimeout(() => {
+    filterData();
+}, 3000);
+
 if (currentUrl == shopUrl)
     startDOM();
 

@@ -1502,6 +1502,10 @@ width: 100%;
 	min-width: 100%;
 }
 
+.product__details__text {
+	word-wrap: break-word;
+}
+
 .product__details__text h3 {
 	color: var(--text-color);
 	font-weight: 700;
@@ -3101,7 +3105,8 @@ width: 100%;
 	padding-top: 15px;
 }
 
-.shop__sidebar__category label, .shop__sidebar__size label, .shop__sidebar__color label {
+.shop__sidebar__category label, .shop__sidebar__size label, .shop__sidebar__color label,
+  .product__details__text ul li label {
 	color: var(--text-color);
 	font-size: 13px;
 	font-weight: 700;
@@ -3116,22 +3121,26 @@ width: 100%;
 	cursor: pointer;
 }
 
-.shop__sidebar__category label:hover, .shop__sidebar__size label:hover, .shop__sidebar__color label:hover {
+.shop__sidebar__category label:hover, .shop__sidebar__size label:hover, .shop__sidebar__color label:hover,
+  .product__details__text ul li label:hover{
 	background: var(--text-color);
 	color: #ffffff;
 }
 
-.shop__sidebar__category label.active, .shop__sidebar__size label.active, .shop__sidebar__color label.active {
+.shop__sidebar__category label.active, .shop__sidebar__size label.active, .shop__sidebar__color label.active, 
+  .product__details__text ul li label.active{
 	background: var(--text-color);
 	color: #ffffff;
 	border-color: var(--text-color);
 }
 
-.shop__sidebar__category label input, .shop__sidebar__size label input, .shop__sidebar__color label input {
+.shop__sidebar__category label input, .shop__sidebar__size label input, .shop__sidebar__color label input,
+  .product__details__text ul li label input {
 	position: absolute;
 	visibility: hidden;
 }
 
-.shop__sidebar__category label i,.shop__sidebar__size label i, .shop__sidebar__color label i {
+.shop__sidebar__category label i,.shop__sidebar__size label i, .shop__sidebar__color label i,
+  .product__details__text ul li label i{
 	display: none;
 }

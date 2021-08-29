@@ -39,6 +39,24 @@ Product Detail
                     <a href="#" class="primary-btn">ADD TO CARD <i class="fas fa-shopping-cart fa-lg"></i></a>
                     <ul>
                         <li><b>Availability</b> <span>In Stock</span></li>
+                        <li><b>Sizes</b>
+                            {% for size in sizes %}
+                            <label for="sz-{{ size.size__id }}">{{ size.size__title }}
+                                <input type="checkbox" class="form-check-input to_checkmark" id="sz-{{ size.size__id }}" data-price="{{ size.price }}">
+                                <i class="fas fa-check"></i>
+                            </label>
+                            {% empty %}
+                            <p>No Filters...</p>
+                            {% endfor %}
+                        </li>
+                        <li><b>Colors</b>
+                            {% for color in colors %}
+                            <label for="col-{{ color.color__id }}">{{ color.color__title }}
+                                <input type="checkbox" class="form-check-input to_checkmark">
+                                <i class="fas fa-check"></i>
+                            </label>
+                            {% endfor %}
+                        </li>
                         <li><b>Share on</b>
                             <div class="share">
                                 <a href="#"><i class="fa fa-facebook"></i></a>

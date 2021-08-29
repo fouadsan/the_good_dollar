@@ -120,8 +120,8 @@ def load_products(request, num):
 # Product Detail
 def product_screen(request, slug, _id):
     qs = Product.objects.get(id=_id)
-    colors = ProductAttribute.objects.filter(product=qs).values('color__id','color__title','color__color_code') # To check
-    sizes = ProductAttribute.objects.filter(product=qs).values('size__id','size__title','price','color__id')
+    colors = ProductAttribute.objects.filter(product=qs).values('color__id','color__title','color__color_code').distinct()
+    sizes = ProductAttribute.objects.filter(product=qs).values('size__id','size__title','price','color__id').distinct()
     print(sizes)
 
     context = {
