@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block scripts %}
+{% block extend_header %}
 
-{% endblock scripts %}
+{% endblock %}
 
 {% block title %}
 Cart
@@ -16,3 +16,7 @@ Cart
     <p>{{ total_amt }}</p>
 <!-- Cart Page End -->
 {% endblock content %}
+
+{% block extend_footer %}
+
+{% endblock %}

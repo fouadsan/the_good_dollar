@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block scripts %}
-
-{% endblock scripts %}
+{% block extend_header %}
+<script src="{% static 'shop/main.js' %}" defer></script>
+<script src="{% static 'shop/actions.js' %}" defer></script>
+{% endblock extend_header %}
 
 {% block title %}
 Product Detail
@@ -11,6 +12,91 @@ Product Detail
 
 {% block content %}
 <!-- Product Detail Begin -->
-    <h1>product detail screen</h1>
+<section class="product-details spad" id="product-{{ qs.id }}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="product__details__pic">
+                    <div class="product__details__pic__item">
+                        <img class="product__details__pic__item--large"
+                            src="{{ qs.productattribute_set.first.image.url }}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="product__details__text">
+                    <h3>{{ qs.title }}</h3>
+                    <div class="product__details__rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-o"></i>
+                        <span>(18 reviews)</span>
+                    </div>
+                    <div class="product__details__price">${{ qs.productattribute_set.first.price }}</div>
+                    <p>{{ qs.detail }}</p>
+                    <a href="#" class="primary-btn">ADD TO CARD <i class="fas fa-shopping-cart fa-lg"></i></a>
+                    <ul>
+                        <li><b>Availability</b> <span>In Stock</span></li>
+                        <li><b>Share on</b>
+                            <div class="share">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="card product__detail__tabs">
+					<div class="card-body">
+						<ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link active" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs" type="button" role="tab" aria-controls="specs" aria-selected="false">Specifications</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Reviews</button>
+                            </li>
+                        </ul>
+                          <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="specs" role="tabpanel" aria-labelledby="specs-tab">
+                                <p>{{ qs.specs }}</p>
+                            </div>
+                            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi, nemo quae! Maxime sint culpa ex, corrupti animi voluptatem quae ab in dolores aliquid ducimus ipsa nisi inventore, nihil est nobis voluptates facilis nesciunt minus necessitatibus iure incidunt? Soluta vitae natus quisquam reprehenderit hic autem enim? Omnis voluptas eius obcaecati repellendus!</p>
+                            </div>
+                          </div>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Product Details Section End -->
+
+<!-- Related Product Section Begin -->
+<section class="related__products">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title related__product__title">
+                    <h2>Related Products</h2>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-danger" role="status" id="main-spinner-box">
+            </div>
+        </div>
+        <div class="row row-cols-3 product_cards"></div>
+    </div>
+</section>
 <!-- Product Detail End -->
 {% endblock content %}
+
+{% block extend_footer %}
+
+{% endblock %}

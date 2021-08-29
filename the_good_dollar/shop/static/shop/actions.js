@@ -24,7 +24,7 @@ function filterData() {
                     }
                     removeArr(filtersData, filterEl.id);
                 }
-                console.log(filtersData);
+
                 getFilteredData(filtersData);
                     
         })
@@ -290,13 +290,13 @@ function addToWishOrCart(btnEl, class_name, id) {
     let _currentPrice = document.getElementById(`product-current-price-${id}`).textContent.slice(1);
 
     if (class_name == "add__cart") {
-        addUrl = 'add_to_cart'
-        delUrl = 'delete_from_cart'
+        addUrl = `${rootUrl}\/shop\/add_to_cart`
+        delUrl = `${rootUrl}\/shop\/delete_from_cart`
         headerEls = document.querySelectorAll('.cart_num');
         
     } else {
-        addUrl = 'add_to_wishlist'
-        delUrl = 'delete_from_wishlist'
+        addUrl = `${rootUrl}\/shop\/add_to_wishlist`
+        delUrl = `${rootUrl}\/shop\/delete_from_wishlist`
         headerEls = document.querySelectorAll('.wishlist_num');
     }
 
@@ -318,7 +318,6 @@ function addToWishOrCart(btnEl, class_name, id) {
             },
             dataType: 'json',
             success: function (response) {
-                console.log(response)
                 totalItems = response.total_items
                 headerEls.forEach(headerEl => {
                     headerEl.textContent = totalItems;
@@ -338,7 +337,6 @@ function addToWishOrCart(btnEl, class_name, id) {
             dataType: 'json',
             success: function (response) {
                 // delete
-                console.log(response)
                 if (response.total_items)
                     totalItems = response.total_items;
                 headerEls.forEach(headerEl => {

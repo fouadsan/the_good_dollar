@@ -13,5 +13,5 @@ urlpatterns = [
     path('cart',cart_screen,name='cart-screen'),
     path('add_to_wishlist',add_to_wishlist, name='add-to-wishlist'),
     path('delete_from_wishlist',delete_wishlist_item, name='delete-from-wishlist'),
-    path('wishlist',cart_screen,name='wishlist-screen'),
+    path('wishlist',wishlist_screen,name='wishlist-screen'),
 ]

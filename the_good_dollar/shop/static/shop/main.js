@@ -1,3 +1,8 @@
+
+rootUrl = window.location.origin
+const currentUrl = window.location.href;
+const shopUrl = rootUrl + "/shop/";
+
 let cardEls;
 let visible = 3;
 let is_listview = false;
@@ -6,7 +11,6 @@ let allData = [];
 let size = 0;
 let is_ordered = false;
 
-const rootUrl = window.location.origin
 
 const listViewClassName = 'product__listview';
 const productsContainer = document.querySelector('.product_cards');
@@ -24,8 +28,17 @@ function loadFilters() {
 
 // Get Data
 function getData(fData, pRange) {
-    let productsUrl = `products/data/${visible}`;
+    let productsUrl
 
+    if (currentUrl == shopUrl) {
+        productsUrl = `${rootUrl}\/shop\/products/data/${visible}`;
+        
+    } else {
+        let productDetail = document.querySelector('.product-details');
+        prod_id = productDetail.id.split('product-')[1];
+        productsUrl = `${rootUrl}\/shop\/products/data/${prod_id}`;
+    }
+    
     $.ajax({
         type: 'GET',
         url: productsUrl,
@@ -125,7 +138,8 @@ function addDataToDom(data, size, visible) {
                 </div>
             </div>
         `
-        visible <= size ? productCountEl.textContent = `Showing ${visible} of ${size} results` : productCountEl.textContent = `Showing ${size} of ${size} results`;
+        if (currentUrl == rootUrl + 'shop/')
+            visible <= size ? productCountEl.textContent = `Showing ${visible} of ${size} results` : productCountEl.textContent = `Showing ${size} of ${size} results`;
         cardEls = document.querySelectorAll('.product_cards .card');
 
         setTimeout(() => {
@@ -143,7 +157,7 @@ function addDataToDom(data, size, visible) {
             categoryColor.style.backgroundColor = el.category_color;
             productImg.classList.add('img__ready');
             productImg.style.backgroundImage = `url('${el.image}')`;
-            productName.innerHTML = `<a href="${el.slug}/${el.id}">${el.title}<a>`;
+            productName.innerHTML = `<a href="${rootUrl}\/shop\/${el.slug}/${el.id}">${el.title}<a>`;
             productDesc.innerHTML = el.detail;
             oldPrice.innerHTML = "$9,999";
             currentPrice.innerHTML = `$${el.price}`;
@@ -322,7 +336,7 @@ function startDOM() {
 }
 
 getData();
-
-startDOM();
+if (currentUrl == shopUrl)
+    startDOM();
 
 

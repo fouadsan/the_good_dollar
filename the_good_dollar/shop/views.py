@@ -26,80 +26,92 @@ def home_screen(request):
 
 # Load Products
 def load_products(request, num):
-    if request.is_ajax():  
-        visible = 3
-        qs = Product.objects.all()
-        upper = num
-        lower = upper - visible
-        data = []
-        
-        # Filters
-        filter_request = request.GET.get('filters-data')
-        price_range_request = request.GET.get('price-range')
-        if (filter_request or price_range_request):
-            if (filter_request):
-                try:
-                    filter_arr = json.loads(filter_request)
-                    if filter_arr:
-                        for filter_id in filter_arr:
-                            f_id = filter_id.split('-')[1]
-                            if (filter_id.startswith("cat")):
-                                qs = Product.objects.filter(
-                                    subcategory__category_id=f_id)
-                                get_object(qs, data)
-                            if (filter_id.startswith("sub")):
-                                qs = Product.objects.filter(
-                                    subcategory_id=f_id)
-                                get_object(qs, data)
+    path = request.headers['Referer'].split("/shop/")
+    data = []
+    if request.is_ajax():
+        if not path[1]:
+            visible = 3
+            qs = Product.objects.all()
+            upper = num
+            lower = upper - visible
+            
+            # Filters
+            filter_request = request.GET.get('filters-data')
+            price_range_request = request.GET.get('price-range')
+            if (filter_request or price_range_request):
+                if (filter_request):
+                    try:
+                        filter_arr = json.loads(filter_request)
+                        if filter_arr:
+                            for filter_id in filter_arr:
+                                f_id = filter_id.split('-')[1]
+                                if (filter_id.startswith("cat")):
+                                    qs = Product.objects.filter(
+                                        subcategory__category_id=f_id)
+                                    get_object(qs, data)
+                                if (filter_id.startswith("sub")):
+                                    qs = Product.objects.filter(
+                                        subcategory_id=f_id)
+                                    get_object(qs, data)
+                                
+                                elif (filter_id.startswith("brd")):
+                                    qs = Product.objects.filter(brand_id=f_id)
+                                    get_object(qs, data)
+
+                                elif (filter_id.startswith("sz")):
+                                    qs = Product.objects.filter(
+                                        productattribute__size__id=f_id)
+                                    get_object(qs, data)
+
+                                elif (filter_id.startswith("col")):
+                                    qs = Product.objects.filter(
+                                        productattribute__color__id=f_id)
+                                    get_object(qs, data)
+
+
+                    except TypeError:
+                        pass
+
+                elif(price_range_request):
+                    try:
+                        filter_arr = json.loads(price_range_request)
+                        if (filter_arr[0] <= filter_arr[1]):
+                            min_price = filter_arr[0]
+                            max_price = filter_arr[1]
+                        else:
+                            min_price = filter_arr[1]
+                            max_price = filter_arr[0]
                             
-                            elif (filter_id.startswith("brd")):
-                                qs = Product.objects.filter(brand_id=f_id)
-                                get_object(qs, data)
+                        qs = qs.filter(productattribute__price__gte=min_price, productattribute__price__lte=max_price)
+                        get_object(qs, data)
 
-                            elif (filter_id.startswith("sz")):
-                                qs = Product.objects.filter(
-                                    productattribute__size__id=f_id)
-                                get_object(qs, data)
+                    except TypeError:
+                        pass
 
-                            elif (filter_id.startswith("col")):
-                                qs = Product.objects.filter(
-                                    productattribute__color__id=f_id)
-                                get_object(qs, data)
+                size = len(data)
 
+            get_object(qs, data)
+            size = qs.count()
 
-                except TypeError:
-                    pass
+            if (size >= upper):
+                response = {
+                    'data': data[lower:upper],
+                    'size': size
+                }
+            else:
+                response = {
+                    'data': data,
+                    'size': size
+                }
+            return JsonResponse(response)
 
-            elif(price_range_request):
-                try:
-                    filter_arr = json.loads(price_range_request)
-                    if (filter_arr[0] <= filter_arr[1]):
-                        min_price = filter_arr[0]
-                        max_price = filter_arr[1]
-                    else:
-                        min_price = filter_arr[1]
-                        max_price = filter_arr[0]
-                        
-                    qs = qs.filter(productattribute__price__gte=min_price, productattribute__price__lte=max_price)
-                    get_object(qs, data)
-
-                except TypeError:
-                    pass
-
-            size = len(data)
-
-        get_object(qs, data)
-        size = qs.count()
-
-        if (size >= upper):
-            response = {
-                'data': data[lower:upper],
-                'size': size
-            }
         else:
+            product=Product.objects.get(id=num)
+            qs=Product.objects.filter(subcategory=product.subcategory).exclude(id=num)[:4]
+            get_object(qs, data)
             response = {
                 'data': data,
-                'size': size
+                'size': 1
             }
         return JsonResponse(response)
     return redirect('shop:home-screen')
@@ -108,7 +120,17 @@ def load_products(request, num):
 # Product Detail
 def product_screen(request, slug, _id):
     qs = Product.objects.get(id=_id)
-    return render(request, 'shop/product_screen.html', {'qs': qs})
+    colors = ProductAttribute.objects.filter(product=qs).values('color__id','color__title','color__color_code') # To check
+    sizes = ProductAttribute.objects.filter(product=qs).values('size__id','size__title','price','color__id')
+    print(sizes)
+
+    context = {
+        'qs': qs,
+        'sizes': sizes,
+        'colors': colors
+    } 
+
+    return render(request, 'shop/product_screen.html', context)
 
 
 # Add Product To Cart

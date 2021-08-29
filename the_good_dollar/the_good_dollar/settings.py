@@ -38,10 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Our own apps,
-    'main.apps.MainConfig',
-    'shop.apps.ShopConfig',
-    'users.apps.UsersConfig',
-    'blog.apps.BlogConfig',
+    'main',
+    'shop',
+    'users',
+    'blog',
 
     # Third party apps,
     'crispy_forms'

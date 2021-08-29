@@ -31,19 +31,19 @@ function getHamburger(e) {
 }
 
 // Tooltip
-function toolTip() {
-    let ancherEls = document.querySelectorAll('a');
-    let buttonEls = document.querySelectorAll('button');
+// function toolTip() {
+//     let ancherEls = document.querySelectorAll('a');
+//     let buttonEls = document.querySelectorAll('button');
 
-    ancherEls.forEach(ancherEl => {
-        new bootstrap.Tooltip(ancherEl, { boundary: document.body, placement: 'bottom', delay: { "show": 500, "hide": 100 } })
-    });
+//     ancherEls.forEach(ancherEl => {
+//         new bootstrap.Tooltip(ancherEl, { boundary: document.body, placement: 'bottom', delay: { "show": 500, "hide": 100 } })
+//     });
 
 
-    buttonEls.forEach(buttonEl => {
-        new bootstrap.Tooltip(buttonEl, { boundary: document.body, placement: 'bottom', delay: { "show": 500, "hide": 100 } })
-    });
-}
+//     buttonEls.forEach(buttonEl => {
+//         new bootstrap.Tooltip(buttonEl, { boundary: document.body, placement: 'bottom', delay: { "show": 500, "hide": 100 } })
+//     });
+// }
 
 // Nice Select
 function applyNiceSelect() {
@@ -96,7 +96,7 @@ function start() {
     setPreloader();
     mediaQuery.addListener(getHamburger);
     getHamburger(mediaQuery);
-    toolTip();
+    // toolTip();
     applyNiceSelect();
     applyNiceSecroll();
     toggleDepartBtn();
