@@ -123,6 +123,7 @@ def product_screen(request, slug, _id):
     colors = ProductAttribute.objects.filter(product=qs).values('color__id','color__title','color__color_code').distinct()
     sizes = ProductAttribute.objects.filter(product=qs).values('size__id','size__title','price','color__id').distinct()
     print(sizes)
+    print(colors)
 
     context = {
         'qs': qs,
@@ -151,6 +152,27 @@ def delete_cart_item(request):
 def cart_screen(request):
     context = get_items(request, "cart_data")
     return render(request, 'shop/cart_screen.html',context)
+
+def update_cart_item(request):
+    p_id = str(request.GET['id'])
+    p_qty = request.GET['quantity']
+    print(p_qty)
+    if 'cartdata' in request.session:
+        if p_id in request.session['cartdata']:
+            cart_data = request.session['cartdata']
+            cart_data[str(request.GET['id'])]['quantity'] = p_qty
+            request.session['cartdata'] = cart_data
+    total_amt=0
+    for p_id,item in request.session['cartdata'].items():
+        total_amt+=int(item['quantity'])*float(item['price'])
+
+    data = {
+        'cart_data': request.session['cartdata'],
+        'totalitems':len(request.session['cartdata']),
+        'total_amt':total_amt,
+    }
+
+    return JsonResponse({'data': data})
 
 # Add Product To Wishlist
 def add_to_wishlist(request):

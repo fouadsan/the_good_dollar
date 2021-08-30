@@ -100,7 +100,7 @@ def delete_or_update_from_cart_or_fav(request, element, action):
         'total_amt': total_amt
     }
 
-    return JsonResponse({'data': data})
+    return JsonResponse({ 'data': data })
 
 
 def get_items(request, element):

@@ -2,7 +2,8 @@
 {% load static %}
 
 {% block extend_header %}
-
+<script src="{% static 'shop/main.js' %}" defer></script>
+<script src="{% static 'shop/actions.js' %}" defer></script>
 {% endblock %}
 
 {% block title %}
@@ -11,9 +12,92 @@ Cart
     
 {% block content %}
 <!-- Cart Page Begin -->
-    <p>{{ cart_data }}</p>
-    <p>{{ total_items }}</p>
-    <p>{{ total_amt }}</p>
+<section class="shoping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="shoping__product">Products</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product_id,item in cart_data.items %}
+                                <tr>
+                                    <td class="shoping__cart__item">
+                                        <img src="{{ item.image }}" alt="" width="100">
+                                        <h5><a href="/shop/{{ item.title|slugify }}/{{ product_id }}">{{ item.title }}</a></h5>
+                                    </td>
+                                    <td class="shoping__cart__price">
+                                        ${{ item.price }}
+                                    </td>
+                                    <td class="shoping__cart__quantity">
+                                        <div class="quantity">
+                                            <div class="pro-qty">
+                                                <span id="upd-{{ product_id }}">-</span>
+                                                <input type="text" class="input_quantity" value="{{ item.quantity }}">
+                                                <span id="upd-{{ product_id }}">+</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="shoping__cart__total">
+                                        $ {% widthratio item.price 1 item.quantity %}
+                                    </td>
+                                    <td class="shoping__cart__item__close">
+                                        <span class="delete__cart" id="del-{{ product_id }}">&times;</span>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td class="empty__cart"></td>
+                                    <td class="empty__cart"></td>
+                                    <td class="empty__cart"> <i class="fas fa-shopping-cart fa-3x"></i> <p><b>Your Cart Is Empty !</b></p></td>
+                                    <td class="empty__cart"></td>
+                                    <td class="empty__cart"></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__btns">
+                    <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+                    <a href="#" class="primary-btn cart-btn cart-btn-right text-center"> <span class="not-visible"><i class="fas fa-spinner fa-spin fa-lg"></i></span> Update Cart</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="shoping__continue">
+                    <div class="shoping__discount">
+                        <h5>Discount Codes</h5>
+                        <form action="#">
+                            <input type="text" placeholder="Enter your coupon code">
+                            <button type="submit" class="site-btn">APPLY COUPON</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="shoping__checkout">
+                    <h5>Cart Total</h5>
+                    <ul>
+                        <li>Total Items <span>{{ total_items }}</span></li>
+                        <li>Total <span>${{ total_amt }}</span></li>
+                    </ul>
+                    <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- Cart Page End -->
 {% endblock content %}
 

@@ -38,9 +38,9 @@
 
     {% include 'hamburger_menu.html' %}
 
-    {% if request.path != "/shop/cart" and request.path != "/shop/wishlist" %}
+    {% include 'header.html' %}
+{
     {% include 'navbar.html' %}
-    {% endif %}
 
     {% block content %}
     {% endblock content %}

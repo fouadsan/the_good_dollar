@@ -334,13 +334,23 @@ function startDOM() {
     }, 2500);
 }
 
-getData();
+if (currentUrl != shopUrl + 'cart') getData();
 
 setTimeout(() => {
-    filterData();
+    if (currentUrl == shopUrl + 'cart') {
+        changeQuantity();
+        deleteItemCart(); 
+    }else {
+        
+        filterData();
+    }
+
 }, 3000);
 
 if (currentUrl == shopUrl)
     startDOM();
+
+
+
 
 

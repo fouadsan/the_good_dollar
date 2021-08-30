@@ -295,7 +295,6 @@ function getFilteredData(DataArr) {
 // Add Product to Wishlist or Cart
 function addToWishOrCart(btnEl, class_name, id) {
     let addUrl;
-    let delUrl;
     let headerEls;
     let totalItems = 0;
     const _quantity = 1;
@@ -308,8 +307,8 @@ function addToWishOrCart(btnEl, class_name, id) {
     let _currentPrice = document.getElementById(`product-current-price-${id}`).textContent.slice(1);
 
     if (class_name == "add__cart") {
-        addUrl = `${rootUrl}\/shop\/add_to_cart`
-        delUrl = `${rootUrl}\/shop\/delete_from_cart`
+        addUrl = `${rootUrl}\/shop\/add_to_cart`;
+        delUrl = `${rootUrl}\/shop\/delete_from_cart`;
         headerEls = document.querySelectorAll('.cart_num');
         
     } else {
@@ -397,4 +396,108 @@ function addToFav() {
 
 };
 
+
+// Change Quantity Value
+function changeQuantity() {
+
+    const quantityEls = document.querySelectorAll('.pro-qty');
+
+    quantityEls.forEach(quantityEl => {
+
+        const minusEl = quantityEl.firstElementChild;
+
+        let quantityInput = minusEl.nextElementSibling;
+
+        const plusEl = quantityEl.lastElementChild;
+        
+        minusEl.addEventListener('click', () => {
+            subAddCart(minusEl, quantityInput);
+        })
+
+        plusEl.addEventListener('click', () => {
+            subAddCart(plusEl, quantityInput);
+        });
+    });
+    
+}
+
+
+
+
+
+function subAddCart(opEl, inputEl) {
+    const updateUrl = `${rootUrl}\/shop\/update_cart`;
+
+    let quantityVal = parseInt(inputEl.value);
+        const _pId = opEl.id.slice(4);
+        if (quantityVal > 0) {
+            if(opEl.textContent == "-") {
+                quantityVal -= 1
+
+            }else {
+                quantityVal += 1;
+            }
+            inputEl.value = quantityVal;
+            
+            $.ajax({
+                url: updateUrl,
+                data: {
+                    'id':_pId,
+                    'quantity':quantityVal,
+                },
+                dataType:'json',
+                // beforeSend:function(){
+                //     _vm.attr('disabled',true);
+                // },
+                success:function(response){
+                    // $(".cart-list").text(res.totalitems);
+                    console.log(response);
+                }
+            });
+        }  
+}
+
+
+
+
+
+
+
+function deleteItemCart() {
+    const delCartUrl = `${rootUrl}\/shop\/delete_from_cart`;
+
+    const deleteEls = document.querySelectorAll('.delete__cart');
+
+    deleteEls.forEach(deleteEl => {
+        deleteEl.addEventListener('click', () => {
+        _pId = deleteEl.id.slice(4)
+        $.ajax({
+            type: 'GET',
+            url: delCartUrl,
+            data: {
+                'id' : _pId,
+                'quantity': null,
+            },
+            dataType: 'json',
+            success: function (response) {
+                const data = response.data
+                if (data.total_items) {
+                    deleteEl.parentElement.parentElement.remove();
+                } else {
+                    deleteEl.parentElement.parentElement.innerHTML =  `
+                        <td class="empty__cart"></td>
+                        <td class="empty__cart"></td>
+                        <td class="empty__cart"> <i class="fas fa-shopping-cart fa-3x"></i> <p><b>Your Cart Is Empty !</b></p></td>
+                        <td class="empty__cart"></td>
+                        <td class="empty__cart"></td>
+                    `
+                }
+
+                // deleteEl.parentElement.parentElement.remove();
+            }
+        });
+        });
+        
+    });
+}
 

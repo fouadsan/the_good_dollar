@@ -1,0 +1,105 @@
+{% load static %}
+
+<!-- Header Section Begin -->
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-md-7">
+                    <div class="header__top__left">
+                        <ul>
+                            <li><i class="fa fa-envelope"></i> example@example.com</li>
+                            <li><i class="fa fa-phone"></i>+213 551 903 435</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-5">
+                    <div class="header__top__right">
+                        <div class="header__top__right__social">
+                            <a href="#"><i class="fa fa-facebook fa-lg"></i></a>
+                            <a href="#"><i class="fa fa-twitter fa-lg"></i></a>
+                            <a href="#"><i class="fa fa-instagram fa-lg"></i></a>
+                        </div>
+                        <div class="header__top__right__language">
+                            <img src="{% static 'assets/img/icons/united-states.png' %}" alt="">
+                            <span class="arrow_carrot-down"><i class="fa fa-caret-down fa-lg"></i></span>
+                            <ul>
+                                <li>
+                                    <a href="#"><img src="{% static 'assets/img/icons/france.png' %}" alt="">French
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#"> <img src="{% static 'assets/img/icons/united-states.png' %}"
+                                            alt="">English
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="header__top__right__auth">
+                            <a href="#"><i class="fa fa-user"></i> Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="d-flex mobile__nav">
+            <div class="col-md-6 col-sm-6 col-6">
+                <div class="d-flex justify-content-start">
+                    <div class="mobile-nav__item hamburger__open">
+                        <i class="fa fa-bars fa-lg"></i>
+                    </div>
+                    <div class="mobile-nav__item mobile__logo">
+                        fouad
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-6">
+                <div class="d-flex justify-content-end">
+                    <div class="mobile-nav__item header__cart">
+                        <ul>
+                            <li><a href="{% url 'shop:wishlist-screen' %}"><i class="fa fa-heart fa-lg"></i><span class="wishlist_num"></span></a></li>
+                            <li><a href="{% url 'shop:cart-screen' %}"><i class="fa fa-shopping-bag fa-lg"></i><span class="cart_num"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+                <div class="header__logo">
+                    <a href="./index.html"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-9 col-sm-12 col-12">
+                <nav class="header__menu">
+                    <ul>
+                        <li><a href="./index.html">Home</a></li>
+                        <li><a href="#">Shop</a>
+                            <ul class="header__menu__dropdown">
+                                <li><a href="./shop-details.html">Shop</a></li>
+                                <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                                <li><a href="./checkout.html">Check Out</a></li>
+                                <li><a href="./blog-details.html">Whishlist</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="./contact.html">Contact</a></li>
+                        <li><a href="./contact.html">Blog</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3">
+                <div class="header__cart" id="header-cart-lg">
+                    <ul>
+                        <li><a href="{% url 'shop:wishlist-screen' %}"><i class="fa fa-heart fa-3x"></i> <span class="wishlist_num"></span></a></li>
+                        <li><a href="{% url 'shop:cart-screen' %}"><i class="fa fa-shopping-bag fa-3x"></i> <span class="cart_num"></span></a></li>
+                    </ul>
+                    <div class="header__cart__price">total: <span>$150.00</span></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</header>
+<!-- Header Section End -->

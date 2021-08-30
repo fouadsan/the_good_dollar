@@ -23,7 +23,7 @@ Product Detail
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6">
+            <div class="col-lg-6 col-md-6" style="align-content: right;">
                 <div class="product__details__text">
                     <h3>{{ qs.title }}</h3>
                     <div class="product__details__rating">
@@ -51,10 +51,7 @@ Product Detail
                         </li>
                         <li><b>Colors</b>
                             {% for color in colors %}
-                            <label for="col-{{ color.color__id }}">{{ color.color__title }}
-                                <input type="checkbox" class="form-check-input to_checkmark">
-                                <i class="fas fa-check"></i>
-                            </label>
+                            <span class="product__color__circle" style="background-color: {{ color.color__color_code }}"></span>
                             {% endfor %}
                         </li>
                         <li><b>Share on</b>
@@ -114,7 +111,8 @@ Product Detail
 </section>
 <!-- Product Detail End -->
 {% endblock content %}
-
+<!-- Custom Js -->
+<script src="{% static 'assets/js/main.js' %}"></script>
 {% block extend_footer %}
 
 {% endblock %}
