@@ -90,8 +90,15 @@ def load_products(request, num):
 
                 size = len(data)
 
+
+            # Must Continue From Here
+
             get_object(qs, data)
             size = qs.count()
+            cart_items = get_items(request, "cart_data")
+            cart_items_ids = list(cart_items['cart_data'].keys())
+
+            # Must Continue From Here
 
             if (size >= upper):
                 response = {
@@ -151,28 +158,30 @@ def delete_cart_item(request):
 # Cart Page
 def cart_screen(request):
     context = get_items(request, "cart_data")
-    return render(request, 'shop/cart_screen.html',context)
+    return render(request, 'shop/cart_screen.html', context)
 
 def update_cart_item(request):
     p_id = str(request.GET['id'])
     p_qty = request.GET['quantity']
-    print(p_qty)
-    if 'cartdata' in request.session:
-        if p_id in request.session['cartdata']:
-            cart_data = request.session['cartdata']
+
+    if 'cart_data' in request.session:
+        if p_id in request.session['cart_data']:
+            cart_data = request.session['cart_data']
             cart_data[str(request.GET['id'])]['quantity'] = p_qty
-            request.session['cartdata'] = cart_data
+            request.session['cart_data'] = cart_data
     total_amt=0
-    for p_id,item in request.session['cartdata'].items():
-        total_amt+=int(item['quantity'])*float(item['price'])
+    
+    for p_id,item in request.session['cart_data'].items():
+        total_amt += int(item['quantity']) * float(item['price'])
 
     data = {
-        'cart_data': request.session['cartdata'],
-        'totalitems':len(request.session['cartdata']),
-        'total_amt':total_amt,
+        'cart_data': request.session['cart_data'],
+        'total_items': len(request.session['cart_data']),
+        'total_amt': total_amt
     }
 
     return JsonResponse({'data': data})
+
 
 # Add Product To Wishlist
 def add_to_wishlist(request):
@@ -190,5 +199,5 @@ def delete_wishlist_item(request):
 
 # Favorites Page
 def wishlist_screen(request):
-    context = get_items(request, "wishlist")
+    context = get_items(request, "wishlist_data")
     return render(request, 'shop/wishlist_screen.html',context)

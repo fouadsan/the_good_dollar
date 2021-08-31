@@ -1,3 +1,5 @@
+const totalAmtEl = document.querySelector('.cart__grand__total');
+
 // Filter Data
 function filterData() {
     
@@ -411,29 +413,28 @@ function changeQuantity() {
         const plusEl = quantityEl.lastElementChild;
         
         minusEl.addEventListener('click', () => {
-            subAddCart(minusEl, quantityInput);
+            subAddCart(minusEl, quantityInput, quantityEl, totalAmtEl);
         })
 
         plusEl.addEventListener('click', () => {
-            subAddCart(plusEl, quantityInput);
+            subAddCart(plusEl, quantityInput, quantityEl, totalAmtEl);
         });
     });
     
 }
 
-
-
-
-
-function subAddCart(opEl, inputEl) {
+function subAddCart(opEl, inputEl, quantityEl, grandTotalEl) {
     const updateUrl = `${rootUrl}\/shop\/update_cart`;
 
     let quantityVal = parseInt(inputEl.value);
         const _pId = opEl.id.slice(4);
         if (quantityVal > 0) {
             if(opEl.textContent == "-") {
-                quantityVal -= 1
-
+                quantityVal -= 1;
+                if(quantityVal === 0) {
+                    quantityVal = 1;
+                }
+            
             }else {
                 quantityVal += 1;
             }
@@ -450,30 +451,40 @@ function subAddCart(opEl, inputEl) {
                 //     _vm.attr('disabled',true);
                 // },
                 success:function(response){
-                    // $(".cart-list").text(res.totalitems);
-                    console.log(response);
+                    const data = response.data;
+                    const totalItemPrice = data.cart_data[_pId].price * quantityVal;
+
+                    priceEl = quantityEl.parentElement.parentElement.nextElementSibling;
+                    priceEl.textContent = `$${totalItemPrice}`;
+                    grandTotalEl.textContent = `$${data.total_amt.toFixed(2)}`;
+                    console.log(data)
                 }
             });
-        }  
+        }
 }
 
+function deleteItemCartOrFav(screen) {
+    let delItemUrl;
+    let deleteEls;
+    if (screen == "cart") {
+        delItemUrl = `${rootUrl}\/shop\/delete_from_cart`;
+        deleteEls = document.querySelectorAll('.delete__cart');
+    }else {
+        delItemUrl = `${rootUrl}\/shop\/delete_from_wishlist`;
+        deleteEls = document.querySelectorAll('.delete__wishlist');
+    }
+        
 
+    const totalItemsEl = document.querySelector('.cart__total__items');
 
-
-
-
-
-function deleteItemCart() {
-    const delCartUrl = `${rootUrl}\/shop\/delete_from_cart`;
-
-    const deleteEls = document.querySelectorAll('.delete__cart');
+    headerEls = document.querySelectorAll('.cart_num');
 
     deleteEls.forEach(deleteEl => {
         deleteEl.addEventListener('click', () => {
         _pId = deleteEl.id.slice(4)
         $.ajax({
             type: 'GET',
-            url: delCartUrl,
+            url: delItemUrl,
             data: {
                 'id' : _pId,
                 'quantity': null,
@@ -481,18 +492,26 @@ function deleteItemCart() {
             dataType: 'json',
             success: function (response) {
                 const data = response.data
-                if (data.total_items) {
+                const totalItems = data.total_items;
+                
+                const totalAmt = data.total_amt
+
+                if (totalItems) {
                     deleteEl.parentElement.parentElement.remove();
                 } else {
                     deleteEl.parentElement.parentElement.innerHTML =  `
                         <td class="empty__cart"></td>
                         <td class="empty__cart"></td>
-                        <td class="empty__cart"> <i class="fas fa-shopping-cart fa-3x"></i> <p><b>Your Cart Is Empty !</b></p></td>
+                        <td class="empty__cart"> <i class="fas fa-shopping-cart fa-3x"></i> <p><b>Your ${screen} is empty !</b></p></td>
                         <td class="empty__cart"></td>
                         <td class="empty__cart"></td>
                     `
                 }
-
+                totalItemsEl.textContent = totalItems;
+                totalAmtEl.textContent = `$${totalAmt}`;
+                headerEls.forEach(headerEl => {
+                    headerEl.textContent = totalItems;
+                });
                 // deleteEl.parentElement.parentElement.remove();
             }
         });

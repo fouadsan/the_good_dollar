@@ -164,6 +164,8 @@ function addDataToDom(data, size, visible) {
             oldPrice.style.textDecoration = "line-through";
             actionsEl.classList.remove('not-visible');
 
+            // Must Continue From Here
+
             animated_bgs.forEach((bg) => bg.classList.remove('animated-bg'));
             animated_bg_texts.forEach((bg) => bg.classList.remove('animated-bg-text'));
 
@@ -334,14 +336,15 @@ function startDOM() {
     }, 2500);
 }
 
-if (currentUrl != shopUrl + 'cart') getData();
+if (currentUrl != shopUrl + 'cart' && currentUrl != shopUrl + 'wishlist') getData();
 
 setTimeout(() => {
     if (currentUrl == shopUrl + 'cart') {
         changeQuantity();
-        deleteItemCart(); 
+        deleteItemCartOrFav("cart"); 
+    }else if (currentUrl == shopUrl + 'wishlist') {
+        deleteItemCartOrFav("wishlist"); 
     }else {
-        
         filterData();
     }
 

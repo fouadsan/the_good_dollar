@@ -15,7 +15,9 @@ def get_object(qs, data):
                 'status': obj.status,
                 'is_featured': obj.is_featured,
                 'price': obj.productattribute_set.first().price,
-                'image': obj.productattribute_set.first().image.url
+                'image': obj.productattribute_set.first().image.url,
+                'is_cart': True,
+                'is_fav': True,
             }
             if item not in data:
                 data.append(item)
@@ -25,7 +27,7 @@ def get_object(qs, data):
 
 
 def add_to_cart_or_fav(request, element):
-    del request.session[element]
+    # del request.session[element]
     element_p = {}
     element_p[str(request.GET['id'])] = {
 		'image':request.GET['image'],
@@ -114,7 +116,7 @@ def get_items(request, element):
 
     if element in request.session:
         for product_id, item in request.session[element].items():
-            total_amt+=int(item['quantity'])*float(item['price'])
+            total_amt += int(item['quantity']) * float(item['price'])
         
     context = {
         element : items,
@@ -124,3 +126,4 @@ def get_items(request, element):
         
    
     return context
+
