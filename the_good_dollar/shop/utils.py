@@ -1,8 +1,29 @@
 from django.http import JsonResponse
 
-def get_object(qs, data):
+def get_object(request, qs, data):
+    is_cart = False
+    is_fav = False
+    cart_items = {}
+    wishlist_items = {}
+    cart_items_ids = []
+    wishlist_items_ids = []
+    try:
+        cart_items = get_items(request, "cart_data")
+        cart_items_ids = list(cart_items['cart_data'].keys())
+        # wishlist_items = get_items(request, "wishlist_data")
+        # wishlist_items_ids = list(wishlist_items['wishlist_data'].keys())
+
+    except KeyError:
+        print("No Cart Data")
+
     try: 
         for obj in qs:
+            if (cart_items_ids or wishlist_items_ids):
+                for cart_item_id in cart_items_ids:
+                    if obj.id == int(cart_item_id):
+                        is_cart = not is_cart
+                    
+                    
             item = {
                 'id': obj.id,
                 'title': obj.title,
@@ -16,8 +37,8 @@ def get_object(qs, data):
                 'is_featured': obj.is_featured,
                 'price': obj.productattribute_set.first().price,
                 'image': obj.productattribute_set.first().image.url,
-                'is_cart': True,
-                'is_fav': True,
+                'is_cart': is_cart,
+                'is_fav': is_fav
             }
             if item not in data:
                 data.append(item)
@@ -110,7 +131,7 @@ def get_items(request, element):
     total_amt=0
     
     if request.session[element]:
-             items = request.session[element]
+        items = request.session[element]
     else: 
         items = ''
 

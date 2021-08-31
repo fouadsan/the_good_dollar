@@ -13,7 +13,7 @@ def home_screen(request):
     sizes = Size.objects.all()
     colors = Color.objects.all()
     max_price = ProductAttribute.objects.aggregate(Max('price'))
-
+    
     context = {
         'subcategories': subcategories,
         'brands': brands,
@@ -26,7 +26,8 @@ def home_screen(request):
 
 # Load Products
 def load_products(request, num):
-    path = request.headers['Referer'].split("/shop/")
+    print(request.headers)
+    path = (request.headers['Host'] + "/shop/").split("/shop/")
     data = []
     if request.is_ajax():
         if not path[1]:
@@ -48,25 +49,25 @@ def load_products(request, num):
                                 if (filter_id.startswith("cat")):
                                     qs = Product.objects.filter(
                                         subcategory__category_id=f_id)
-                                    get_object(qs, data)
+                                    get_object(request, qs, data)
                                 if (filter_id.startswith("sub")):
                                     qs = Product.objects.filter(
                                         subcategory_id=f_id)
-                                    get_object(qs, data)
+                                    get_object(request, qs, data)
                                 
                                 elif (filter_id.startswith("brd")):
                                     qs = Product.objects.filter(brand_id=f_id)
-                                    get_object(qs, data)
+                                    get_object(request, qs, data)
 
                                 elif (filter_id.startswith("sz")):
                                     qs = Product.objects.filter(
                                         productattribute__size__id=f_id)
-                                    get_object(qs, data)
+                                    get_object(request, qs, data)
 
                                 elif (filter_id.startswith("col")):
                                     qs = Product.objects.filter(
                                         productattribute__color__id=f_id)
-                                    get_object(qs, data)
+                                    get_object(request, qs, data)
 
 
                     except TypeError:
@@ -83,7 +84,7 @@ def load_products(request, num):
                             max_price = filter_arr[0]
                             
                         qs = qs.filter(productattribute__price__gte=min_price, productattribute__price__lte=max_price)
-                        get_object(qs, data)
+                        get_object(request, qs, data)
 
                     except TypeError:
                         pass
@@ -93,10 +94,9 @@ def load_products(request, num):
 
             # Must Continue From Here
 
-            get_object(qs, data)
+            get_object(request, qs, data)
             size = qs.count()
-            cart_items = get_items(request, "cart_data")
-            cart_items_ids = list(cart_items['cart_data'].keys())
+            
 
             # Must Continue From Here
 

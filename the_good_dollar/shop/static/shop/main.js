@@ -81,7 +81,7 @@ function addDataToDom(data, size, visible) {
 
     data.forEach(el => {
         productsContainer.innerHTML += `
-            <div class="card ${cardSize} col-md-12 col-sm-6 col-12">
+            <div class="card ${cardSize} col-md-12 col-sm-6 col-12" id="product-${el.id}">
                 <div class="wrapper ${listView}">
                     <div class="product__header">
                         <div class="color__category animated-bg" id="category-color-${el.id}"></div>
@@ -143,6 +143,7 @@ function addDataToDom(data, size, visible) {
         cardEls = document.querySelectorAll('.product_cards .card');
 
         setTimeout(() => {
+            let cardEl = document.getElementById(`product-${el.id}`)
             let categoryColor = document.getElementById(`category-color-${el.id}`);
             let productImg = document.getElementById(`product-img-${el.id}`);
             let productName = document.getElementById(`product-name-${el.id}`);
@@ -163,13 +164,14 @@ function addDataToDom(data, size, visible) {
             currentPrice.innerHTML = `$${el.price}`;
             oldPrice.style.textDecoration = "line-through";
             actionsEl.classList.remove('not-visible');
-
-            // Must Continue From Here
+            console.log(cardEl)
+            if (el.is_cart)
+                cardEl.classList.add('add__cart');
+            if (el.is_fav)
+                cardEl.classList.add('add__fav');
 
             animated_bgs.forEach((bg) => bg.classList.remove('animated-bg'));
             animated_bg_texts.forEach((bg) => bg.classList.remove('animated-bg-text'));
-
-
 
         }, 2500);
 
@@ -322,7 +324,7 @@ function SwitchSortBy() {
                 is_ordered = false;
             }
 
-        })
+        });
     }
 }
 
