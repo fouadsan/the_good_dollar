@@ -50,3 +50,5 @@ class ProductAttributeAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ProductAttribute, ProductAttributeAdmin)
+
+

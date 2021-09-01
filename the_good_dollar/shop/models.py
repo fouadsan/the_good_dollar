@@ -113,10 +113,12 @@ class ProductAttribute(models.Model):
     image = models.ImageField(upload_to="product_imgs/", null=True)
 
     class Meta:
-        verbose_name_plural = 'ProductAttributes'
+        verbose_name_plural = 'Product Attributes'
 
     def __str__(self):
         return self.product.title
 
     def image_tag(self):
         return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
+
+

@@ -26,7 +26,6 @@ def home_screen(request):
 
 # Load Products
 def load_products(request, num):
-    print(request.headers)
     path = (request.headers['Host'] + "/shop/").split("/shop/")
     data = []
     if request.is_ajax():
@@ -160,6 +159,8 @@ def cart_screen(request):
     context = get_items(request, "cart_data")
     return render(request, 'shop/cart_screen.html', context)
 
+
+# Update In Cart 
 def update_cart_item(request):
     p_id = str(request.GET['id'])
     p_qty = request.GET['quantity']
@@ -201,3 +202,4 @@ def delete_wishlist_item(request):
 def wishlist_screen(request):
     context = get_items(request, "wishlist_data")
     return render(request, 'shop/wishlist_screen.html',context)
+

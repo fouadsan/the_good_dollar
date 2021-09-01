@@ -164,9 +164,10 @@ function addDataToDom(data, size, visible) {
             currentPrice.innerHTML = `$${el.price}`;
             oldPrice.style.textDecoration = "line-through";
             actionsEl.classList.remove('not-visible');
-            console.log(cardEl)
+
             if (el.is_cart)
                 cardEl.classList.add('add__cart');
+                
             if (el.is_fav)
                 cardEl.classList.add('add__fav');
 
