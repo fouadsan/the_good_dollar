@@ -1,15 +1,19 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from .views import home_screen, profile_screen, signup_screen
+from .views import dashboard_screen, get_orders, orders_screen, reviews_screen, addressbook_screen, signup_screen, profile_screen
 from .forms import UserLoginForm, ResetPasswordForm, ResetPasswordConfirmForm
 from django.urls import path, reverse_lazy
 
 app_name = 'users'
 
 urlpatterns = [
-    path('', home_screen, name='home-screen'),
-    path('profile/', profile_screen, name='profile-screen'),
-    path('sign-up/', signup_screen, name='signup-screen'),
+    path('dashboard/', dashboard_screen, name='dashboard'),
+    path('orders_data',get_orders,name='get-orders-data'),
+    path('profile/', profile_screen, name='profile'),
+    path('orders/', orders_screen, name='orders'),
+    path('reviews/', reviews_screen, name='reviews'),
+    path('addressbok/', addressbook_screen, name='addressbook'),
+    path('sign-up/', signup_screen, name='signup'),
     path('login/', auth_views.LoginView.as_view(
         template_name='users/login.html',
         authentication_form=UserLoginForm,

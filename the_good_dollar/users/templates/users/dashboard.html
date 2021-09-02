@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extend_header %}
-
+<script src="{% static 'users/main.js' %}" defer></script>
 {% endblock %}
 
 {% block title %}
@@ -11,10 +11,27 @@ Cart
     
 {% block content %}
 <!-- Cart Page Begin -->
+<main class="container my-4">
+	<!-- Featured Products -->
+	<h3 class="my-4 border-bottom pb-1">My Dashboard</h3>
+	<div class="row">
+		<div class="col-md-3">
+			{% include 'users/user_sidebar.html' %}
+		</div>
+		<div class="col-md-9">
+			<div>
+			<div class="d-flex justify-content-center">
+				<div class="spinner-border text-danger" role="status" id="chart-spinner-box"></div>
+			</div>
+			<canvas id="myChart"></canvas>
+			</div>
+		</div>
+	</div>
+</main>
 
 <!-- Cart Page End -->
 {% endblock content %}
 
 {% block extend_footer %}
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}

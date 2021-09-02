@@ -40,11 +40,8 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('first_name', 'last_name', 'email',
-                  'phone', 'address', 'city', 'image')
+                  'phone', 'address', 'city', )
 
-    image = forms.ImageField(
-        error_messages={'invalid': "Image files only"}, widget=forms.FileInput)
-    image.widget.attrs["onchange"] = "upload_img(this);"
 
 
 class UserLoginForm(AuthenticationForm):

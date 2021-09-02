@@ -1,5 +1,6 @@
 from PIL import Image
 from django.db import models
+from django.utils.html import mark_safe
 from django.contrib.auth.models import User
 
 class Profile(models.Model):
@@ -10,24 +11,40 @@ class Profile(models.Model):
     phone = models.CharField(max_length=13, blank=True, null=True)
     address = models.CharField(max_length=500, blank=True, null=True)
     city = models.CharField(max_length=100, blank=True, null=True)
-    image = models.ImageField(
-        blank=True, null=True, default='images/default.jpg', upload_to='images/profile_pics')
 
     def __str__(self):
         return f"profile of: {self.user.username}"
 
-    def save(self, *args, **kwargs):
-        try:
-            this = Profile.objects.get(id=self.id)
-            if this.image != self.image and this.image != 'images/default.jpg':
-                this.image.delete()
-        except:
-            pass
-        super(Profile, self).save(*args, **kwargs)
 
-        img = Image.open(self.image.path)
+# Order
+status_choice=(
+        ('process','In Process'),
+        ('shipped','Shipped'),
+        ('delivered','Delivered'),
+    )
 
-        if (img.height > 300) or (img.width > 300):
-            output_size = (300, 300)
-            img.thumbnail(output_size)
-            img.save(self.image.path)
+class CartOrder(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    total_amt = models.FloatField()
+    paid_status = models.BooleanField(default=False)
+    order_dt = models.DateTimeField(auto_now_add=True)
+    order_status = models.CharField(choices=status_choice, default='process', max_length=150)
+
+
+# Order Items
+class CartOrderItems(models.Model):
+    order = models.ForeignKey(CartOrder,on_delete=models.CASCADE)
+    invoice_no=models.CharField(max_length=150)
+    item = models.CharField(max_length=150)
+    image = models.CharField(max_length=200)
+    qty = models.IntegerField()
+    price = models.FloatField()
+    total = models.FloatField()
+
+    class Meta:
+        verbose_name_plural='Order Items'
+
+    def image_tag(self):
+        return mark_safe('<img src="/media/%s" width="50" height="50" />' % (self.image))
+
+

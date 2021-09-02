@@ -10,9 +10,26 @@ Cart
 {% endblock title %}
     
 {% block content %}
-<!-- Cart Page Begin -->
-
-<!-- Cart Page End -->
+<!-- Sign-up Page Begin -->
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="form-group mb-3">
+        {{ form.username|as_crispy_field }}
+    </div>
+    <div class="form-group mb-4">
+        {{ form.email|as_crispy_field }}
+    </div>
+    <div class="form-group mb-4">
+        {{ form.password1|as_crispy_field }}
+    </div>
+    <div class="form-group mb-4">
+        {{ form.password2|as_crispy_field }}
+    </div>
+    <button type="submit" class="btn btn-primary btn-block mb-4">Sign up</button>
+    <p class="mb-2">Already have an account? <a href="{% url 'users:login-screen' %}" class="f-w-400">Signin</a></p>
+</form>
+<!-- Sign-up Page End -->
 {% endblock content %}
 
 {% block extend_footer %}

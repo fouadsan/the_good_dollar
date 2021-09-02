@@ -10,9 +10,12 @@ Cart
 {% endblock title %}
     
 {% block content %}
-<!-- Cart Page Begin -->
-
-<!-- Cart Page End -->
+<!-- Logout Page Begin -->
+<div class="">
+    <h1 class="">You have successfully logged out. </h1>
+    <p class=""><a href="{% url 'users:login' %}" class="click-login">Click Here</a> to login again.</p>
+</div>    
+<!-- Logout Page End -->
 {% endblock content %}
 
 {% block extend_footer %}

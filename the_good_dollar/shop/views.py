@@ -1,9 +1,10 @@
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
 import json
-from django.db.models import Max
+from django.db.models import Max, Avg
 
-from .models import Subcategory, Product, Brand, Size, Color, ProductAttribute
+from .models import Subcategory, Product, Brand, Size, Color, ProductAttribute, ProductReview
+from .forms import ReviewForm
 from .utils import get_object, add_to_cart_or_fav, delete_or_update_from_cart_or_fav, get_items
 
 # Shop Home 
@@ -128,13 +129,54 @@ def product_screen(request, slug, _id):
     qs = Product.objects.get(id=_id)
     colors = ProductAttribute.objects.filter(product=qs).values('color__id','color__title','color__color_code').distinct()
     sizes = ProductAttribute.objects.filter(product=qs).values('size__id','size__title','price','color__id').distinct()
-    print(sizes)
-    print(colors)
+
+    # Check
+    canAdd = True
+    reviewCheck = ProductReview.objects.filter(user=request.user,product = qs).count()
+    if request.user.is_authenticated:
+        if reviewCheck > 0:
+            canAdd = False
+    # End
+
+    # Fetch reviews
+    reviews = ProductReview.objects.filter(product=qs)
+    # End
+
+    # Fetch avg rating for reviews
+    avg_reviews = ProductReview.objects.filter(product = qs).aggregate(avg_rating=Avg('review_rating'))
+    # End
+
+    review_form = ReviewForm(request.POST or None)
+
+    if  request.is_ajax():
+        instance = review_form.save(commit=False)
+        instance.product = qs
+        instance.user = request.user
+        instance = review_form.save()
+
+        data = {
+            'user': instance.user.username,
+            'review_text': instance.review_text,
+            'review_rating': instance.review_rating,
+        }
+
+        # Fetch avg rating for reviews
+        avg_reviews = ProductReview.objects.filter(product = qs).aggregate(avg_rating=Avg('review_rating'))
+	    # End
+
+        return JsonResponse({
+            'data': data,
+            'avg_reviews': avg_reviews
+            })
 
     context = {
         'qs': qs,
         'sizes': sizes,
-        'colors': colors
+        'colors': colors,
+        'review_form':review_form,
+        'canAdd': canAdd,
+        'reviews': reviews,
+        'avg_reviews': avg_reviews
     } 
 
     return render(request, 'shop/product_screen.html', context)

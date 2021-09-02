@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Banner, Category, Subcategory, Brand, Color, Size, Product, ProductAttribute
+from .models import Banner, Category, Subcategory, Brand, Color, Size, Product, ProductAttribute, ProductReview
 
 
 class BannerAdmin(admin.ModelAdmin):
@@ -51,4 +51,8 @@ class ProductAttributeAdmin(admin.ModelAdmin):
 
 admin.site.register(ProductAttribute, ProductAttributeAdmin)
 
+
+class ProductReviewAdmin(admin.ModelAdmin):
+	list_display=('user','product','review_text','get_review_rating')
+admin.site.register(ProductReview, ProductReviewAdmin)
 

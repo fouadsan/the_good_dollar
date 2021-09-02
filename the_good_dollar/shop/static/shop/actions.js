@@ -520,3 +520,7 @@ function deleteItemCartOrFav(screen) {
     });
 }
 
+function addReview() {
+
+}
+

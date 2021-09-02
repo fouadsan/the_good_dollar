@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block extend_header %}
 
@@ -10,9 +11,21 @@ Cart
 {% endblock title %}
     
 {% block content %}
-<!-- Cart Page Begin -->
-
-<!-- Cart Page End -->
+<!-- Login Page Begin -->
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="form-group mb-3">
+        {{ form.username|as_crispy_field }}
+    </div>
+    <div class="form-group mb-4">
+        {{ form.password|as_crispy_field }}
+    </div>
+    <button type="submit" class="btn btn-block btn-primary mb-4">Sign In</button>
+    <p class="mb-2 text-muted">Forgot password? <a href="{% url 'users:password_reset' %}" class="f-w-400">Reset</a></p>
+</form>
+<a href="{% url 'users:signup-screen' %}" class="btn btn-block btn-outline-primary mt-4">Sign Up Instead</a>
+<!-- Login Page End -->
 {% endblock content %}
 
 {% block extend_footer %}

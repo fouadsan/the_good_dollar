@@ -11,15 +11,11 @@ Cart
     
 {% block content %}
 <!-- User Reviews Page Begin -->
-
-<!-- User Review Page End -->
-{% endblock content %}
 <main class="container my-4">
-	<!-- Featured Products -->
 	<h3 class="my-4 border-bottom pb-1">Reviews Items</h3>
 	<div class="row">
 		<div class="col-md-3">
-			{% include 'user/user-sidebar.html' %}
+			{% include 'users/user_sidebar.html' %}
 		</div>
 		<div class="col-md-9">
 			<div class="table-responsive">
@@ -29,20 +25,28 @@ Cart
 							<th>Title</th>
 							<th>Image</th>
 							<th>Price</th>
-							<th>ReviewText</th>
-							<th>ReviewRating</th>
+							<th>Review Text</th>
+							<th>Review Rating</th>
 						</tr>
 					</thead>
 					<tbody>
 						{% for review in reviews %}
 						<tr>
-							<td><a href="/product/{{review.product.slug}}/{{review.product.id}}">{{review.product.title}}</a></td>
+							<td><a href="/product/{{review.product.slug}}/{{review.product.id}}">{{ review.product.title }}</a></td>
 							<td>
 								<img width="100" src="/media/{{review.product.productattribute_set.first.image}}" alt="{{review.product.title}}">
 							</td>
-							<td>{{review.product.productattribute_set.first.price}}</td>
-							<td>{{review.review_text}}</td>
-							<td>{{review.review_rating}}</td>
+							<td>{{ review.product.productattribute_set.first.price }}</td>
+							<td>{{ review.review_text }}</td>
+							<td>{{ review.review_rating }}</td>
+						</tr>
+						{% empty %}
+						<tr>
+							<td></td>
+							<td></td>
+							<td><p><b>You have no reviews </b></p></td>
+							<td></td>
+							<td></td>
 						</tr>
 						{% endfor %}
 					</tbody>
@@ -51,6 +55,9 @@ Cart
 		</div>
 	</div>
 </main>
+<!-- User Reviews Page Begin -->
+{% endblock content %}
+
 {% block extend_footer %}
 
 {% endblock %}
