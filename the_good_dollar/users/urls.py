@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from .views import dashboard_screen, get_orders, orders_screen, reviews_screen, addressbook_screen, signup_screen, profile_screen
+from .views import dashboard_screen, get_orders, orders_screen, reviews_screen, addressbook_screen, add_addressbook, signup_screen, profile_screen
 from .forms import UserLoginForm, ResetPasswordForm, ResetPasswordConfirmForm
 from django.urls import path, reverse_lazy
 
@@ -12,7 +12,8 @@ urlpatterns = [
     path('profile/', profile_screen, name='profile'),
     path('orders/', orders_screen, name='orders'),
     path('reviews/', reviews_screen, name='reviews'),
-    path('addressbok/', addressbook_screen, name='addressbook'),
+    path('addressbook/', addressbook_screen, name='addressbook'),
+    path('add_addressbook/', add_addressbook, name='add-addressbook'),
     path('sign-up/', signup_screen, name='signup'),
     path('login/', auth_views.LoginView.as_view(
         template_name='users/login.html',

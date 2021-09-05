@@ -41,8 +41,9 @@ function ShowOrdersChart() {
     
 }
 
-ShowOrdersChart()
-
-function renderChart() {
-	
+function addAddrBook() {
+	const createForm = document.getElementById('create-form');
+	const addAddrBtn = document.getElementById('add-addr-btn');
 }
+
+ShowOrdersChart()

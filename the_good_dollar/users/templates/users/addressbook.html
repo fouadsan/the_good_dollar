@@ -13,31 +13,33 @@ Cart
 <!-- Addressbook Page Begin -->
 <main class="container my-4">
 	<!-- Featured Products -->
-	<h3 class="my-4 border-bottom pb-1">Address Book <a href="{% url 'users:add-address' %}" class="float-right btn btn-sm btn-success"><i class="fa fa-plus"></i></a></h3>
+	<h3 class="my-4 border-bottom pb-1">Address Book <btn id="add-addr-btn" class="float-right btn btn-sm btn-success"><i class="fa fa-plus"></i></btn></h3>
 	<div class="row">
 		<div class="col-md-3">
-			{% include 'user/user-sidebar.html' %}
+			{% include 'users/user_sidebar.html' %}
 		</div>
 		<div class="col-md-9">
 			<div class="row">
-				{% for add in addbook %}
+				{% for addr in addrbook %}
 				<div class="col-md-4">
-					<div class="card mb-3 {% if add.status %}border-secondary shadow{% endif %} address{{ add.id }} address">
+					<div class="card mb-3 {% if addr.status %}border-secondary shadow{% endif %} address{{ addr.id }} address">
 						<div class="card-body">
-							<p class="card-text">{{add.address}}</p>
-							<p class="card-text">{{add.mobile}}</p>
+							<p class="card-text">{{ addr.address }}</p>
+							<p class="card-text">{{ addr.mobile }}</p>
 						</div>
-						{% if add.status %}
+						{% if addr.status %}
 						<div class="card-footer">
-							<i class="fa fa-check-circle text-success check{{add.id}} check"></i>
-							<button style="display:none;" data-address="{{ add.id }}" class="btn btn-sm btn-info activate-address btn{{ add.id }} actbtn">Activate</button>
-							<a href="{% url 'users:update-address' add.id %}" class="float-right"><i class="fa fa-edit"></i></a>
+							<i class="fa fa-check-circle text-success check{{ addr.id }} check"></i>
+							<button style="display:none;" data-address="{{ addr.id }}" class="btn btn-sm btn-info activate-address btn{{ addr.id }} actbtn">Activate</button>
+							<!-- update-addr -->
+							<a href="#" class="float-right"><i class="fa fa-edit"></i></a>
 						</div>
 						{% else %}
-						<div class="card-footer footer{{add.id}}">
-							<i style="display:none;" class="fa fa-check-circle text-success check{{add.id}} check"></i>
-							<button data-address="{{add.id}}" class="btn btn-sm btn-info activate-address btn{{ add.id }} actbtn">Activate</button>
-							<a href="{% url 'users:update-address' add.id %}" class="float-right"><i class="fa fa-edit"></i></a>
+						<div class="card-footer footer{{addr.id}}">
+							<i style="display:none;" class="fa fa-check-circle text-success check{{addr.id}} check"></i>
+							<button data-address="{{addr.id}}" class="btn btn-sm btn-info activate-address btn{{ addr.id }} actbtn">Activate</button>
+							<!-- update-addr -->
+							<a href="#" class="float-right"><i class="fa fa-edit"></i></a>
 						</div>
 						{% endif %}
 					</div>

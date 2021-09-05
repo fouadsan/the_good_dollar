@@ -38,7 +38,12 @@ Cart
 							</td>
 							<td>{{ review.product.productattribute_set.first.price }}</td>
 							<td>{{ review.review_text }}</td>
-							<td>{{ review.review_rating }}</td>
+							<td>
+								{% for star in review.review_rating|ljust:review.review_rating %}
+									<i class="fa fa-star text-warning"></i>
+								{% endfor %}
+								({{ review.review_rating }}/5)
+							</td>
 						</tr>
 						{% empty %}
 						<tr>

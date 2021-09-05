@@ -10,7 +10,8 @@ from django.db.models.functions import ExtractMonth
 from django.db.models import Count
 
 from .forms import UserRegisterForm, ProfileForm
-from .models import Profile, CartOrder, CartOrderItems
+from .models import Profile, CartOrder, CartOrderItems, AddressBook
+from shop.models import ProductReview
 
 
 def dashboard_screen(request):
@@ -36,11 +37,14 @@ def orders_screen(request):
     return render(request, 'users/orders.html')
 
 def reviews_screen(request):
-    return render(request, 'users/reviews.html')
+    reviews = ProductReview.objects.filter(user=request.user).order_by('-id')
+    return render(request, 'users/reviews.html', {'reviews': reviews})
 
-def addressbook_screen(request):
-    return render(request, 'users/addressbook.html')
 
+def add_addressbook(request):
+    if request.is_ajax():
+        return JsonResponse({'msg': 'hello world'})
+    return redirect('users:addressbook')
 
 
 def signup_screen(request):
@@ -69,10 +73,9 @@ def signup_screen(request):
 @login_required
 def profile_screen(request):
     obj = Profile.objects.get(user=request.user)
-    form = ProfileForm(request.POST or None, request.FILES, instance=obj)
+    form = ProfileForm(request.POST or None, instance=obj)
     if request.is_ajax():
         if form.is_valid():
-            print("valid")
             instance = form.save()
             return JsonResponse({
                 'user': instance.user.username,
@@ -96,10 +99,17 @@ def profile_screen(request):
 # Orders
 def orders(request):
 	orders = CartOrder.objects.filter(user=request.user).order_by('-id')
-	return render(request, 'user/orders.html',{'orders':orders})
+	return render(request, 'user/orders.html',{'orders': orders})
 
 # Order Detail
 def order_items(request,id):
 	order = CartOrder.objects.get(pk=id)
 	orderitems = CartOrderItems.objects.filter(order=order).order_by('-id')
 	return render(request, 'user/order-items.html',{'orderitems': orderitems})
+
+
+# AddressBook
+def addressbook_screen(request):
+    addrbook = AddressBook.objects.filter(user=request.user).order_by('-id')
+    print(addrbook)
+    return render(request, 'users/addressbook.html', {'addrbook': addrbook})

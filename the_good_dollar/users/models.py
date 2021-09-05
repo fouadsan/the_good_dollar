@@ -48,3 +48,12 @@ class CartOrderItems(models.Model):
         return mark_safe('<img src="/media/%s" width="50" height="50" />' % (self.image))
 
 
+# AddressBook
+class AddressBook(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    mobile = models.CharField(max_length=50,null=True)
+    address = models.TextField()
+    status = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name_plural='AddressBook'

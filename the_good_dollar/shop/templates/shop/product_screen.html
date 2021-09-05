@@ -5,7 +5,7 @@
 {% block extend_header %}
 <script src="{% static 'shop/main.js' %}" defer></script>
 <script src="{% static 'shop/actions.js' %}" defer></script>
-<script src="{% static 'shop/reviews.js' %}" defer></script>
+<script src="{% static 'shop/detail.js' %}" defer></script>
 {% endblock extend_header %}
 
 {% block title %}
@@ -87,14 +87,14 @@ Product Detail
                                 <h3 class="my-3">Reviews - {% if reviews %}<span class="avg-rating">{{ avg_reviews.avg_rating }}</span>/5 <i class="fa fa-star text-warning"></i>{% endif %}
                                     {% if user.is_authenticated %}
                                         {% if canAdd %}
-                                        <button data-bs-toggle="modal" data-bs-target="#productReview" type="button" class="btn btn-warning btn-sm float-right reviewBtn">Add Review</button>
+                                        <button data-bs-toggle="modal" data-bs-target="#review-modal" type="button" class="btn btn-warning btn-sm float-right reviewBtn" id="add-review-btn">Add Review</button>
                                         {% endif %}
                                     {% endif %}
                                 </h3>
                                 {% if user.is_authenticated %}
                                 <!-- Product Review -->
 
-                                <div class="modal fade" id="productReview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="review-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -120,7 +120,7 @@ Product Detail
                                 <!-- Product Review End -->
                                 {% endif %}
                                 
-                                <div class="card">
+                                <div class="card reviews__card" id="{{ qs.id }}">
                                     <div class="card-body review-list" style="max-height: 400px; overflow: auto;">
                                         <!-- Detail -->
                                             {% for review in reviews %}
@@ -130,13 +130,13 @@ Product Detail
                                                     <cite title="Source Title">
                                                         {% for star in review.review_rating|ljust:review.review_rating %}
                                                         <i class="fa fa-star text-warning"></i>
-                                                    {% endfor %}
+                                                        {% endfor %}
                                                     </cite>
                                                 </footer>
                                             </blockquote>
                                             <hr />
                                             {% empty %}
-                                            <p class="no-data">Add First Review</p>
+                                            <p class="add__first__review">Add First Review</p>
                                             {% endfor %}
                                     </div>
                                 </div>

@@ -36,7 +36,8 @@ function getData(fData, pRange) {
     } else {
         let productDetail = document.querySelector('.product-details');
         prod_id = productDetail.id.split('product-')[1];
-        productsUrl = `${rootUrl}\/shop\/products/data/${prod_id}`;
+        productsUrl = `${rootUrl}\/shop\/load_related_products`;
+        fData = prod_id;
     }
     
     $.ajax({
@@ -53,6 +54,7 @@ function getData(fData, pRange) {
     
                 hideElement(mainSpinnerBox)
                 if (data.length) {
+                    console.log(data.length)
                     addDataToDom(data, size, visible);
                 } else {
                     productsContainer.innerHTML ="";

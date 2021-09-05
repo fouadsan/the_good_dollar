@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block extend_header %}
-
+<script src="{% static 'users/actions.js' %}" defer></script>
 {% endblock %}
 
 {% block title %}
@@ -23,12 +24,15 @@ Profile
 			<p class="text-success">{{ msg }}</p>
 			{% endif %}
 			<table class="table table-bordered">
-				<form method="post">
+				<form id="profile-form">
 					{% csrf_token %}
 					{{ form.as_table }}
 					<tr>
 						<td colspan="2">
-							<input type="submit" value="Save" class="btn btn-primary" />
+							<input id="saveProfile-box" type="submit" value="Save" class="btn btn-primary" />
+							<div id="spinner-box" class="spinner-border text-center not-visible">
+								<div class="sr-only" role="status"></div>
+							</div>
 						</td>
 					</tr>
 				</form>
