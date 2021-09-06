@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.db.models.functions import ExtractMonth
 from django.db.models import Count
 
-from .forms import UserRegisterForm, ProfileForm
+from .forms import UserRegisterForm, ProfileForm, AddressBookForm
 from .models import Profile, CartOrder, CartOrderItems, AddressBook
 from shop.models import ProductReview
 
@@ -17,15 +17,17 @@ from shop.models import ProductReview
 def dashboard_screen(request):
     return render(request, 'users/dashboard.html')
 
+
 def get_orders(request):
-    orders = CartOrder.objects.annotate(month=ExtractMonth('order_dt')).values('month').annotate(count=Count('id')).values('month','count')
+    orders = CartOrder.objects.annotate(month=ExtractMonth('order_dt')).values(
+        'month').annotate(count=Count('id')).values('month', 'count')
     month_number = []
     total_orders = []
-    
+
     for d in orders:
         month_number.append(calendar.month_name[d['month']])
         total_orders.append(d['count'])
-    
+
     if request.is_ajax():
         data = {
             'month_number': month_number,
@@ -33,8 +35,10 @@ def get_orders(request):
         }
         return JsonResponse({'data': data})
 
+
 def orders_screen(request):
     return render(request, 'users/orders.html')
+
 
 def reviews_screen(request):
     reviews = ProductReview.objects.filter(user=request.user).order_by('-id')
@@ -98,18 +102,36 @@ def profile_screen(request):
 
 # Orders
 def orders(request):
-	orders = CartOrder.objects.filter(user=request.user).order_by('-id')
-	return render(request, 'user/orders.html',{'orders': orders})
+    orders = CartOrder.objects.filter(user=request.user).order_by('-id')
+    return render(request, 'user/orders.html', {'orders': orders})
 
 # Order Detail
-def order_items(request,id):
-	order = CartOrder.objects.get(pk=id)
-	orderitems = CartOrderItems.objects.filter(order=order).order_by('-id')
-	return render(request, 'user/order-items.html',{'orderitems': orderitems})
+
+
+def order_items(request, id):
+    order = CartOrder.objects.get(pk=id)
+    orderitems = CartOrderItems.objects.filter(order=order).order_by('-id')
+    return render(request, 'user/order-items.html', {'orderitems': orderitems})
 
 
 # AddressBook
 def addressbook_screen(request):
     addrbook = AddressBook.objects.filter(user=request.user).order_by('-id')
-    print(addrbook)
-    return render(request, 'users/addressbook.html', {'addrbook': addrbook})
+    addr_form = AddressBookForm(request.POST or None)
+
+    if request.is_ajax():
+        if addr_form.is_valid():
+            instance = addr_form.save(commit=False)
+            instance.user = request.user
+            instance = addr_form.save()
+            return JsonResponse({
+                'address': instance.address,
+                'mobile': instance.mobile,
+                'status': instance.status
+            })
+
+    context = {
+        'addrbook': addrbook,
+        'addr_form': addr_form
+    }
+    return render(request, 'users/addressbook.html', context)

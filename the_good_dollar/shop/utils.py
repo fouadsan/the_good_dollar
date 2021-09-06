@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 
+
 def get_object(request, qs, data):
 
     cart_items = {}
@@ -8,7 +9,7 @@ def get_object(request, qs, data):
     wishlist_items_ids = []
     is_cart = False
     is_fav = False
-    
+
     try:
         cart_items = get_items(request, "cart_data")
         cart_items_ids = cart_items['cart_data']
@@ -22,12 +23,11 @@ def get_object(request, qs, data):
         wishlist_items_ids = wishlist_items['wishlist_data']
     except KeyError:
         print('KEYERROR')
-   
+
     if wishlist_items_ids:
         wishlist_items_ids = list(wishlist_items['wishlist_data'].keys())
 
-
-    try: 
+    try:
         for obj in qs:
             if (cart_items_ids):
                 for cart_item_id in cart_items_ids:
@@ -68,46 +68,48 @@ def add_to_cart_or_fav(request, element):
     # del request.session[element]
     element_p = {}
     element_p[str(request.GET['id'])] = {
-		'image':request.GET['image'],
-		'title':request.GET['title'],
+        'image': request.GET['image'],
+        'title': request.GET['title'],
         'quantity': request.GET['quantity'],
-		'price':request.GET['price'],
-	}
+        'price': request.GET['price'],
+    }
 
     if element in request.session:
         if str(request.GET['id']) in request.session[element]:
             if element == "cart_data":
                 cart_data = request.session[element]
-                cart_data[str(request.GET['id'])]['quantity'] = int(element_p[str(request.GET['id'])]['quantity'])
+                cart_data[str(request.GET['id'])]['quantity'] = int(
+                    element_p[str(request.GET['id'])]['quantity'])
                 cart_data.update(cart_data)
                 request.session[element] = cart_data
             else:
                 wishlist_data = request.session[element]
-                wishlist_data[str(request.GET['id'])]['quantity'] = int(element_p[str(request.GET['id'])]['quantity'])
+                wishlist_data[str(request.GET['id'])]['quantity'] = int(
+                    element_p[str(request.GET['id'])]['quantity'])
                 wishlist_data.update(wishlist_data)
                 request.session[element] = wishlist_data
         else:
             if element == "cart_data":
-                cart_data=request.session[element]
+                cart_data = request.session[element]
                 cart_data.update(element_p)
                 request.session[element] = cart_data
             else:
-                wishlist_data=request.session[element]
+                wishlist_data = request.session[element]
                 wishlist_data.update(element_p)
                 request.session[element] = wishlist_data
 
     else:
         request.session[element] = element_p
 
-    return JsonResponse({'data': request.session[element],'total_items': len(request.session[element])})
+    return JsonResponse({'data': request.session[element], 'total_items': len(request.session[element])})
 
 
 def delete_or_update_from_cart_or_fav(request, element, action):
     total_amt = 0
 
-    product_id=str(request.GET['id'])
+    product_id = str(request.GET['id'])
 
-    product_qty=request.GET['quantity']
+    product_qty = request.GET['quantity']
 
     if element in request.session:
         if product_id in request.session[element]:
@@ -117,51 +119,50 @@ def delete_or_update_from_cart_or_fav(request, element, action):
                 if action == "delete":
                     del request.session[element][product_id]
                 else:
-                    cart_data[str(request.GET['id'])]['quantity']=product_qty
+                    cart_data[str(request.GET['id'])]['quantity'] = product_qty
 
                 request.session[element] = cart_data
-               
+
             else:
                 wishlist_data = request.session[element]
 
                 if action == "delete":
                     del request.session[element][product_id]
                 else:
-                    wishlist_data[str(request.GET['id'])]['quantity']=product_qty
+                    wishlist_data[str(request.GET['id'])
+                                  ]['quantity'] = product_qty
 
                 request.session[element] = wishlist_data
 
-    for product_id,item in request.session[element].items():
+    for product_id, item in request.session[element].items():
         total_amt += int(item['quantity'])*float(item['price'])
 
     data = {
-        element : request.session[element],
+        element: request.session[element],
         'total_items': len(request.session[element]),
         'total_amt': total_amt
     }
 
-    return JsonResponse({ 'data': data })
+    return JsonResponse({'data': data})
 
 
 def get_items(request, element):
-    
-    total_amt=0
-    
+
+    total_amt = 0
+
     if request.session[element]:
         items = request.session[element]
-    else: 
+    else:
         items = ''
 
     if element in request.session:
         for product_id, item in request.session[element].items():
             total_amt += int(item['quantity']) * float(item['price'])
-        
+
     context = {
-        element : items,
+        element: items,
         'total_items': len(request.session[element]),
         'total_amt': total_amt
     }
-        
-   
-    return context
 
+    return context

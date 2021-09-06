@@ -53,6 +53,7 @@ admin.site.register(ProductAttribute, ProductAttributeAdmin)
 
 
 class ProductReviewAdmin(admin.ModelAdmin):
-	list_display=('user','product','review_text','get_review_rating')
-admin.site.register(ProductReview, ProductReviewAdmin)
+    list_display = ('user', 'product', 'review_text', 'get_review_rating')
 
+
+admin.site.register(ProductReview, ProductReviewAdmin)

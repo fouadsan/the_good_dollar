@@ -2,11 +2,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, PasswordResetForm, SetPasswordForm
-from crispy_forms.helper import FormHelper
+from crispy_forms.helper import FormHelper, Layout
 from crispy_forms.layout import Field, Submit
 
 from .models import Profile, AddressBook
-    
+
+
 class UserRegisterForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
@@ -42,7 +43,6 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ('first_name', 'last_name', 'email',
                   'phone', 'address', 'city', )
-
 
 
 class UserLoginForm(AuthenticationForm):
@@ -112,8 +112,8 @@ class AddressBookForm(forms.ModelForm):
         self.helper.add_input(
             Submit('submit', 'Submit', css_class='btn-primary'))
         self.helper.form_method = 'POST'
-        super(AddressBook, self).__init__(*args, **kwargs)
+        super(AddressBookForm, self).__init__(*args, **kwargs)
 
     class Meta:
         model = AddressBook
-        fields=('address','mobile','status')
+        fields = ('address', 'mobile', 'status')
