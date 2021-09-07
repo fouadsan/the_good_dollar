@@ -1,6 +1,10 @@
-rootUrl = window.location.origin
+
+const userDashUrl = rootUrl + '/users/dashboard/';
+const addrBookUrl = rootUrl + '/users/addressbook/';
 
 const chartSpinnerBox = document.getElementById('chart-spinner-box');
+
+let upId;
 
 function ShowOrdersChart() {
 	const chartDataUrl = `${rootUrl}\/users\/orders_data`
@@ -10,7 +14,7 @@ function ShowOrdersChart() {
 		url: chartDataUrl,
 		success: function (response) {
 			respData = response.data
-			console.log(response)
+
 			const labels = respData.month_number;
 			const data = {
 				labels: labels,
@@ -33,7 +37,7 @@ function ShowOrdersChart() {
 					config
 				);
 
-			}, 5000);
+			}, 2500);
 
 		}
 	})
@@ -41,15 +45,14 @@ function ShowOrdersChart() {
 
 }
 
-function addAddrBook() {
-
+function addAddr() {
+	
+	const addrBookWrapper = document.querySelector('.addrbook__wrapper');
 	const createAddrForm = document.getElementById('create-addr-form');
-	const addAddrBtn = document.getElementById('create-addr-btn');
 
 	const addressEl = document.getElementById('id_address');
 	const mobileEl = document.getElementById('id_mobile');
 	const statusEl = document.getElementById('id_status');
-
 
 	createAddrForm.addEventListener('submit', e => {
 		e.preventDefault()
@@ -66,29 +69,51 @@ function addAddrBook() {
 
 			success: function (response) {
 				console.log(response)
-				// data = response.data
-
-				// const reviewRatEl = document.createElement('cite');
-				// for (i = 0; i < data.review_rating; i++) {
-				// 	reviewRatEl.innerHTML += `
-				//         <i class="fa fa-star text-warning"></i>
-				//     `
-				// }
-				// addFirstRevEl.style.display = "none";
-				// reviewCardEl.insertAdjacentHTML('afterbegin', `
-				//     <div class="card-body review-list" style="max-height: 400px; overflow: auto;">
-				//             <blockquote class="blockquote text-right">
-				//                 <small>${data.review_text}</small>
-				//                 <footer class="blockquote-footer">${data.user}
-				//                     ${reviewRatEl.outerHTML}
-				//                 </footer>
-				//             </blockquote>
-				//             <hr>
-				//     </div>
-				// `);
-				// addReviewBtn.style.display = "none";
-				// $('#review-modal').modal('hide');
-				// // handleModalAlerts('success', 'New Object added!');
+				data = response.data
+				
+				const activatedAddrCardEl = document.querySelector('.shadow');
+				const CardParentEl = document.createElement('div');
+				CardParentEl.classList.add('col-md-4');
+				const newAddrCard = document.createElement('div');
+				newAddrCard.id = `addr-${data.id}`;
+				if (data.status) {
+					newAddrCard.classList.add('card', 'mb-3', 'border-secondary', 'shadow');
+						if (activatedAddrCardEl) {
+							deactivateAddrCardEl(activatedAddrCardEl);
+						}
+						
+						
+					newAddrCard.innerHTML= `
+						<div class="card-body">
+							<p class="card-text">${data.address}</p>
+							<p class="card-text">${data.mobile}</p>
+						</div>
+						<div class="card-footer">
+							<i class="fa fa-check-circle text-success" id="check-${data.id}"></i>
+							<button id="${data.id}" class="btn btn-sm btn-info" style="display:none;" activate__btn>Activate</button>
+							<button type="button" id="edit-${data.id}" class="btn float-right edit__addr" data-bs-toggle="modal" data-bs-target="#update-addr-modal"><i class="fa fa-edit"></i></button>
+						</div>
+					`
+					CardParentEl.appendChild(newAddrCard);
+					addrBookWrapper.insertBefore(CardParentEl, addrBookWrapper.firstChild);
+				} else {
+					newAddrCard.classList.add('card', 'mb-3');
+					newAddrCard.innerHTML= `
+						<div class="card-body">
+							<p class="card-text">${data.address}</p>
+							<p class="card-text">${data.mobile}</p>
+						</div>
+						<div class="card-footer">
+							<i class="fa fa-check-circle text-success" id="check-${data.id}" style="display:none;"></i>
+							<button id="${data.id}" class="btn btn-sm btn-info" activate__btn>Activate</button>
+							<button type="button" id="edit-${data.id}" class="btn float-right edit__addr" data-bs-toggle="modal" data-bs-target="#update-addr-modal"><i class="fa fa-edit"></i></button>
+						</div>
+					`
+					CardParentEl.appendChild(newAddrCard);
+					addrBookWrapper.append(CardParentEl);
+				}
+				$('#create-addr-modal').modal('hide');
+				// handleModalAlerts('success', 'New Object added!');
 			},
 			error: function () {
 				console.log('oops, something went wrong');
@@ -98,6 +123,143 @@ function addAddrBook() {
 	})
 }
 
-// ShowOrdersChart()
+function deactivateAddrCardEl(activatedAddrCardEl) {
+	activatedAddrCardEl.classList.remove('border-secondary', 'shadow');
+	const addrCheckMark = activatedAddrCardEl.querySelector('i');
+	const addrActivatedBtn = activatedAddrCardEl.querySelector('button');
+	addrCheckMark.style.display = 'none';
+	addrActivatedBtn.style.display = 'inline-block';
+} 
 
-addAddrBook();
+function activateAddr() {
+	const activateAddrUrl = "activate_address";
+	const activateAddrBtns = document.querySelectorAll('.activate__btn');
+	activateAddrBtns.forEach(activateBtn => {
+		const _addrId = activateBtn.id;
+		activateBtn.addEventListener('click', () => {
+			$.ajax({
+				type: 'GET',
+				url: activateAddrUrl,
+				data: {
+					'id': _addrId,
+				},
+				dataType:'json',
+				success: function (response) {
+					console.log(response);
+					if(response.bool==true) {
+
+						const activatedAddrCardEl = document.querySelector('.shadow');
+
+						const newActivatedAddrCardEl = document.getElementById(`addr-${_addrId}`);
+						const addrCheckMark = document.getElementById(`check-${_addrId}`);
+						deactivateAddrCardEl(activatedAddrCardEl);
+						newActivatedAddrCardEl.classList.add('border-secondary', 'shadow');
+						activateBtn.style.display = "none";
+						addrCheckMark.style.display = "inline-block";
+					}
+					
+				},
+				error: function () {
+					console.log('something went wrong !!!');
+				}
+			})
+		})
+	});
+}
+
+function delAddr() {
+
+}
+
+function getAddrData(addressInput, mobileInput, statusInput) {
+	const addrDataBaseUrl = 'addr_data/';
+
+	const editAddrBtns = document.querySelectorAll('.edit__addr');
+	editAddrBtns.forEach(editBtn => {
+	
+		editBtn.addEventListener('click', () => {
+
+			upId = editBtn.id.slice(5);
+			
+			$.ajax({
+				type: 'GET',
+				url: addrDataBaseUrl + upId,
+				success: function (response) {
+					const data = response.data;
+					addressInput.value = data.address;
+					mobileInput.value = data.mobile;
+					data.status ? statusInput.checked = true : statusInput.checked = false;
+					
+				},
+				error: function (error) {
+					console.log(error)
+				}
+			})
+		})
+	});
+}
+
+function updateAddr(addressInput, mobileInput, statusInput) {
+	const updateAddrBaseUrl = "update_address/";
+	const updateAddrForm = document.getElementById('update-addr-form');
+
+	updateAddrForm.addEventListener('submit', e => {
+		e.preventDefault();
+
+		const addrCardEl = document.getElementById('addr-' + upId);
+		const addressEl = addrCardEl.firstElementChild.firstElementChild;
+		const mobileEl = addrCardEl.firstElementChild.lastElementChild;
+		const statusEl = addrCardEl.lastElementChild.firstElementChild;
+		const activateBtn = statusEl.nextElementSibling;
+		console.log(statusInput);
+
+		$.ajax({
+			type: 'POST',
+			url: updateAddrBaseUrl + upId,
+			data: {
+				'csrfmiddlewaretoken': csrf[0].value,
+				'address': addressInput.value,
+				'mobile': mobileInput.value,
+				'status': statusInput.checked ? true : false
+			},
+			success: function (response) {
+				const data = response.data;
+				console.log(data)
+				addressEl.textContent = data.address;
+				mobileEl.textContent = data.mobile;
+				if(data.status) {
+					statusEl.style.display = 'inline-block';
+				}else {
+					deactivateAddrCardEl(addrCardEl);
+				}
+
+				$('#update-addr-modal').modal('hide');	
+			},
+			error: function (error) {
+				console.log(error)
+			}
+		})
+
+	})
+}
+
+function handleAddrBook() {
+	const addressInput = document.getElementById('id_updateAddress');
+	const mobileInput = document.getElementById('id_updateMobile');
+	const statusInput = document.getElementById('id_updateStatus');
+	addAddr();
+	activateAddr();
+	delAddr();
+	getAddrData(addressInput, mobileInput, statusInput);
+	updateAddr(addressInput, mobileInput, statusInput);
+}
+
+
+
+
+if (currentUrl == userDashUrl) {
+	ShowOrdersChart()
+} else {
+	handleAddrBook();
+}
+

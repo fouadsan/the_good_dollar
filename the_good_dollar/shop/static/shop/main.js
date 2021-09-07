@@ -1,6 +1,3 @@
-
-rootUrl = window.location.origin
-const currentUrl = window.location.href;
 const shopUrl = rootUrl + "/shop/";
 
 let cardEls;

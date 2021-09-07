@@ -1,4 +1,5 @@
 import calendar
+import json
 
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
@@ -12,6 +13,7 @@ from django.db.models import Count
 from .forms import UserRegisterForm, ProfileForm, AddressBookForm
 from .models import Profile, CartOrder, CartOrderItems, AddressBook
 from shop.models import ProductReview
+
 
 
 def dashboard_screen(request):
@@ -43,12 +45,6 @@ def orders_screen(request):
 def reviews_screen(request):
     reviews = ProductReview.objects.filter(user=request.user).order_by('-id')
     return render(request, 'users/reviews.html', {'reviews': reviews})
-
-
-def add_addressbook(request):
-    if request.is_ajax():
-        return JsonResponse({'msg': 'hello world'})
-    return redirect('users:addressbook')
 
 
 def signup_screen(request):
@@ -123,11 +119,17 @@ def addressbook_screen(request):
         if addr_form.is_valid():
             instance = addr_form.save(commit=False)
             instance.user = request.user
+            if instance.status:
+                AddressBook.objects.update(status=False)
             instance = addr_form.save()
-            return JsonResponse({
+            data = {
+                'id': instance.id,
                 'address': instance.address,
                 'mobile': instance.mobile,
                 'status': instance.status
+            }
+            return JsonResponse({
+                'data': data
             })
 
     context = {
@@ -135,3 +137,51 @@ def addressbook_screen(request):
         'addr_form': addr_form
     }
     return render(request, 'users/addressbook.html', context)
+
+
+# Activate Address
+def activate_address(request):
+    if request.is_ajax():
+        addr_id = request.GET.get('id')
+        AddressBook.objects.update(status=False)
+        AddressBook.objects.filter(id=addr_id).update(status=True)
+        return JsonResponse({'bool': True})
+    return redirect('users:addressbook')
+
+
+# Get Addressbook Data
+def get_addr_data(request, pk):
+    if request.is_ajax():
+        obj = AddressBook.objects.get(pk=pk)
+        data = {
+            'id': obj.id,
+            'address': obj.address,
+            'mobile': obj.mobile,
+            'status': obj.status,
+        }
+        return JsonResponse({'data': data})
+
+# Update Addressbook
+def update_address(request, pk):
+    obj = AddressBook.objects.get(pk=pk)
+    if request.is_ajax():
+        new_address = request.POST.get('address')
+        new_mobile = request.POST.get('mobile')
+        new_status = json.loads(request.POST.get('status'))
+        print(new_status)
+        
+        obj.address = new_address
+        obj.mobile = new_mobile
+        obj.status = new_status
+        obj.user = request.user
+        if new_status:
+            AddressBook.objects.update(status=False)   
+        obj.save()
+        data = {
+            'address': new_address,
+            'mobile': new_mobile,
+            'status': new_status,
+        }
+        return JsonResponse({'data': data})
+        
+    return redirect('users:addressbook')

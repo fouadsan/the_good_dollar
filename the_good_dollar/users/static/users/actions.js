@@ -31,8 +31,8 @@ profileForm.addEventListener('submit', e => {
         data: formData,
         dataType: 'json',
         beforeSend: function () {
-            saveProfilebox.classList.add('not-visible')
-            spinnerBox.classList.remove('not-visible')
+            saveProfilebox.classList.add('not-visible');
+            spinnerBox.classList.remove('not-visible');
         },
         success: function (response) {
             console.log(response)

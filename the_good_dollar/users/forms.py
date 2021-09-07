@@ -105,7 +105,7 @@ class AddressBookForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            Field('name', id="id_updateName"),
+            Field('address', id="id_updateAddress"),
             Field('mobile', id="id_updateMobile"),
             Field('status', id="id_updateStatus"),
         )

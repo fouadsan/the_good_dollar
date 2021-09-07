@@ -1,3 +1,6 @@
+const rootUrl = window.location.origin
+const currentUrl = window.location.href;
+
 const getCookie = (name) => {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {

@@ -27,7 +27,7 @@ Cart
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form method="post" id="create-addr-form" autocomplete="off">
+					<form id="create-addr-form" autocomplete="off">
 						{% csrf_token %}
 						{{ addr_form|crispy }}
 						<div class="">
@@ -43,35 +43,52 @@ Cart
 	</div>
 	<!-- Create New Address Book Modal End -->
 
+	<!-- Update Address Book Modal Start -->
+	<div class="modal fade" id="update-addr-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Add Address Book</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="update-addr-form" autocomplete="off">
+						{% csrf_token %}
+						{% crispy addr_form %}
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- Update Address Book Modal End -->
+
 	<div class="row">
 		<div class="col-md-3">
 			{% include 'users/user_sidebar.html' %}
 		</div>
 		<div class="col-md-9">
-			<div class="row">
+			<div class="row addrbook__wrapper">
 				{% for addr in addrbook %}
 				<div class="col-md-4">
-					<div
-						class="card mb-3 {% if addr.status %}border-secondary shadow{% endif %} address{{ addr.id }} address">
+					<div class="card mb-3 {% if addr.status %}border-secondary shadow{% endif %}" id="addr-{{ addr.id }}">
 						<div class="card-body">
 							<p class="card-text">{{ addr.address }}</p>
 							<p class="card-text">{{ addr.mobile }}</p>
 						</div>
 						{% if addr.status %}
 						<div class="card-footer">
-							<i class="fa fa-check-circle text-success check{{ addr.id }} check"></i>
-							<button style="display:none;" data-address="{{ addr.id }}"
-								class="btn btn-sm btn-info activate-address btn{{ addr.id }} actbtn">Activate</button>
+							<i class="fa fa-check-circle text-success" id="check-{{ addr.id }}"></i>
+							<button id="{{ addr.id }}" class="btn btn-sm btn-info activate-address activate__btn" style="display:none;">Activate</button>
 							<!-- update-addr -->
-							<a href="#" class="float-right"><i class="fa fa-edit"></i></a>
+							<button type="button" id="edit-{{ addr.id }}" class="btn float-right edit__addr" data-bs-toggle="modal" data-bs-target="#update-addr-modal"><i class="fa fa-edit"></i></button>
 						</div>
 						{% else %}
 						<div class="card-footer footer{{addr.id}}">
-							<i style="display:none;" class="fa fa-check-circle text-success check{{addr.id}} check"></i>
-							<button data-address="{{addr.id}}"
-								class="btn btn-sm btn-info activate-address btn{{ addr.id }} actbtn">Activate</button>
+							<i class="fa fa-check-circle text-success" id="check-{{ addr.id }}" style="display:none;"></i>
+							<button  id="{{ addr.id }}" class="btn btn-sm btn-info activate-address activate__btn">Activate</button>
 							<!-- update-addr -->
-							<a href="#" class="float-right"><i class="fa fa-edit"></i></a>
+							<button type="button" id="edit-{{ addr.id }}" class="btn float-right edit__addr" data-bs-toggle="modal" data-bs-target="#update-addr-modal"><i class="fa fa-edit"></i></button>
 						</div>
 						{% endif %}
 					</div>
