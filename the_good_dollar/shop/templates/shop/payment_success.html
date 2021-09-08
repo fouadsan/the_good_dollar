@@ -10,8 +10,13 @@ Payment Success
 {% endblock title %}
 
 {% block content %}
-<main class="container my-4" id="cartList">
-    <p>Payment Success</p>
+<main class="container my-4">
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading mb-2">Success !</h4>
+        <p>Your Payment Was Successful !</p>
+        <hr>
+        <a href="{% url 'shop:home-screen' %}">Back To Shop</a>
+    </div>
 </main>
 {% endblock content %}
 

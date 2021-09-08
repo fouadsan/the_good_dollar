@@ -6,12 +6,16 @@
 {% endblock extend_header %}
 
 {% block title %}
-Payment Failed
+Payment Failure
 {% endblock title %}
 
 {% block content %}
-<main class="container my-4" id="cartList">
-    <p>Payment Failed</p>
+<main class="container my-4">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading mb-2">Failure !</h4>
+        <p>Payment Process Was Failed, Please Try Again Later</p>
+        <a href="{% url 'shop:home-screen' %}">Go Back To Shop</a>
+    </div>
 </main>
 {% endblock content %}
 

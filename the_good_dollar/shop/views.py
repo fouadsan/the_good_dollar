@@ -13,14 +13,16 @@ from users.models import CartOrder, CartOrderItems, AddressBook
 from .forms import ReviewForm
 from .utils import get_object, add_to_cart_or_fav, delete_or_update_from_cart_or_fav, get_items
 
-# Shop Home 
+# Shop Home
+
+
 def home_screen(request):
     subcategories = Subcategory.objects.all()
     brands = Brand.objects.all()
     sizes = Size.objects.all()
     colors = Color.objects.all()
     max_price = ProductAttribute.objects.aggregate(Max('price'))
-    
+
     context = {
         'subcategories': subcategories,
         'brands': brands,
@@ -29,7 +31,7 @@ def home_screen(request):
         'max_price': max_price
     }
     return render(request, 'shop/home_screen.html', context)
-    
+
 
 # Load Products
 def load_products(request, num):
@@ -39,7 +41,7 @@ def load_products(request, num):
         qs = Product.objects.all()
         upper = num
         lower = upper - visible
-        
+
         # Filters
         filter_request = request.GET.get('filters-data')
         price_range_request = request.GET.get('price-range')
@@ -58,7 +60,7 @@ def load_products(request, num):
                                 qs = Product.objects.filter(
                                     subcategory_id=f_id)
                                 get_object(request, qs, data)
-                            
+
                             elif (filter_id.startswith("brd")):
                                 qs = Product.objects.filter(brand_id=f_id)
                                 get_object(request, qs, data)
@@ -85,8 +87,9 @@ def load_products(request, num):
                     else:
                         min_price = filter_arr[1]
                         max_price = filter_arr[0]
-                        
-                    qs = qs.filter(productattribute__price__gte=min_price, productattribute__price__lte=max_price)
+
+                    qs = qs.filter(productattribute__price__gte=min_price,
+                                   productattribute__price__lte=max_price)
                     get_object(request, qs, data)
 
                 except TypeError:
@@ -96,7 +99,6 @@ def load_products(request, num):
 
         get_object(request, qs, data)
         size = qs.count()
-
 
         if (size >= upper):
             response = {
@@ -116,12 +118,15 @@ def load_products(request, num):
 def product_screen(request, slug, _id):
     review_form = ReviewForm(request.POST or None)
     qs = Product.objects.get(id=_id)
-    colors = ProductAttribute.objects.filter(product=qs).values('color__id','color__title','color__color_code').distinct()
-    sizes = ProductAttribute.objects.filter(product=qs).values('size__id','size__title','price','color__id').distinct()
+    colors = ProductAttribute.objects.filter(product=qs).values(
+        'color__id', 'color__title', 'color__color_code').distinct()
+    sizes = ProductAttribute.objects.filter(product=qs).values(
+        'size__id', 'size__title', 'price', 'color__id').distinct()
 
     # Check
     canAdd = True
-    reviewCheck = ProductReview.objects.filter(user=request.user,product = qs).count()
+    reviewCheck = ProductReview.objects.filter(
+        user=request.user, product=qs).count()
     if request.user.is_authenticated:
         if reviewCheck > 0:
             canAdd = False
@@ -132,9 +137,10 @@ def product_screen(request, slug, _id):
     # End
 
     # Fetch avg rating for reviews
-    avg_reviews = ProductReview.objects.filter(product = qs).aggregate(avg_rating=Avg('review_rating'))
+    avg_reviews = ProductReview.objects.filter(
+        product=qs).aggregate(avg_rating=Avg('review_rating'))
     # End
-    
+
     context = {
         'qs': qs,
         'sizes': sizes,
@@ -143,7 +149,7 @@ def product_screen(request, slug, _id):
         'reviews': reviews,
         'avg_reviews': avg_reviews,
         'review_form': review_form
-    } 
+    }
 
     return render(request, 'shop/product_screen.html', context)
 
@@ -151,7 +157,7 @@ def product_screen(request, slug, _id):
 # Add Product Review
 def add_review(request):
     review_form = ReviewForm(request.POST or None)
-    if  request.is_ajax():
+    if request.is_ajax():
         p_id = request.POST.get('id')
         qs = Product.objects.get(id=p_id)
         instance = review_form.save(commit=False)
@@ -166,13 +172,14 @@ def add_review(request):
         }
 
         # Fetch avg rating for reviews
-        avg_reviews = ProductReview.objects.filter(product = qs).aggregate(avg_rating=Avg('review_rating'))
-	    # End
+        avg_reviews = ProductReview.objects.filter(
+            product=qs).aggregate(avg_rating=Avg('review_rating'))
+        # End
 
         return JsonResponse({
             'data': data,
             'avg_reviews': avg_reviews
-            })
+        })
 
 
 # Load Related Prouducts:
@@ -181,16 +188,19 @@ def load_related_products(request):
     if request.is_ajax():
         p_id = json.loads(request.GET['filters-data'])
         qs = qs = Product.objects.get(id=p_id)
-        related_products = Product.objects.filter(subcategory=qs.subcategory).exclude(id=p_id)[:4]
+        related_products = Product.objects.filter(
+            subcategory=qs.subcategory).exclude(id=p_id)[:4]
         get_object(request, related_products, data)
         response = {
             'data': data,
-            'size': 1   
+            'size': 1
         }
         return JsonResponse(response)
     return redirect('shop:home-screen')
 
 # Add Product To Cart
+
+
 def add_to_cart(request):
     if request.is_ajax():
         return add_to_cart_or_fav(request, "cart_data")
@@ -210,7 +220,7 @@ def cart_screen(request):
     return render(request, 'shop/cart_screen.html', context)
 
 
-# Update In Cart 
+# Update In Cart
 def update_cart_item(request):
     p_id = str(request.GET['id'])
     p_qty = request.GET['quantity']
@@ -220,9 +230,9 @@ def update_cart_item(request):
             cart_data = request.session['cart_data']
             cart_data[str(request.GET['id'])]['quantity'] = p_qty
             request.session['cart_data'] = cart_data
-    total_amt=0
-    
-    for p_id,item in request.session['cart_data'].items():
+    total_amt = 0
+
+    for p_id, item in request.session['cart_data'].items():
         total_amt += int(item['quantity']) * float(item['price'])
 
     data = {
@@ -251,34 +261,35 @@ def delete_wishlist_item(request):
 # Favorites Page
 def wishlist_screen(request):
     context = get_items(request, "wishlist_data")
-    return render(request, 'shop/wishlist_screen.html',context)
+    return render(request, 'shop/wishlist_screen.html', context)
 
 
 # Checkout
 def checkout_screen(request):
     total_amt = 0
     totalAmt = 0
+    
     if 'cart_data' in request.session:
         for p_id, item in request.session['cart_data'].items():
             totalAmt += int(item['quantity']) * float(item['price'])
         # Order
-        order=CartOrder.objects.create(
-                user=request.user,
-                total_amt=totalAmt
-            )
+        order = CartOrder.objects.create(
+            user=request.user,
+            total_amt=totalAmt
+        )
         # End
         for p_id, item in request.session['cart_data'].items():
             total_amt += int(item['quantity']) * float(item['price'])
             # OrderItems
             items = CartOrderItems.objects.create(
-                order = order,
-                invoice_no = 'INV-'+str(order.id),
-                item = item['title'],
-                image = item['image'],
-                quantity = item['quantity'],
-                price = item['price'],
-                total = float(item['quantity'])*float(item['price'])
-                )
+                order=order,
+                invoice_no='INV-'+str(order.id),
+                item=item['title'],
+                image=item['image'],
+                quantity=item['quantity'],
+                price=item['price'],
+                total=float(item['quantity']) * float(item['price'])
+            )
             # End
         # Process Payment
         host = request.get_host()
@@ -293,24 +304,25 @@ def checkout_screen(request):
             'cancel_return': 'http://{}{}'.format(host, reverse('shop:payment-cancelled')),
         }
         form = PayPalPaymentsForm(initial=paypal_dict)
-        address = AddressBook.objects.filter(user=request.user,status=True).first()
-        
-        context = {
-            'cart_data':request.session['cart_data'],
-            'totalitems':len(request.session['cart_data']),
-            'total_amt':total_amt,
-            'form':form,
-            'address':address
-        }
-        return render(request, 'shop/checkout_screen.html', context)
+        address = AddressBook.objects.filter(
+            user=request.user, status=True).first()
+
+    context = {
+        'cart_data': request.session['cart_data'],
+        'total_items': len(request.session['cart_data']),
+        'total_amt': total_amt,
+        'form': form,
+        'address': address
+    }
+    return render(request, 'shop/checkout_screen.html', context)
 
 
 @csrf_exempt
 def payment_done(request):
-	return_data = request.POST
-	return render(request, 'shop/payment_success.html', {'data': return_data})
+    return_data = request.POST
+    return render(request, 'shop/payment_success.html', {'data': return_data})
 
 
 @csrf_exempt
 def payment_canceled(request):
-	return render(request, 'shop/payment_fail.html')
+    return render(request, 'shop/payment_fail.html')

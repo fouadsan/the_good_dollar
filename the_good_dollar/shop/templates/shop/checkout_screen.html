@@ -76,13 +76,15 @@ Checkout
                         <div class="checkout__order">
                             <h4>Your Order</h4>
                             <div class="checkout__order__count"></div>
-                            
+
                             <div class="checkout__order__products">Products <span>Total</span></div>
                             <ul>
                                 {% for product_id, item in cart_data.items %}
-                                     <li> <a href="/shop/{{ item.title|slugify }}/{{ product_id }}">{{ item.title }} ({{ item.quantity }})</a><span>${% widthratio item.price 1 item.quantity %}</span></li>
+                                <li> <a href="/shop/{{ item.title|slugify }}/{{ product_id }}">{{ item.title }} ({{
+                                        item.quantity }})</a><span>${% widthratio item.price 1 item.quantity %}</span>
+                                </li>
                                 {% empty %}
-                                    <p>No Data Available</p>
+                                <p>No Data Available</p>
                                 {% endfor %}
                             </ul>
                             <div class="checkout__order__item__count">Total Items <span>{{ totalitems }}</span></div>
@@ -91,8 +93,8 @@ Checkout
                         </div>
                     </div>
                 </div>
-                {{form.render}}
             </form>
+            {{form.render}}
         </div>
     </div>
 </section>
