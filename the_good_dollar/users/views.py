@@ -101,9 +101,8 @@ def orders(request):
     orders = CartOrder.objects.filter(user=request.user).order_by('-id')
     return render(request, 'user/orders.html', {'orders': orders})
 
+
 # Order Detail
-
-
 def order_items(request, id):
     order = CartOrder.objects.get(pk=id)
     orderitems = CartOrderItems.objects.filter(order=order).order_by('-id')
@@ -167,21 +166,19 @@ def update_address(request, pk):
     if request.is_ajax():
         new_address = request.POST.get('address')
         new_mobile = request.POST.get('mobile')
-        new_status = json.loads(request.POST.get('status'))
-        print(new_status)
-        
+
         obj.address = new_address
         obj.mobile = new_mobile
-        obj.status = new_status
         obj.user = request.user
-        if new_status:
-            AddressBook.objects.update(status=False)   
         obj.save()
+
         data = {
             'address': new_address,
             'mobile': new_mobile,
-            'status': new_status,
         }
+
         return JsonResponse({'data': data})
         
     return redirect('users:addressbook')
+    
+

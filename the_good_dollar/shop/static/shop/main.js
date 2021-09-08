@@ -338,14 +338,14 @@ function startDOM() {
     }, 2500);
 }
 
-if (currentUrl != shopUrl + 'cart' && currentUrl != shopUrl + 'wishlist') getData();
+if (currentUrl != shopUrl + 'cart_screen' && currentUrl != shopUrl + 'wishlist_screen') getData();
 
 setTimeout(() => {
-    if (currentUrl == shopUrl + 'cart') {
+    if (currentUrl == shopUrl + 'cart_screen') {
         changeQuantity();
-        deleteItemCartOrFav("cart"); 
-    }else if (currentUrl == shopUrl + 'wishlist') {
-        deleteItemCartOrFav("wishlist"); 
+        deleteItemCartOrFav("cart_screen"); 
+    }else if (currentUrl == shopUrl + 'wishlist_screen') {
+        deleteItemCartOrFav("wishlist_screen"); 
     }else {
         filterData();
     }

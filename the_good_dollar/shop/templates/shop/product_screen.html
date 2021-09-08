@@ -34,7 +34,7 @@ Product Detail
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star-half-o"></i>
-                        <span>(18 reviews)</span>
+                        <span>({{ reviews.count }} review{{ reviews.count|pluralize }})</span>
                     </div>
                     <div class="product__details__price">${{ qs.productattribute_set.first.price }}</div>
                     <p>{{ qs.detail }}</p>
@@ -125,8 +125,8 @@ Product Detail
                                         <!-- Detail -->
                                             {% for review in reviews %}
                                             <blockquote class="blockquote text-right">
-                                                <small>{{review.review_text}}</small>
-                                                <footer class="blockquote-footer">{{review.user}} 
+                                                <small>{{ review.review_text }}</small>
+                                                <footer class="blockquote-footer">{{ review.user }} 
                                                     <cite title="Source Title">
                                                         {% for star in review.review_rating|ljust:review.review_rating %}
                                                         <i class="fa fa-star text-warning"></i>

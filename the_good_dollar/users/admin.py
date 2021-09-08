@@ -11,7 +11,7 @@ class CartOrderAdmin(admin.ModelAdmin):
 admin.site.register(CartOrder,CartOrderAdmin)
 
 class CartOrderItemsAdmin(admin.ModelAdmin):
-	list_display=('invoice_no', 'item', 'image_tag', 'qty', 'price', 'total')
+	list_display=('invoice_no', 'item', 'image_tag', 'quantity', 'price', 'total')
 admin.site.register(CartOrderItems,CartOrderItemsAdmin)
 
 class AddressBookAdmin(admin.ModelAdmin):

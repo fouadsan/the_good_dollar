@@ -94,8 +94,6 @@ function addAddr() {
 							<button type="button" id="edit-${data.id}" class="btn float-right edit__addr" data-bs-toggle="modal" data-bs-target="#update-addr-modal"><i class="fa fa-edit"></i></button>
 						</div>
 					`
-					CardParentEl.appendChild(newAddrCard);
-					addrBookWrapper.insertBefore(CardParentEl, addrBookWrapper.firstChild);
 				} else {
 					newAddrCard.classList.add('card', 'mb-3');
 					newAddrCard.innerHTML= `
@@ -110,9 +108,10 @@ function addAddr() {
 						</div>
 					`
 					CardParentEl.appendChild(newAddrCard);
-					addrBookWrapper.append(CardParentEl);
+					addrBookWrapper.insertBefore(CardParentEl, addrBookWrapper.firstChild);
 				}
 				$('#create-addr-modal').modal('hide');
+				createAddrForm.reset();
 				// handleModalAlerts('success', 'New Object added!');
 			},
 			error: function () {
@@ -171,7 +170,7 @@ function delAddr() {
 
 }
 
-function getAddrData(addressInput, mobileInput, statusInput) {
+function getAddrData(addressInput, mobileInput) {
 	const addrDataBaseUrl = 'addr_data/';
 
 	const editAddrBtns = document.querySelectorAll('.edit__addr');
@@ -187,9 +186,7 @@ function getAddrData(addressInput, mobileInput, statusInput) {
 				success: function (response) {
 					const data = response.data;
 					addressInput.value = data.address;
-					mobileInput.value = data.mobile;
-					data.status ? statusInput.checked = true : statusInput.checked = false;
-					
+					mobileInput.value = data.mobile;					
 				},
 				error: function (error) {
 					console.log(error)
@@ -199,7 +196,7 @@ function getAddrData(addressInput, mobileInput, statusInput) {
 	});
 }
 
-function updateAddr(addressInput, mobileInput, statusInput) {
+function updateAddr(addressInput, mobileInput) {
 	const updateAddrBaseUrl = "update_address/";
 	const updateAddrForm = document.getElementById('update-addr-form');
 
@@ -209,9 +206,6 @@ function updateAddr(addressInput, mobileInput, statusInput) {
 		const addrCardEl = document.getElementById('addr-' + upId);
 		const addressEl = addrCardEl.firstElementChild.firstElementChild;
 		const mobileEl = addrCardEl.firstElementChild.lastElementChild;
-		const statusEl = addrCardEl.lastElementChild.firstElementChild;
-		const activateBtn = statusEl.nextElementSibling;
-		console.log(statusInput);
 
 		$.ajax({
 			type: 'POST',
@@ -220,18 +214,13 @@ function updateAddr(addressInput, mobileInput, statusInput) {
 				'csrfmiddlewaretoken': csrf[0].value,
 				'address': addressInput.value,
 				'mobile': mobileInput.value,
-				'status': statusInput.checked ? true : false
+
 			},
 			success: function (response) {
 				const data = response.data;
 				console.log(data)
 				addressEl.textContent = data.address;
 				mobileEl.textContent = data.mobile;
-				if(data.status) {
-					statusEl.style.display = 'inline-block';
-				}else {
-					deactivateAddrCardEl(addrCardEl);
-				}
 
 				$('#update-addr-modal').modal('hide');	
 			},

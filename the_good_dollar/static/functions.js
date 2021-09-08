@@ -1,3 +1,13 @@
+const date = new Date().getFullYear();
+const copyrightEl = document.getElementById('copyright-el');
+function getCopyDate() {
+    copyrightEl.innerHTML = `
+        <p>
+            Copyright &copy;${date} All rights reserved | Developped by <a href="https://fouadben.herokuapp.com" target="_blank">Fouad B.</a>
+        </p>
+    `
+}
+
 const rootUrl = window.location.origin
 const currentUrl = window.location.href;
 
@@ -71,3 +81,4 @@ const handleAlerts = (position, title, msg, type, boolConfirmBtn, timer) => {
     })
 }
 
+getCopyDate()

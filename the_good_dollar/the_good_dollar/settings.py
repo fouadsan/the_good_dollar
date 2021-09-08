@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'blog',
 
     # Third party apps,
-    'crispy_forms'
+    'crispy_forms',
+    'paypal.standard.ipn'
 ]
 
 MIDDLEWARE = [
@@ -156,3 +157,5 @@ EMAIL_USE_TLS = True
 # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 DEFAULT_FROM_EMAIL = 'BenayadFouad Team <noreplay@fafopalermo.com>'
 
+PAYPAL_RECEIVER_EMAIL = 'sb-c5xgx6555500@business.example.com'
+PAYPAL_TEST = True

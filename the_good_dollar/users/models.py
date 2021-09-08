@@ -40,7 +40,7 @@ class CartOrderItems(models.Model):
     invoice_no = models.CharField(max_length=150)
     item = models.CharField(max_length=150)
     image = models.CharField(max_length=200)
-    qty = models.IntegerField()
+    quantity = models.IntegerField()
     price = models.FloatField()
     total = models.FloatField()
 
@@ -48,7 +48,7 @@ class CartOrderItems(models.Model):
         verbose_name_plural = 'Order Items'
 
     def image_tag(self):
-        return mark_safe('<img src="/media/%s" width="50" height="50" />' % (self.image))
+        return mark_safe('<img src="%s" width="50" height="50" />' % (self.image))
 
 
 # AddressBook

@@ -107,7 +107,7 @@ class AddressBookForm(forms.ModelForm):
         self.helper.layout = Layout(
             Field('address', id="id_updateAddress"),
             Field('mobile', id="id_updateMobile"),
-            Field('status', id="id_updateStatus"),
+            # Field('status', id="id_updateStatus"),
         )
         self.helper.add_input(
             Submit('submit', 'Submit', css_class='btn-primary'))

@@ -69,19 +69,19 @@
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-12 col-12">
                 <div class="header__logo">
-                    <a href="./index.html"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
+                    <a href="{% url 'main:home-screen' %}"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-6 col-md-9 col-sm-12 col-12">
                 <nav class="header__menu">
                     <ul>
-                        <li><a href="./index.html">Home</a></li>
-                        <li><a href="#">Shop</a>
+                        <li><a href="{% url 'main:home-screen' %}">Home</a></li>
+                        <li><a href="{% url 'shop:home-screen' %}">Shop</a>
                             <ul class="header__menu__dropdown">
-                                <li><a href="./shop-details.html">Shop</a></li>
-                                <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                <li><a href="./checkout.html">Check Out</a></li>
-                                <li><a href="./blog-details.html">Whishlist</a></li>
+                                <li><a href="{% url 'shop:home-screen' %}">Home</a></li>
+                                <li><a href="{% url 'shop:cart-screen' %}">Cart</a></li>
+                                <li><a href="{% url 'shop:checkout-screen' %}">Checkout</a></li>
+                                <li><a href="{% url 'shop:wishlist-screen' %}">Wishlist</a></li>
                             </ul>
                         </li>
                         <li><a href="./contact.html">Contact</a></li>

@@ -3,7 +3,13 @@ from django.http import JsonResponse
 import json
 from django.db.models import Max, Avg
 
+from django.urls import reverse
+from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+from paypal.standard.forms import PayPalPaymentsForm
+
 from .models import Subcategory, Product, Brand, Size, Color, ProductAttribute, ProductReview
+from users.models import CartOrder, CartOrderItems, AddressBook
 from .forms import ReviewForm
 from .utils import get_object, add_to_cart_or_fav, delete_or_update_from_cart_or_fav, get_items
 
@@ -129,9 +135,6 @@ def product_screen(request, slug, _id):
     avg_reviews = ProductReview.objects.filter(product = qs).aggregate(avg_rating=Avg('review_rating'))
     # End
     
-
-    
-
     context = {
         'qs': qs,
         'sizes': sizes,
@@ -250,3 +253,64 @@ def wishlist_screen(request):
     context = get_items(request, "wishlist_data")
     return render(request, 'shop/wishlist_screen.html',context)
 
+
+# Checkout
+def checkout_screen(request):
+    total_amt = 0
+    totalAmt = 0
+    if 'cart_data' in request.session:
+        for p_id, item in request.session['cart_data'].items():
+            totalAmt += int(item['quantity']) * float(item['price'])
+        # Order
+        order=CartOrder.objects.create(
+                user=request.user,
+                total_amt=totalAmt
+            )
+        # End
+        for p_id, item in request.session['cart_data'].items():
+            total_amt += int(item['quantity']) * float(item['price'])
+            # OrderItems
+            items = CartOrderItems.objects.create(
+                order = order,
+                invoice_no = 'INV-'+str(order.id),
+                item = item['title'],
+                image = item['image'],
+                quantity = item['quantity'],
+                price = item['price'],
+                total = float(item['quantity'])*float(item['price'])
+                )
+            # End
+        # Process Payment
+        host = request.get_host()
+        paypal_dict = {
+            'business': settings.PAYPAL_RECEIVER_EMAIL,
+            'amount': total_amt,
+            'item_name': 'OrderNo-' + str(order.id),
+            'invoice': 'INV-' + str(order.id),
+            'currency_code': 'USD',
+            'notify_url': 'http://{}{}'.format(host, reverse('shop:paypal-ipn')),
+            'return_url': 'http://{}{}'.format(host, reverse('shop:payment-done')),
+            'cancel_return': 'http://{}{}'.format(host, reverse('shop:payment-cancelled')),
+        }
+        form = PayPalPaymentsForm(initial=paypal_dict)
+        address = AddressBook.objects.filter(user=request.user,status=True).first()
+        
+        context = {
+            'cart_data':request.session['cart_data'],
+            'totalitems':len(request.session['cart_data']),
+            'total_amt':total_amt,
+            'form':form,
+            'address':address
+        }
+        return render(request, 'shop/checkout_screen.html', context)
+
+
+@csrf_exempt
+def payment_done(request):
+	return_data = request.POST
+	return render(request, 'shop/payment_success.html', {'data': return_data})
+
+
+@csrf_exempt
+def payment_canceled(request):
+	return render(request, 'shop/payment_fail.html')

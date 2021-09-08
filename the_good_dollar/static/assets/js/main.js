@@ -57,7 +57,7 @@ function applyNiceSelect() {
 }
 
 // Nice Secroll  
-function applyNiceSecroll() {
+function applyNiceScroll() {
     $(".nice-scroll").niceScroll({
         cursorcolor: "#0d0d0d",
         cursorwidth: "5px",
@@ -69,28 +69,28 @@ function applyNiceSecroll() {
 }
 
 // 5. Departements dropdown toggler
-function toggleDepartBtn() {
-    heroCatAllEl.addEventListener('click', () => {
-        heroCatAllToggler.classList.contains('fa-bars') ? heroCatAllToggler.classList.replace('fa-bars', 'fa-times') : heroCatAllToggler.classList.replace('fa-times', 'fa-bars');
+// function toggleDepartBtn() {
+//     heroCatAllEl.addEventListener('click', () => {
+//         heroCatAllToggler.classList.contains('fa-bars') ? heroCatAllToggler.classList.replace('fa-bars', 'fa-times') : heroCatAllToggler.classList.replace('fa-times', 'fa-bars');
 
-        $('.hero__categories ul').slideToggle(400);
+//         $('.hero__categories ul').slideToggle(400);
 
-    })
-}
+//     })
+// }
 
 // Departements dropdown 
-function displayDepartementList() {
-    const departList = document.querySelector('.hero__categories ul');
-    if (window.location.href === window.location.origin) {
-        heroCatAllToggler.classList.remove('fa-bars');
-        heroCatAllToggler.classList.add('fa-times');
-        departList.style.display = "block";
+// function displayDepartementList() {
+//     const departList = document.querySelector('.hero__categories ul');
+//     if (window.location.href === window.location.origin) {
+//         heroCatAllToggler.classList.remove('fa-bars');
+//         heroCatAllToggler.classList.add('fa-times');
+//         departList.style.display = "block";
 
-    } else {
-        departList.style.display = "none";
-    }
+//     } else {
+//         departList.style.display = "none";
+//     }
 
-}
+// }
 
 function start() {
     setPreloader();
@@ -98,9 +98,9 @@ function start() {
     getHamburger(mediaQuery);
     // toolTip();
     applyNiceSelect();
-    applyNiceSecroll();
-    toggleDepartBtn();
-    displayDepartementList();
+    applyNiceScroll();
+    // toggleDepartBtn();
+    // displayDepartementList();
 }
 
 
