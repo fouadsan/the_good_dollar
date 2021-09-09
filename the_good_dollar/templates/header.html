@@ -36,7 +36,11 @@
                             </ul>
                         </div>
                         <div class="header__top__right__auth">
-                            <a href="#"><i class="fa fa-user"></i> Login</a>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'users:dashboard' %}"><i class="fa fa-user"></i> Account</a>
+                            {% else %}
+                                <a href="{% url 'users:login' %}"><i class="fa fa-user"></i> Login</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -95,7 +99,6 @@
                         <li><a href="{% url 'shop:wishlist-screen' %}"><i class="fa fa-heart fa-3x"></i> <span class="wishlist_num">{{ wishlist_data|length }}</span></a></li>
                         <li><a href="{% url 'shop:cart-screen' %}"><i class="fa fa-shopping-bag fa-3x"></i> <span class="cart_num">{{ cart_data|length }}</span></a></li>
                     </ul>
-                    <div class="header__cart__price">total: <span>$150.00</span></div>
                 </div>
             </div>
         </div>

@@ -76,13 +76,27 @@ img {
 	max-width: 100%;
 }
 
-input:focus,
-select:focus,
-button:focus,
-textarea:focus {
-	outline: none;
+input {
+	color: var(--text-color);
 }
 
+textarea:hover, 
+input:hover, 
+textarea:active, 
+input:active, 
+textarea:focus, 
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active
+{
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+}
 a {
 	text-decoration: none;
 	cursor: pointer;
@@ -170,6 +184,7 @@ ol {
 }
 
 .site-btn {
+	min-width: 100px;
 	font-size: 14px;
 	color: var(--white-color);
 	font-weight: 800;
@@ -184,6 +199,15 @@ ol {
 .site-btn:hover {
 	background: var(--accent-color);
 	color:  var(--white-color);
+}
+
+.accordion-button:not(.collapsed) {
+	color: var(--accent-color);
+	background-color: rgba(234, 27, 37, 0.1);
+}
+
+.accordion-button:not(.collapsed)::after {
+	background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='rgba(234, 27, 37, 1)'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
 }
 
 /*---------------------
@@ -345,7 +369,7 @@ width: 100%;
 -----------------------*/
 
 .header__top {
-	background: #f5f5f5;
+	background: var(--white-color);
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -643,17 +667,6 @@ width: 100%;
 	right: -12px;
 }
 
-.header__cart .header__cart__price {
-	font-size: 14px;
-	color: #6f6f6f;
-	display: inline-block;
-}
-
-.header__cart .header__cart__price span {
-	color: green;
-	font-weight: 700;
-}
-
 .hamburger__menu__wrapper {
 	display: none;
 }
@@ -789,7 +802,6 @@ width: 100%;
 	width: 70%;
 	height: 100%;
 	font-size: 16px;
-	color: #b2b2b2;
 	padding-left: 20px;
 	border: none;
 	background: inherit;
@@ -1324,7 +1336,7 @@ width: 100%;
 
 .filter__item {
 	padding: 0.5rem 0 0.5rem 0;
-	background: lightgray;
+	background: #b2b2b2;
 	border-radius: 1rem;
 	margin-bottom: 2rem;
 	border: none;
@@ -1855,7 +1867,6 @@ width: 100%;
 	border: 1px solid var(--primary-color);
 	padding-left: 20px;
 	font-size: 16px;
-	color: #b2b2b2;
 	border-radius: 4px;
 }
 
@@ -2115,75 +2126,6 @@ width: 100%;
 	margin-bottom: 0;
 }
 
-/*---------------------
-  Map
------------------------*/
-
-.map {
-	height: 500px;
-	position: relative;
-}
-
-.map iframe {
-	width: 100%;
-}
-
-.map .map-inside {
-	position: absolute;
-	left: 50%;
-	top: 160px;
-	-webkit-transform: translateX(-175px);
-	-ms-transform: translateX(-175px);
-	transform: translateX(-175px);
-}
-
-.map .map-inside i {
-	font-size: 48px;
-	color: var(--accent-color);
-	position: absolute;
-	bottom: -75px;
-	left: 50%;
-	-webkit-transform: translateX(-18px);
-	-ms-transform: translateX(-18px);
-	transform: translateX(-18px);
-}
-
-.map .map-inside .inside-widget {
-	width: 350px;
-	background: var(--white-color);
-	text-align: center;
-	padding: 23px 0;
-	position: relative;
-	z-index: 1;
-	-webkit-box-shadow: 0 0 20px 5px rgba(12, 7, 26, 0.15);
-	box-shadow: 0 0 20px 5px rgba(12, 7, 26, 0.15);
-}
-
-.map .map-inside .inside-widget:after {
-	position: absolute;
-	left: 50%;
-	bottom: -30px;
-	-webkit-transform: translateX(-6px);
-	-ms-transform: translateX(-6px);
-	transform: translateX(-6px);
-	border: 12px solid transparent;
-	border-top: 30px solid var(--white-color);
-	content: "";
-	z-index: -1;
-}
-
-.map .map-inside .inside-widget h4 {
-	font-size: 22px;
-	font-weight: 700;
-	color: var(--text-color);
-	margin-bottom: 4px;
-}
-
-.map .map-inside .inside-widget ul li {
-	font-size: 16px;
-	color: #666666;
-	line-height: 26px;
-}
 
 /*---------------------
   Contact Form
@@ -2538,6 +2480,58 @@ width: 100%;
 	top: 0;
 	transform: translate(-50%, 0);
   }
+
+/*---------------------
+  Users
+-----------------------*/
+
+.user__sidebar {
+	
+}
+
+.user__sidebar a {
+	padding: 0.75rem 1rem;
+}
+
+.user__sidebar a.active {
+	background-color: var(--accent-color);
+    border-color: var(--accent-color) ;
+}
+
+.user__content {
+	height: 100vh;
+}
+
+.user__content .addrbook__wrapper {
+	height: 50%;
+	overflow: auto;
+}
+
+.user__content .form-control {
+	width: 90%;
+}
+
+.user__content .form-floating label {
+	color: var(--accent-color);
+}
+
+.user__content .user__right__side {
+	margin-left: 3rem;
+}
+
+.user__content .user__right__side .addr__checkmark {
+	vertical-align: bottom;
+}
+
+.user__content .user__right__side .edit__addr {
+	float: right;
+}
+
+.user__content #profile-form button {
+	float: right;
+	margin-top: 1rem;
+	margin-right: 3.5rem;
+}
 
 /*--------------------------------- Responsive Media Quaries -----------------------------*/
 

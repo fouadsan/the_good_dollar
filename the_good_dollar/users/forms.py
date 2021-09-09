@@ -72,7 +72,7 @@ class ResetPasswordForm(PasswordResetForm):
         self.helper.form_show_labels = False
 
     email = forms.EmailField(widget=forms.EmailInput(
-        attrs={'class': 'form-control mb-3', 'placeholder': 'Email', 'id': 'Email'}))
+        attrs={'class': 'form-control mb-3', 'placeholder': 'Enter Your Email', 'id': 'Email'}))
 
 
 class ResetPasswordConfirmForm(SetPasswordForm):

@@ -38,10 +38,7 @@ def get_orders(request):
         return JsonResponse({'data': data})
 
 
-def orders_screen(request):
-    return render(request, 'users/orders.html')
-
-
+@login_required
 def reviews_screen(request):
     reviews = ProductReview.objects.filter(user=request.user).order_by('-id')
     return render(request, 'users/reviews.html', {'reviews': reviews})
@@ -99,14 +96,14 @@ def profile_screen(request):
 # Orders
 def orders(request):
     orders = CartOrder.objects.filter(user=request.user).order_by('-id')
-    return render(request, 'user/orders.html', {'orders': orders})
+    return render(request, 'users/orders.html', {'orders': orders})
 
 
 # Order Detail
 def order_items(request, id):
     order = CartOrder.objects.get(pk=id)
-    orderitems = CartOrderItems.objects.filter(order=order).order_by('-id')
-    return render(request, 'user/order-items.html', {'orderitems': orderitems})
+    order_items = CartOrderItems.objects.filter(order=order).order_by('-id')
+    return render(request, 'users/order_items.html', {'order_items': order_items})
 
 
 # AddressBook
@@ -159,6 +156,14 @@ def get_addr_data(request, pk):
             'status': obj.status,
         }
         return JsonResponse({'data': data})
+
+
+# Delete Addressbook
+def delete_address(request, pk):
+    if request.is_ajax():
+        return JsonResponse({'msg': 'hello delete addrbook'})
+        
+    return redirect('users:addressbook')
 
 # Update Addressbook
 def update_address(request, pk):

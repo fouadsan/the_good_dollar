@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block title %}
-Cart
+My Addresses
 {% endblock title %}
 
 {% block content %}
@@ -43,6 +43,29 @@ Cart
 	</div>
 	<!-- Create New Address Book Modal End -->
 
+	<!-- Delete Address Book Modal Start -->
+	<div class="modal fade" id="delete-addr-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Add Address Book</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p class="mb-0">Are you sure you want to delete: </p>
+				</div>
+				<div class="modal-footer">
+					<form id="delete-addr-form">
+						{% csrf_token %}
+						<button type="button" class="btn  btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="submit" class="btn  btn-danger">Delete</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Delete Address Book Modal End -->
+
 	<!-- Update Address Book Modal Start -->
 	<div class="modal fade" id="update-addr-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -63,12 +86,12 @@ Cart
 	</div>
 	<!-- Update Address Book Modal End -->
 
-	<div class="row">
+	<div class="row user__content">
 		<div class="col-md-3">
 			{% include 'users/user_sidebar.html' %}
 		</div>
 		<div class="col-md-9">
-			<div class="row addrbook__wrapper">
+			<div class="row addrbook__wrapper user__right__side">
 				{% for addr in addrbook %}
 				<div class="col-md-4">
 					<div class="card mb-3 {% if addr.status %}border-secondary shadow{% endif %}" id="addr-{{ addr.id }}">
@@ -78,17 +101,21 @@ Cart
 						</div>
 						{% if addr.status %}
 						<div class="card-footer">
-							<i class="fa fa-check-circle text-success" id="check-{{ addr.id }}"></i>
-							<button id="{{ addr.id }}" class="btn btn-sm btn-info activate-address activate__btn" style="display:none;">Activate</button>
+							<i class="fa fa-check-circle fa-2x text-success addr__checkmark" id="check-{{ addr.id }}"></i>
+							<button id="{{ addr.id }}" class="btn btn-sm btn-outline-danger activate-address activate__btn" style="display:none;">Activate</button>
+							<!-- delete-addr -->
+							<button type="button" id="del-{{ addr.id }}" class="btn del__addr" data-bs-toggle="modal" data-bs-target="#delete-addr-modal" style="display:none;"><i class="fa fa-trash"></i></button>
 							<!-- update-addr -->
-							<button type="button" id="edit-{{ addr.id }}" class="btn float-right edit__addr" data-bs-toggle="modal" data-bs-target="#update-addr-modal"><i class="fa fa-edit"></i></button>
+							<button type="button" id="edit-{{ addr.id }}" class="btn edit__addr" data-bs-toggle="modal" data-bs-target="#update-addr-modal"><i class="fa fa-pen"></i></button>
 						</div>
 						{% else %}
 						<div class="card-footer footer{{addr.id}}">
-							<i class="fa fa-check-circle text-success" id="check-{{ addr.id }}" style="display:none;"></i>
-							<button  id="{{ addr.id }}" class="btn btn-sm btn-info activate-address activate__btn">Activate</button>
+							<i class="fa fa-check-circle fa-2x text-success" id="check-{{ addr.id }}" style="display:none;"></i>
+							<button  id="{{ addr.id }}" class="btn btn-sm btn-outline-danger activate-address activate__btn">Activate</button>
+							<!-- delete-addr -->
+							<button type="button" id="del-{{ addr.id }}" class="btn del__addr" data-bs-toggle="modal" data-bs-target="#delete-addr-modal"><i class="fa fa-trash"></i></button>
 							<!-- update-addr -->
-							<button type="button" id="edit-{{ addr.id }}" class="btn float-right edit__addr" data-bs-toggle="modal" data-bs-target="#update-addr-modal"><i class="fa fa-edit"></i></button>
+							<button type="button" id="edit-{{ addr.id }}" class="btn edit__addr" data-bs-toggle="modal" data-bs-target="#update-addr-modal"><i class="fa fa-pen"></i></button>
 						</div>
 						{% endif %}
 					</div>

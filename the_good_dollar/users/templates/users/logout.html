@@ -11,10 +11,13 @@ Cart
     
 {% block content %}
 <!-- Logout Page Begin -->
-<div class="">
-    <h1 class="">You have successfully logged out. </h1>
-    <p class=""><a href="{% url 'users:login' %}" class="click-login">Click Here</a> to login again.</p>
-</div>    
+<main class="container my-4 user__content  mt-5">
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading mb-2">Logged Out !</h4>
+        <p>You have successfully logged out.</p>
+        <a href="{% url 'users:login' %}">Login In Again</a>
+    </div>
+</main>    
 <!-- Logout Page End -->
 {% endblock content %}
 

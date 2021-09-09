@@ -1,6 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from .views import dashboard_screen, get_orders, orders_screen, reviews_screen, addressbook_screen, activate_address, get_addr_data, update_address, signup_screen, profile_screen
+from .views import dashboard_screen, get_orders, orders, order_items, reviews_screen, addressbook_screen, activate_address, get_addr_data, delete_address,\
+     update_address, signup_screen, profile_screen
 from .forms import UserLoginForm, ResetPasswordForm, ResetPasswordConfirmForm
 from django.urls import path, reverse_lazy
 
@@ -8,16 +9,18 @@ app_name = 'users'
 
 urlpatterns = [
     path('dashboard/', dashboard_screen, name='dashboard'),
-    path('orders_data',get_orders,name='get-orders-data'),
+    path('orders_data',get_orders, name='get-orders-data'),
     path('profile', profile_screen, name='profile'),
-    path('orders', orders_screen, name='orders'),
+    path('orders', orders, name='orders'),
+    path('orders_items/<int:id>', order_items, name='order-items'),
     path('reviews', reviews_screen, name='reviews'),
     path('addressbook', addressbook_screen, name='addressbook'),
     path('activate_address/', activate_address, name='activate-address'),
     path('addr_data/<pk>', get_addr_data, name='address-data'),
+    path('delete_addr/<pk>', delete_address, name='delete-address'),
     path('update_address/<pk>', update_address, name='update-address'),
-    path('sign-up', signup_screen, name='signup'),
-    path('login', auth_views.LoginView.as_view(
+    path('signup/', signup_screen, name='signup'),
+    path('login/', auth_views.LoginView.as_view(
         template_name='users/login.html',
         authentication_form=UserLoginForm,
         extra_context={'header': 'Login'}),

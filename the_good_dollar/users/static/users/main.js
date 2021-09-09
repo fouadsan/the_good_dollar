@@ -64,7 +64,7 @@ function addAddr() {
 				'csrfmiddlewaretoken': csrf[0].value,
 				'address': addressEl.value,
 				'mobile': mobileEl.value,
-				'status': statusEl.checked ? true : false,
+				'status': statusEl.checked ? true : false
 			},
 
 			success: function (response) {
@@ -89,9 +89,9 @@ function addAddr() {
 							<p class="card-text">${data.mobile}</p>
 						</div>
 						<div class="card-footer">
-							<i class="fa fa-check-circle text-success" id="check-${data.id}"></i>
-							<button id="${data.id}" class="btn btn-sm btn-info" style="display:none;" activate__btn>Activate</button>
-							<button type="button" id="edit-${data.id}" class="btn float-right edit__addr" data-bs-toggle="modal" data-bs-target="#update-addr-modal"><i class="fa fa-edit"></i></button>
+							<i class="fa fa-check-circle fa-2x text-success addr__checkmark" id="check-${data.id}"></i>
+							<button id="${data.id}" class="btn btn-sm btn-outline-danger" style="display:none;" activate__btn>Activate</button>
+							<button type="button" id="edit-${data.id}" class="btn edit__addr" data-bs-toggle="modal" data-bs-target="#update-addr-modal"><i class="fa fa-pen"></i></button>
 						</div>
 					`
 				} else {
@@ -102,9 +102,9 @@ function addAddr() {
 							<p class="card-text">${data.mobile}</p>
 						</div>
 						<div class="card-footer">
-							<i class="fa fa-check-circle text-success" id="check-${data.id}" style="display:none;"></i>
-							<button id="${data.id}" class="btn btn-sm btn-info" activate__btn>Activate</button>
-							<button type="button" id="edit-${data.id}" class="btn float-right edit__addr" data-bs-toggle="modal" data-bs-target="#update-addr-modal"><i class="fa fa-edit"></i></button>
+							<i class="fa fa-check-circle fa-2x text-success addr__checkmark" id="check-${data.id}" style="display:none;"></i>
+							<button id="${data.id}" class="btn btn-sm btn-outline-danger" activate__btn>Activate</button>
+							<button type="button" id="edit-${data.id}" class="btn edit__addr" data-bs-toggle="modal" data-bs-target="#update-addr-modal"><i class="fa fa-pen"></i></button>
 						</div>
 					`
 					CardParentEl.appendChild(newAddrCard);
@@ -126,8 +126,10 @@ function deactivateAddrCardEl(activatedAddrCardEl) {
 	activatedAddrCardEl.classList.remove('border-secondary', 'shadow');
 	const addrCheckMark = activatedAddrCardEl.querySelector('i');
 	const addrActivatedBtn = activatedAddrCardEl.querySelector('button');
+	const addrActivatedDelBtn = activatedAddrCardEl.querySelector('.del__addr');
 	addrCheckMark.style.display = 'none';
 	addrActivatedBtn.style.display = 'inline-block';
+	addrActivatedDelBtn.style.display = 'inline-block';
 } 
 
 function activateAddr() {
@@ -148,12 +150,15 @@ function activateAddr() {
 					if(response.bool==true) {
 
 						const activatedAddrCardEl = document.querySelector('.shadow');
-
 						const newActivatedAddrCardEl = document.getElementById(`addr-${_addrId}`);
 						const addrCheckMark = document.getElementById(`check-${_addrId}`);
+						const delAddrBtn = activateBtn.nextElementSibling;
+
 						deactivateAddrCardEl(activatedAddrCardEl);
+						
 						newActivatedAddrCardEl.classList.add('border-secondary', 'shadow');
 						activateBtn.style.display = "none";
+						delAddrBtn.style.display = "none";
 						addrCheckMark.style.display = "inline-block";
 					}
 					
@@ -167,7 +172,32 @@ function activateAddr() {
 }
 
 function delAddr() {
+	const deleteAddrForm = document.getElementById('delete-addr-form');
+	const delAddrBtns = document.querySelectorAll('.del__addr');
+	let addrId;
+	delAddrBtns.forEach(delBtn => {
+		delBtn.addEventListener('click', () => {
+			addrId = delBtn.id.slice(4);
+		});
 
+		deleteAddrForm.addEventListener('submit', function(e) {
+			e.preventDefault();
+
+			$.ajax({
+				type: 'POST',
+				url: deleteUrl + addrId,
+				data: {
+					'csrfmiddlewaretoken': csrf[0].value,
+				},
+				success: function (response) {
+					console.log(response.msg);
+				},
+				error: function (error) {
+					// handleAlerts('center', 'Error!', 'Oops...something went wrong', 'error', true)
+				}
+			});
+		})
+	});
 }
 
 function getAddrData(addressInput, mobileInput) {
@@ -193,6 +223,7 @@ function getAddrData(addressInput, mobileInput) {
 				}
 			})
 		})
+		
 	});
 }
 

@@ -7,36 +7,58 @@
 {% endblock %}
 
 {% block title %}
-Profile
+My Profile
 {% endblock title %}
     
 {% block content %}
 <!-- Profile Page Begin -->
-<main class="container my-4">
+<main class="container my-4 user__content">
 	<!-- Featured Products -->
-	<h3 class="my-4 border-bottom pb-1">Edit Profile</h3>
+	<h3 class="my-4">Edit Profile</h3>
 	<div class="row">
 		<div class="col-md-3">
 			{% include 'users/user_sidebar.html' %}
 		</div>
-		<div class="col-md-9">
+
+		<div class="col-md-6">
 			{% if msg %}
 			<p class="text-success">{{ msg }}</p>
 			{% endif %}
-			<table class="table table-bordered">
-				<form id="profile-form">
-					{% csrf_token %}
-					{{ form.as_table }}
-					<tr>
-						<td colspan="2">
-							<input id="saveProfile-box" type="submit" value="Save" class="btn btn-primary" />
-							<div id="spinner-box" class="spinner-border text-center not-visible">
-								<div class="sr-only" role="status"></div>
-							</div>
-						</td>
-					</tr>
-				</form>
-			</table>
+			<form id="profile-form" class="user__right__side" autocomplete="off" >
+				{% csrf_token %}
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control" id="id_first_name" placeholder="First Name" value="{{ form.instance.first_name }}">
+					<label for="id_first_name">First Name</label>
+				</div>
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control" id="id_last_name" placeholder="Last Name" value="{{ form.instance.last_name }}">
+					<label for="id_last_name">Last Name</label>
+				</div>
+				<div class="form-floating mb-3">
+					<input type="email" class="form-control" id="id_email" placeholder="fouad@fouad.com" value="{{ form.instance.email }}">
+					<label for="id_email">Email Address</label>
+				</div>
+				<div class="form-floating mb-3">
+					<input type="number" class="form-control" id="id_phone" placeholder="0551903435" value="{{ form.instance.phone }}">
+					<label for="id_phone">Phone</label>
+				</div>
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control" id="id_address" placeholder="123 New York, US" value="{{ form.instance.address }}">
+					<label for="id_address">Address</label>
+				</div>
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control" id="id_city" placeholder="Setif" value="{{ form.instance.city }}">
+					<label for="id_city">City</label>
+				</div>
+				<button type="submit" class="btn site-btn">
+					<span id="saveProfile-box">Save</span>
+					<div id="spinner-box" class="spinner-border spinner-border-sm text-center not-visible">
+					</div>
+				</button>
+			</form>
+			
+			
+			
 		</div>
 	</div>
 </main>

@@ -26,24 +26,9 @@
                             <div class="hero__search__categories">
                                 <select class="custom-select" id="inputGroupSelect01">
                                     <option selected>All Categories</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    {% for category in categories %}
+                                        <option value="{{ forloop.counter }}">{{ category.title }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                             <input type="text" placeholder="Search for a product ?">

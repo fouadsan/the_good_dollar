@@ -1,5 +1,5 @@
 function updateProfile() {
-    const alertBox = document.getElementById('alert-box');
+const alertBox = document.getElementById('alert-box');
 const spinnerBox = document.getElementById('spinner-box');
 const saveProfilebox = document.getElementById('saveProfile-box');
 const profileForm = document.getElementById('profile-form');

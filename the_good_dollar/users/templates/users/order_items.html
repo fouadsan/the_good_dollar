@@ -6,12 +6,12 @@
 {% endblock %}
 
 {% block title %}
-Cart
+My Orders
 {% endblock title %}
     
 {% block content %}
 <!-- Order Items Page Begin -->
-<main class="container my-4">
+<main class="container my-4 user__content">
 	<!-- Featured Products -->
 	<h3 class="my-4 border-bottom pb-1">Order Items</h3>
 	<div class="row">
@@ -31,11 +31,11 @@ Cart
 						</tr>
 					</thead>
 					<tbody>
-						{% for item in orderitems %}
+						{% for item in order_items %}
 						<tr>
 							<td>{{item.invoice_no}}</td>
 							<td>
-								<p><img src="/media/{{item.image}}" width="80" /></p>
+								<p><img src="{{ item.image }}" width="80" /></p>
 								{{item.item}}
 							</td>
 							<td>{{item.qty}}</td>

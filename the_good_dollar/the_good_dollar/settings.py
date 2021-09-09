@@ -144,7 +144,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'users:login'
-LOGIN_REDIRECT_URL = 'users:dashboard-screen'
+LOGIN_REDIRECT_URL = 'users:dashboard'
 ACCOUNT_ACTIVATION_DAYS = 7
 SITE_ID = 1
 PASSWORD_RESET_TIMEOUT = 3600

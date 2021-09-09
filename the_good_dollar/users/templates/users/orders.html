@@ -6,12 +6,12 @@
 {% endblock %}
 
 {% block title %}
-Cart
+My Orders
 {% endblock title %}
     
 {% block content %}
 <!-- User Orders Page Begin -->
-<main class="container my-4">
+<main class="container my-4 user__content">
 	<!-- Featured Products -->
 	<h3 class="my-4 border-bottom pb-1">My Orders</h3>
 	<div class="row">
@@ -32,10 +32,10 @@ Cart
 					<tbody>
 						{% for order in orders %}
 						<tr>
-							<td><a href="{% url 'my_order_items' order.id %}" class="btn btn-sm btn-dark">{{order.id}}</a></td>
-							<td>{{order.total_amt}}</td>
-							<td>{{order.paid_status}}</td>
-							<td>{{order.order_dt}}</td>
+							<td><a href="{% url 'users:order-items' order.id %}" class="btn btn-sm btn-dark">{{ order.id }}</a></td>
+							<td>{{ order.total_amt }}</td>
+							<td>{{ order.paid_status }}</td>
+							<td>{{ order.order_dt }}</td>
 						</tr>
 						{% endfor %}
 					</tbody>
