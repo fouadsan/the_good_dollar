@@ -116,4 +116,4 @@ class AddressBookForm(forms.ModelForm):
 
     class Meta:
         model = AddressBook
-        fields = ('address', 'mobile', 'status')
+        fields = ('address', 'mobile', 'status', )

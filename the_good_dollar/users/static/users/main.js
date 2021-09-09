@@ -77,6 +77,7 @@ function addAddr() {
 				const newAddrCard = document.createElement('div');
 				newAddrCard.id = `addr-${data.id}`;
 				if (data.status) {
+					console.log('yes')
 					newAddrCard.classList.add('card', 'mb-3', 'border-secondary', 'shadow');
 						if (activatedAddrCardEl) {
 							deactivateAddrCardEl(activatedAddrCardEl);
@@ -95,6 +96,7 @@ function addAddr() {
 						</div>
 					`
 				} else {
+					console.log('yes')
 					newAddrCard.classList.add('card', 'mb-3');
 					newAddrCard.innerHTML= `
 						<div class="card-body">
@@ -107,9 +109,9 @@ function addAddr() {
 							<button type="button" id="edit-${data.id}" class="btn edit__addr" data-bs-toggle="modal" data-bs-target="#update-addr-modal"><i class="fa fa-pen"></i></button>
 						</div>
 					`
-					CardParentEl.appendChild(newAddrCard);
-					addrBookWrapper.insertBefore(CardParentEl, addrBookWrapper.firstChild);
 				}
+				CardParentEl.appendChild(newAddrCard);
+				addrBookWrapper.insertBefore(CardParentEl, addrBookWrapper.firstChild);
 				$('#create-addr-modal').modal('hide');
 				createAddrForm.reset();
 				// handleModalAlerts('success', 'New Object added!');
@@ -172,6 +174,7 @@ function activateAddr() {
 }
 
 function delAddr() {
+	const deleteAddrUrl = "delete_addr/";
 	const deleteAddrForm = document.getElementById('delete-addr-form');
 	const delAddrBtns = document.querySelectorAll('.del__addr');
 	let addrId;
@@ -179,25 +182,27 @@ function delAddr() {
 		delBtn.addEventListener('click', () => {
 			addrId = delBtn.id.slice(4);
 		});
-
-		deleteAddrForm.addEventListener('submit', function(e) {
-			e.preventDefault();
-
-			$.ajax({
-				type: 'POST',
-				url: deleteUrl + addrId,
-				data: {
-					'csrfmiddlewaretoken': csrf[0].value,
-				},
-				success: function (response) {
-					console.log(response.msg);
-				},
-				error: function (error) {
-					// handleAlerts('center', 'Error!', 'Oops...something went wrong', 'error', true)
-				}
-			});
-		})
 	});
+	deleteAddrForm.addEventListener('submit', function(e) {
+		e.preventDefault();
+
+		$.ajax({
+			type: 'POST',
+			url: deleteAddrUrl + addrId,
+			data: {
+				'csrfmiddlewaretoken': csrf[0].value,
+			},
+			success: function (response) {
+				console.log(response.msg);
+				const addrWrapper = document.getElementById(`addr-${addrId}`).parentElement;
+				addrWrapper.remove();
+				$('#delete-addr-modal').modal('hide');	
+			},
+			error: function (error) {
+				// handleAlerts('center', 'Error!', 'Oops...something went wrong', 'error', true)
+			}
+		});
+	})
 }
 
 function getAddrData(addressInput, mobileInput) {

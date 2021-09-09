@@ -161,7 +161,9 @@ def get_addr_data(request, pk):
 # Delete Addressbook
 def delete_address(request, pk):
     if request.is_ajax():
-        return JsonResponse({'msg': 'hello delete addrbook'})
+        obj = AddressBook.objects.get(pk=pk)
+        obj.delete()
+        return JsonResponse({'msg': 'Address has been succesfully deleted'})
         
     return redirect('users:addressbook')
 
