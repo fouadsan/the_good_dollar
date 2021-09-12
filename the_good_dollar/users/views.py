@@ -15,7 +15,6 @@ from .models import Profile, CartOrder, CartOrderItems, AddressBook
 from shop.models import ProductReview
 
 
-
 def dashboard_screen(request):
     return render(request, 'users/dashboard.html')
 
@@ -164,10 +163,12 @@ def delete_address(request, pk):
         obj = AddressBook.objects.get(pk=pk)
         obj.delete()
         return JsonResponse({'msg': 'Address has been succesfully deleted'})
-        
+
     return redirect('users:addressbook')
 
 # Update Addressbook
+
+
 def update_address(request, pk):
     obj = AddressBook.objects.get(pk=pk)
     if request.is_ajax():
@@ -185,7 +186,5 @@ def update_address(request, pk):
         }
 
         return JsonResponse({'data': data})
-        
-    return redirect('users:addressbook')
-    
 
+    return redirect('users:addressbook')
