@@ -3,8 +3,6 @@ from django.core.mail import send_mail
 from django.core.mail import BadHeaderError
 from django.shortcuts import redirect, render
 
-from .forms import ContactMe
-
 
 def contact(request):
 
