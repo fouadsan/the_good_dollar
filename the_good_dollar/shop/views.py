@@ -124,12 +124,12 @@ def product_screen(request, slug, _id):
         'size__id', 'size__title', 'price', 'color__id').distinct()
 
     # Check
-    canAdd = True
+    can_add = True
     reviewCheck = ProductReview.objects.filter(
         user=request.user, product=qs).count()
     if request.user.is_authenticated:
         if reviewCheck > 0:
-            canAdd = False
+            can_add = False
     # End
 
     # Fetch reviews
@@ -145,7 +145,7 @@ def product_screen(request, slug, _id):
         'qs': qs,
         'sizes': sizes,
         'colors': colors,
-        'canAdd': canAdd,
+        'can_add': can_add,
         'reviews': reviews,
         'avg_reviews': avg_reviews,
         'review_form': review_form

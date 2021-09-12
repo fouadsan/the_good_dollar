@@ -130,8 +130,11 @@ ol {
 
 .section-title h2, h3 {
 	color: var(--text-color);
-	font-weight: 700;
 	position: relative;
+}
+
+.section-title h2 {
+	font-weight: 700;
 }
 
 .section-title h2:after, .section-title h3:after {
@@ -1605,6 +1608,7 @@ width: 100%;
 
 .product__detail__tabs {
 	margin: 2rem 0;
+	border-radius: 10px;
 }
 
 .product__detail__tabs .card-body ul {
@@ -1621,6 +1625,10 @@ width: 100%;
 
 .product__detail__tabs .tab-content .tab-pane p {
 	padding: 1rem;
+}
+
+.product__detail__tabs .product__specs {
+	margin: 0 5rem;
 }
 
 .related__products {
