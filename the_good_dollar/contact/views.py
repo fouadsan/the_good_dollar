@@ -7,8 +7,8 @@ from .forms import ContactMe
 
 
 def contact(request):
-    form = ContactMe(request.POST or None)
-    return render(request, 'contact/contact.html', {'form': form})
+
+    return render(request, 'contact/contact.html')
 
 
 def send_email(request):
