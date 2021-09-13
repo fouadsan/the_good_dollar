@@ -18,7 +18,7 @@ function filterData() {
                             if (filterEl.classList.contains('to_checkmark')) {
                                 filterEl.nextElementSibling.style.display = 'inline-block';
                             } else {
-                                filterEl.parentElement.style.color = 'red';
+                                filterEl.parentElement.style.color = '#222222';
                             }
                             !filtersData.includes(filterEl.id) ? filtersData.push(filterEl.id) : null;
                         } else {

@@ -63,23 +63,31 @@
                 <div class="d-flex justify-content-end">
                     <div class="mobile-nav__item header__cart">
                         <ul>
-                            <li><a href="{% url 'shop:wishlist-screen' %}"><i class="fa fa-heart fa-lg"></i><span
-                                        class="wishlist_num">{{ wishlist_data|length }}</span></a></li>
-                            <li><a href="{% url 'shop:cart-screen' %}"><i class="fa fa-shopping-bag fa-lg"></i><span
-                                        class="cart_num">{{ cart_data|length }}</span></a></li>
+                            <li>
+                                <a href="{% url 'shop:wishlist-screen' %}">
+                                    <img src="{% static 'assets/img/icons/heart.png' %}" alt="" width="28">
+                                    <span class="cart_num">{{ cart_data|length }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'shop:cart-screen' %}">
+                                    <img src="{% static 'assets/img/icons/shopping-cart.png' %}" alt="" width="28">
+                                    <span class="cart_num">{{ cart_data|length }}</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+            <div class="col-lg-3 col-md-6 col-sm-12 col-12">
                 <div class="header__logo">
                     <a href="{% url 'main:home-screen' %}"><img src="{% static 'assets/img/logo/logo.png' %}"
                             alt=""></a>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-9 col-sm-12 col-12">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <nav class="header__menu">
                     <ul>
                         <li><a href="{% url 'main:home-screen' %}">Home</a></li>
@@ -92,17 +100,23 @@
                             </ul>
                         </li>
                         <li><a href="{% url 'contact:contact' %}">Contact</a></li>
-                        <li><a href="./blog.html">Blog</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="col-lg-3">
                 <div class="header__cart" id="header-cart-lg">
                     <ul>
-                        <li><a href="{% url 'shop:wishlist-screen' %}"><i class="fa fa-heart fa-3x"></i> <span
-                                    class="wishlist_num">{{ wishlist_data|length }}</span></a></li>
-                        <li><a href="{% url 'shop:cart-screen' %}"><i class="fa fa-shopping-bag fa-3x"></i> <span
-                                    class="cart_num">{{ cart_data|length }}</span></a></li>
+                        <li>
+                            <a href="{% url 'shop:wishlist-screen' %}"><img src="{% static 'assets/img/icons/heart.png' %}" alt="" width="28"> 
+                                <span class="wishlist_num">{{ wishlist_data|length }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'shop:cart-screen' %}">
+                                <img src="{% static 'assets/img/icons/shopping-cart.png' %}" alt="" width="28">
+                                <span class="cart_num">{{ cart_data|length }}</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
