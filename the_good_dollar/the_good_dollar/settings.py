@@ -32,8 +32,6 @@ INSTALLED_APPS = [
     'shop',
     'users',
     'contact',
-    'blog',
-
     # Third party apps,
     'crispy_forms',
     'paypal.standard.ipn'
