@@ -3,6 +3,7 @@
 
 {% block extend_header %}
 <script src="{% static 'main/main.js' %}" defer></script>
+<script src="{% static 'shop/main.js' %}" defer></script>
 {% endblock extend_header %}
 
 {% block title %}
@@ -11,10 +12,10 @@ Home
 
 {% block content %}
 <!-- Main Page Start -->
-<section class="container featured__products">
-   <div class="row">
+<section class="container main__container">
+   <div class="row banner__wrapper">
       <div class="col-lg-12">
-         <div class="carousel-test">
+         <div class="banner__carousel">
             <div class="image-container" id="imgs">
               <img src="https://images.unsplash.com/photo-1599394022918-6c2776530abb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1458&q=80"
                  alt="first-image"
@@ -34,14 +35,83 @@ Home
             </div>
         
             <div class="buttons-container">
-              <button id="left" class="btn"><i class="fas fa-arrow-circle-left fa-2x"></i></button>
-              <button id="right" class="btn"><i class="fas fa-arrow-circle-right fa-2x"></i></button>
+              <button id="left" class="btn prev_btn "><i class="fas fa-arrow-circle-left fa-2x"></i></button>
+              <button id="right" class="btn next_btn"><i class="fas fa-arrow-circle-right fa-2x"></i></button>
             </div>
         </div>
       </div>
    </div>
-   
-   
+   <div class="row justify-content-center pub__wrapper">
+      <div class="col-lg-3 col-md-6 col-sm-6">
+         <div class="card pub__card">
+            <img
+               src="https://images.unsplash.com/photo-1599561046251-bfb9465b4c44?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1492&q=80"
+               alt="fourth-image"
+               />
+            <p>Explore Thinnest Laptops</p>
+            <a href="{% url 'shop:home-screen' %}"><b>Shop Now <i class="fas fa-arrow-circle-right fa-sm"></i></b></a>
+         </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+         <div class="card pub__card">
+            <img
+               src="https://images.unsplash.com/photo-1599561046251-bfb9465b4c44?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1492&q=80"
+               alt="fourth-image"
+               />
+            <p>Explore Thinnest Laptops</p>
+            <a href="{% url 'shop:home-screen' %}"><b>Shop Now <i class="fas fa-arrow-circle-right fa-sm"></i></b></a>
+         </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+         <div class="card pub__card">
+            <img
+               src="https://images.unsplash.com/photo-1599561046251-bfb9465b4c44?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1492&q=80"
+               alt="fourth-image"
+               />
+            <p>Explore Thinnest Laptops</p>
+            <a href="{% url 'shop:home-screen' %}"><b>Shop Now <i class="fas fa-arrow-circle-right fa-sm"></i></b></a>
+         </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+         <div class="card pub__card">
+            <img
+               src="https://images.unsplash.com/photo-1599561046251-bfb9465b4c44?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1492&q=80"
+               alt="fourth-image"
+               />
+            <p>Explore Thinnest Laptops</p>
+            <a href="{% url 'shop:home-screen' %}"><b>Shop Now <i class="fas fa-arrow-circle-right fa-sm"></i></b></a>
+         </div>
+      </div>
+   </div>
+   <div class="featured__wrapper">
+      <div class="row">
+         <div class="col-lg-12">
+             <div class="section-title featured__title">
+                 <h2>Featured Products</h2>
+             </div>
+         </div>
+     </div>
+     <div class="d-flex justify-content-center">
+         <div class="spinner-border text-danger" role="status" id="main-spinner-box"></div>
+      </div>
+      <div class="row row-cols-3 product_cards"></div>
+   </div>
+   <div class="row home__products" style="border: 1px solid green;">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+         <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">New Products</button>
+         </li>
+         <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Best Sellers</button>
+         </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti cumque dolorem obcaecati, exercitationem ipsum quos aperiam totam quae debitis maxime!</div>
+         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae beatae numquam sapiente in repellendus iusto voluptatibus assumenda. Saepe, nulla earum.</div>
+      </div>
+   </div>
+
+
 </section>
 
 

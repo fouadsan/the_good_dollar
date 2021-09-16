@@ -1,4 +1,5 @@
 const shopUrl = rootUrl + "/shop/";
+const mainUrl = rootUrl +"/";
 
 let cardEls;
 let visible = 3;
@@ -25,11 +26,13 @@ function loadFilters() {
 
 // Get Data
 function getData(fData, pRange) {
-    let productsUrl
+    let productsUrl;
 
     if (currentUrl == shopUrl) {
         productsUrl = `${rootUrl}\/shop\/products/data/${visible}`;
         
+    } else if(currentUrl == mainUrl){
+        productsUrl = mainUrl + "load_featured_products";
     } else {
         let productDetail = document.querySelector('.product-details');
         prod_id = productDetail.id.split('product-')[1];
@@ -328,6 +331,110 @@ function SwitchSortBy() {
     }
 }
 
+// Add Product to Wishlist or Cart
+function addToWishOrCart(btnEl, class_name, id) {
+    let addUrl;
+    let headerEls;
+    let totalItems = 0;
+    const _quantity = 1;
+
+    let cardinfoEl = btnEl.parentElement;
+
+    let _productImgEl = document.getElementById(`product-img-${id}`);
+    _productImg = _productImgEl.style.backgroundImage.slice(4, -1).replace(/"/g, "");
+    let _productName = document.getElementById(`product-name-${id}`).textContent;
+    let _currentPrice = document.getElementById(`product-current-price-${id}`).textContent.slice(1);
+
+    if (class_name == "add__cart") {
+        addUrl = `${rootUrl}\/shop\/add_to_cart`;
+        delUrl = `${rootUrl}\/shop\/delete_from_cart`;
+        headerEls = document.querySelectorAll('.cart_num');
+        
+    } else {
+        addUrl = `${rootUrl}\/shop\/add_to_wishlist`
+        delUrl = `${rootUrl}\/shop\/delete_from_wishlist`
+        headerEls = document.querySelectorAll('.wishlist_num');
+    }
+
+    while (!cardinfoEl.classList.contains('card'))
+        cardinfoEl = cardinfoEl.parentElement;
+
+    cardinfoEl.classList.toggle(class_name);
+
+    if (cardinfoEl.classList.contains(class_name)){
+        $.ajax({
+            type: 'GET',
+            url: addUrl,
+            data: {
+                'id' : id,
+                'image' : _productImg,
+                'title': _productName,
+                'quantity': _quantity,
+                'price': _currentPrice,
+            },
+            dataType: 'json',
+            success: function (response) {
+                totalItems = response.total_items
+                headerEls.forEach(headerEl => {
+                    headerEl.textContent = totalItems;
+                });
+            }
+        })
+
+    } else {
+
+        $.ajax({
+            type: 'GET',
+            url: delUrl,
+            data: {
+                'id' : id,
+                'quantity': _quantity,
+            },
+            dataType: 'json',
+            success: function (response) {
+                // delete
+                if (response.total_items)
+                    totalItems = response.total_items;
+                headerEls.forEach(headerEl => {
+                   headerEl.textContent = totalItems;
+                });
+            }
+        })
+
+    }
+    
+    
+}
+
+
+// Add Product to Cart
+function addToCart() {
+
+    let cartBtns = document.querySelectorAll('.card__cart');
+
+    cartBtns.forEach(cartBtn => {
+        cartBtn.addEventListener('click', () => {
+            addToWishOrCart(cartBtn, "add__cart", cartBtn.id);
+        });
+
+    });
+
+};
+
+// Add Product to Wishlist
+function addToFav() {
+
+    let favBtns = document.querySelectorAll('.card__wishlist');
+
+    favBtns.forEach(favBtn => {
+        favBtn.addEventListener('click', () => {
+            addToWishOrCart(favBtn, "add__fav", favBtn.id);
+        });
+
+    });
+
+};
+
 function startDOM() {
     setTimeout(() => {
         loadFilters(filterSpinnerBox, filtersContainer);
@@ -346,7 +453,8 @@ setTimeout(() => {
         deleteItemCartOrFav("cart_screen"); 
     }else if (currentUrl == shopUrl + 'wishlist_screen') {
         deleteItemCartOrFav("wishlist_screen"); 
-    }else {
+    }else if (currentUrl == shopUrl) {
+        
         filterData();
     }
 
