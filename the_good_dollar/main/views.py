@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from shop.models import Product
 from shop.utils import get_object
 
+
 def home_screen(request):
     return render(request, 'main/home_screen.html')
 
