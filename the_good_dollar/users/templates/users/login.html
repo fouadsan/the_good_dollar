@@ -24,6 +24,7 @@ Login
                 <div class="form-group mb-4">
                     {{ form.password|as_crispy_field }}
                 </div>
+                <div class="text-center"></div>
                 <button type="submit" class="btn mb-4 site-btn">Sign In</button>
                 <p class="mb-2 text-muted">Forgot password? <a href="{% url 'users:password_reset' %}" class="f-w-400">Reset</a></p>
             </form>

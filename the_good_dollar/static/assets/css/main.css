@@ -541,8 +541,14 @@ width: 100%;
 
 .header__top__right__auth a {
 	display: block;
+	padding: 0.3rem;
 	font-size: 14px;
 	color: var(--text-color);
+}
+
+.header__top__right__auth a:hover {
+	background-color: rgba(0, 0, 0, 0.1);
+	color: var(--accent-color);
 }
 
 .header__top__right__auth a i {
@@ -680,6 +686,39 @@ width: 100%;
 	display: none;
 }
 
+/*--------------------------------------------------------------
+# Back to top button
+--------------------------------------------------------------*/
+.back-to-top {
+	position: fixed;
+	visibility: hidden;
+	opacity: 0;
+	right: 15px;
+	bottom: 15px;
+	z-index: 996;
+	background: var(--accent-color);
+	width: 40px;
+	height: 40px;
+	border-radius: 50px;
+	transition: all 0.4s;
+}
+  
+  .back-to-top i {
+	font-size: 24px;
+	color: var(--white-color);
+	line-height: 0;
+  }
+  
+  .back-to-top:hover {
+	background: var(--text-color);
+	color: var(--white-color);
+  }
+  
+  .back-to-top.active {
+	visibility: visible;
+	opacity: 1;
+  }
+  
 
 /*---------------------
   Hero
@@ -1668,6 +1707,10 @@ width: 100%;
 	color: var(--text-color);
 	padding: 14px 30px 12px;
 	background-color: var(--white-color);
+}
+
+.primary-btn.cart-btn:hover {
+	color: var(--accent-color);
 }
 
 .primary-btn.cart-btn span {
