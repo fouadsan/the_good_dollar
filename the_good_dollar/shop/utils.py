@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 
 
-def get_object(request, qs, data):
+def get_object(request, qs, data, *args):
 
     cart_items = {}
     wishlist_items = {}
@@ -9,6 +9,10 @@ def get_object(request, qs, data):
     wishlist_items_ids = []
     is_cart = False
     is_fav = False
+    is_new = False
+
+    for arg in args:
+        is_new = arg
 
     try:
         cart_items = get_items(request, "cart_data")
@@ -55,7 +59,8 @@ def get_object(request, qs, data):
                 'price': obj.productattribute_set.first().price,
                 'image': obj.productattribute_set.first().image.url,
                 'is_cart': is_cart,
-                'is_fav': is_fav
+                'is_fav': is_fav,
+                'is_new': is_new
             }
             if item not in data:
                 data.append(item)

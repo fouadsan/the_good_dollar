@@ -6,5 +6,6 @@ app_name = 'main'
 
 urlpatterns = [
     path('', home_screen, name='home-screen'),
-    path('load_featured_products', load_featured_products, name='load-featured-products'),
+    path('load_featured_products', load_featured_products,
+         name='load-featured-products'),
 ]

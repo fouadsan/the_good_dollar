@@ -1,5 +1,5 @@
 const shopUrl = rootUrl + "/shop/";
-const mainUrl = rootUrl +"/";
+const mainUrl = rootUrl + "/";
 
 let cardEls;
 let visible = 3;
@@ -13,7 +13,7 @@ let is_ordered = false;
 const listViewClassName = 'product__listview';
 const productsContainer = document.querySelector('.product_cards');
 const mainSpinnerBox = document.getElementById('main-spinner-box');
- 
+
 const filterSpinnerBox = document.getElementById('filter-spinner-box');
 const filtersContainer = document.getElementById('accordionPanelsStayOpenExample');
 
@@ -30,8 +30,8 @@ function getData(fData, pRange) {
 
     if (currentUrl == shopUrl) {
         productsUrl = `${rootUrl}\/shop\/products/data/${visible}`;
-        
-    } else if(currentUrl == mainUrl){
+
+    } else if (currentUrl == mainUrl) {
         productsUrl = mainUrl + "load_featured_products";
     } else {
         let productDetail = document.querySelector('.product-details');
@@ -39,7 +39,7 @@ function getData(fData, pRange) {
         productsUrl = `${rootUrl}\/shop\/load_related_products`;
         fData = prod_id;
     }
-    
+
     $.ajax({
         type: 'GET',
         url: productsUrl,
@@ -51,15 +51,15 @@ function getData(fData, pRange) {
         success: function (response) {
             const data = response.data
             size = response.size
-    
-                hideElement(mainSpinnerBox)
-                if (data.length) {
-                    console.log(data.length)
-                    addDataToDom(data, size, visible);
-                } else {
-                    productsContainer.innerHTML ="";
-                    displayMsg(productsContainer, "No Product Found...");
-                }
+
+            hideElement(mainSpinnerBox)
+            if (data.length) {
+                console.log(data.length)
+                addDataToDom(data, size, visible);
+            } else {
+                productsContainer.innerHTML = "";
+                displayMsg(productsContainer, "No Product Found...");
+            }
 
         }
     })
@@ -169,7 +169,7 @@ function addDataToDom(data, size, visible) {
 
             if (el.is_cart)
                 cardEl.classList.add('add__cart');
-                
+
             if (el.is_fav)
                 cardEl.classList.add('add__fav');
 
@@ -349,7 +349,7 @@ function addToWishOrCart(btnEl, class_name, id) {
         addUrl = `${rootUrl}\/shop\/add_to_cart`;
         delUrl = `${rootUrl}\/shop\/delete_from_cart`;
         headerEls = document.querySelectorAll('.cart_num');
-        
+
     } else {
         addUrl = `${rootUrl}\/shop\/add_to_wishlist`
         delUrl = `${rootUrl}\/shop\/delete_from_wishlist`
@@ -361,13 +361,13 @@ function addToWishOrCart(btnEl, class_name, id) {
 
     cardinfoEl.classList.toggle(class_name);
 
-    if (cardinfoEl.classList.contains(class_name)){
+    if (cardinfoEl.classList.contains(class_name)) {
         $.ajax({
             type: 'GET',
             url: addUrl,
             data: {
-                'id' : id,
-                'image' : _productImg,
+                'id': id,
+                'image': _productImg,
                 'title': _productName,
                 'quantity': _quantity,
                 'price': _currentPrice,
@@ -387,7 +387,7 @@ function addToWishOrCart(btnEl, class_name, id) {
             type: 'GET',
             url: delUrl,
             data: {
-                'id' : id,
+                'id': id,
                 'quantity': _quantity,
             },
             dataType: 'json',
@@ -396,14 +396,14 @@ function addToWishOrCart(btnEl, class_name, id) {
                 if (response.total_items)
                     totalItems = response.total_items;
                 headerEls.forEach(headerEl => {
-                   headerEl.textContent = totalItems;
+                    headerEl.textContent = totalItems;
                 });
             }
         })
 
     }
-    
-    
+
+
 }
 
 
@@ -450,11 +450,11 @@ if (currentUrl != shopUrl + 'cart_screen' && currentUrl != shopUrl + 'wishlist_s
 setTimeout(() => {
     if (currentUrl == shopUrl + 'cart_screen') {
         changeQuantity();
-        deleteItemCartOrFav("cart_screen"); 
-    }else if (currentUrl == shopUrl + 'wishlist_screen') {
-        deleteItemCartOrFav("wishlist_screen"); 
-    }else if (currentUrl == shopUrl) {
-        
+        deleteItemCartOrFav("cart_screen");
+    } else if (currentUrl == shopUrl + 'wishlist_screen') {
+        deleteItemCartOrFav("wishlist_screen");
+    } else if (currentUrl == shopUrl) {
+
         filterData();
     }
 
