@@ -83,7 +83,7 @@ function addDataToDom(data, size, visible) {
 
     data.forEach(el => {
         productsContainer.innerHTML += `
-            <div class="card ${cardSize} col-md-12 col-sm-6 col-12" id="product-${el.id}">
+            <div class="card ${cardSize} col-md-12 col-sm-6 col-12 item" id="product-${el.id}">
                 <div class="wrapper ${listView}">
                     <div class="product__header">
                         <div class="color__category animated-bg" id="category-color-${el.id}"></div>
