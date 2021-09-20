@@ -31,37 +31,35 @@ function getHamburger(e) {
 }
 
 
-   // Back to top
-   function backToTop() {
-        let backtotop = document.querySelector('.back-to-top');
-        console.log("begin")
-        if (backtotop) {
-            function toggleBacktotop() {
+// Back to top
+function backToTop() {
+    let backtotop = document.querySelector('.back-to-top');
+    console.log("begin")
+    if (backtotop) {
+        function toggleBacktotop() {
             if (window.scrollY > 100) {
                 backtotop.classList.add('active');
             } else {
                 backtotop.classList.remove('active');
             }
-            }
-            window.addEventListener('load', toggleBacktotop);
-            document.addEventListener('scroll', toggleBacktotop);
-            backtotop.addEventListener('click', ToTop);
         }
-   }
+        window.addEventListener('load', toggleBacktotop);
+        document.addEventListener('scroll', toggleBacktotop);
+        backtotop.addEventListener('click', ToTop);
+    }
+}
 
-    function ToTop() {
-        let body = document.body,
+function ToTop() {
+    let body = document.body,
         html = document.documentElement;
 
-        let height = Math.max( body.scrollHeight, body.offsetHeight, 
-                        html.clientHeight, html.scrollHeight, html.offsetHeight );
+    let height = Math.max(body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight);
 
-        if (window.pageYOffset > 0) {
+    if (window.pageYOffset > 0) {
         window.scrollBy(0, -height);
-        setTimeout(ToTop, 5000);
-        }
     }
-
+}
 
 // Tooltip
 // function toolTip() {

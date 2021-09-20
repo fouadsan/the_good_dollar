@@ -1052,11 +1052,8 @@ width: 100%;
 	position: relative;
 	left: 0;
     flex-wrap: inherit;
-	transition: 0.3s left ease-in-out;
-  }
-
-  .slide .item {
-	  transition: 0.3s left ease-in-out;
+	transform: translateX(0);
+	transition: transform 0.5s ease-in-out;
   }
 
   .featured__wrapper .slider .item:last-child {

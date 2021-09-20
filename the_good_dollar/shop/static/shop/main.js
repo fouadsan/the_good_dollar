@@ -140,9 +140,10 @@ function addDataToDom(data, size, visible) {
                 </div>
             </div>
         `
+        cardEls = document.querySelectorAll('.product_cards .card');
         if (currentUrl == rootUrl + 'shop/')
             visible <= size ? productCountEl.textContent = `Showing ${visible} of ${size} results` : productCountEl.textContent = `Showing ${size} of ${size} results`;
-        cardEls = document.querySelectorAll('.product_cards .card');
+
 
         setTimeout(() => {
             let cardEl = document.getElementById(`product-${el.id}`)
