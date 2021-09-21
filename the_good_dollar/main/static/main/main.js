@@ -1,38 +1,59 @@
 const imgs = document.getElementById('imgs')
-const leftBtn = document.getElementById('left')
-const rightBtn = document.getElementById('right')
+const leftFeatProdBtn = document.getElementById('prev-feat-btn');
+const rightFeatProdBtn = document.getElementById('next-feat-btn');
 
 const img = document.querySelectorAll('#imgs img')
 
 let idx1 = 0
 let idx2 = 0
 
-// let interval = setInterval(runImgCarousel, 2000)
-let interval2 = setInterval(runProductCarousel, 2000);
+
+let interval1 = setInterval(runImgCarousel, 2000);
 
 function runImgCarousel() {
-    idx1++
-    changeImage(idx1, img, imgs, 500);
+    idx1++;
+    changeImage();
 }
 
-function runProductCarousel() {
-    idx2++
-    changeImage(idx2, cardEls, productsContainer, cardEls[0].clientWidth);
-}
 
-function changeImage(index, elements, wrapper, width) {
-    if (index > elements.length - 1) {
-        index = 0
-    } else if (elements < 0) {
-        index = elements.length - 1
+function changeImage() {
+    if(idx1 > img.length - 1) {
+        idx1 = 0
+    } else if(idx1 < 0) {
+        idx1 = img.length - 1
     }
+
+    translateX(imgs, idx1, 500);
+}
+
+function changeProduct() {
+    if(idx2 > cardEls.length - 1) {
+        idx2 = 0
+    } else if(idx2 < 0) {
+        idx2 = cardEls.length - 1
+    }
+
+    translateX(productsContainer, idx2, cardEls[0].clientWidth);
+}
+
+
+function translateX(wrapper, index, width) {
     wrapper.style.transform = `translateX(${-index * width}px)`;
-    idx2 = index
-    console.log("done")
-
 }
 
-function resetInterval() {
-    clearInterval(interval);
-    interval = setInterval(run, 2000);
+function manualCarousel(btn1, btn2) {
+    btn1.addEventListener('click', () => {
+        moveProduct("add");
+    })
+    btn2.addEventListener('click', () => {
+        moveProduct("sub");
+    })
 }
+
+function moveProduct(op) {
+    op == "add" ? idx2++ : idx2--;
+    changeProduct();
+}
+
+manualCarousel(rightFeatProdBtn, leftFeatProdBtn);
+

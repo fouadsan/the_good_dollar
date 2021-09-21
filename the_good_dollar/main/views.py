@@ -14,12 +14,17 @@ def home_screen(request):
 # Load Featured Prouducts:
 def load_featured_products(request):
     data = []
+    new_data = []
     if request.is_ajax():
         featured_products = Product.objects.filter(is_featured=True)
+        new_products = Product.objects.all()[:3]
         get_object(request, featured_products, data)
+        get_object(request, new_products, new_data)
         response = {
             'data': data,
+            'new_data': new_data,
             'size': 1
         }
         return JsonResponse(response)
     return redirect('main:home-screen')
+

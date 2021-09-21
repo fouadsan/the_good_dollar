@@ -30,11 +30,6 @@ Home
                   src="https://images.unsplash.com/photo-1599561046251-bfb9465b4c44?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1492&q=80"
                   alt="fourth-image" />
             </div>
-
-            <div class="buttons-container">
-               <button id="left" class="btn prev_btn "><i class="fas fa-arrow-circle-left fa-2x"></i></button>
-               <button id="right" class="btn next_btn"><i class="fas fa-arrow-circle-right fa-2x"></i></button>
-            </div>
          </div>
       </div>
    </div>
@@ -89,8 +84,8 @@ Home
          </div>
          <div class="slider" id="slider">
             <div class="row slide product_cards" id="slide"></div>
-            <button class="ctrl-btn pro-prev">Prev</button>
-            <button class="ctrl-btn pro-next">Next</button>
+            <button class="ctrl-btn pro-prev" id="prev-feat-btn">Prev</button>
+            <button class="ctrl-btn pro-next" id="next-feat-btn">Next</button>
          </div>
       </div>
    </div>
@@ -98,7 +93,7 @@ Home
       <ul class="nav nav-tabs" id="myTab" role="tablist">
          <li class="nav-item" role="presentation">
             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
-               role="tab" aria-controls="home" aria-selected="true">New Products</button>
+               role="tab" aria-controls="home" aria-selected="true">New Arrivals</button>
          </li>
          <li class="nav-item" role="presentation">
             <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
@@ -108,7 +103,8 @@ Home
       <div class="tab-content" id="myTabContent">
          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">Lorem ipsum, dolor
             sit amet consectetur adipisicing elit. Corrupti cumque dolorem obcaecati, exercitationem ipsum quos aperiam
-            totam quae debitis maxime!</div>
+            totam quae debitis maxime!
+         </div>
          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">Lorem ipsum dolor sit,
             amet consectetur adipisicing elit. Molestiae beatae numquam sapiente in repellendus iusto voluptatibus
             assumenda. Saepe, nulla earum.</div>

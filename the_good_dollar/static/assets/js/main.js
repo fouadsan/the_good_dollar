@@ -34,7 +34,6 @@ function getHamburger(e) {
 // Back to top
 function backToTop() {
     let backtotop = document.querySelector('.back-to-top');
-    console.log("begin")
     if (backtotop) {
         function toggleBacktotop() {
             if (window.scrollY > 100) {
