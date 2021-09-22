@@ -22,7 +22,7 @@ const getCookie = (name) => {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                 break;
             }
-        } 
+        }
     }
     return cookieValue;
 }
@@ -96,7 +96,31 @@ const sendSearchData = (product) => {
             'product': product,
         },
         success: (response) => {
-            console.log(response);
+            const resp = response.resp
+            if (Array.isArray(resp)) {
+                resultsBox.innerHTML = "";
+
+                resp.forEach(el => {
+                    resultsBox.innerHTML += `
+                        <a href="${rootUrl}\/shop\/${el.slug}/${el.id}">
+                            <div class="row">                       
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-6 mt-2 mb-2">
+                                    <img src="${el.image}" class="product__img">
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-6 col-6 mt-4 mb-2">
+                                    <h6>${el.title}</h6>
+                                </div>
+                            </div>
+                        </a>
+                    `
+                });
+            } else {
+                if (searchInput.value.length > 0) {
+                    resultsBox.innerHTML = `<b>${resp}</b>`;
+                } else {
+                    resultsBox.classList.add('not-visible');
+                }
+            }
         },
         error: (error) => {
             console.log(error);
@@ -108,7 +132,7 @@ searchInput.addEventListener('keyup', e => {
     if (resultsBox.classList.contains('not-visible')) {
         resultsBox.classList.remove('not-visible');
     }
-    
+
     sendSearchData(e.target.value);
 })
 

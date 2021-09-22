@@ -157,14 +157,30 @@ def product_screen(request, slug, _id):
 # Search
 def search(request):
     if request.is_ajax():
+        res = None
         product = request.POST.get('product')
         qs = Product.objects.filter(title__icontains=(product))
-        print(qs)
-        return JsonResponse({'data': product})
-    
+        if len(qs) > 0 and len(product) > 0:
+            data = []
+            for obj in qs:
+                item = {
+                    'id': obj.id,
+                    'title': obj.title,
+                    'slug': obj.slug,
+                    'image': obj.productattribute_set.first().image.url
+                }
+                data.append(item)
+            res = data
+        else:
+            res = 'No Product Found ...'
+
+        return JsonResponse({'resp': res})
+
     return redirect('shop:home-screen')
 
 # Add Product Review
+
+
 def add_review(request):
     review_form = ReviewForm(request.POST or None)
     if request.is_ajax():
@@ -277,7 +293,7 @@ def wishlist_screen(request):
 def checkout_screen(request):
     total_amt = 0
     totalAmt = 0
-    
+
     if 'cart_data' in request.session:
         for p_id, item in request.session['cart_data'].items():
             totalAmt += int(item['quantity']) * float(item['price'])
@@ -291,13 +307,13 @@ def checkout_screen(request):
             total_amt += int(item['quantity']) * float(item['price'])
             # OrderItems
             items = CartOrderItems.objects.create(
-                order = order,
-                invoice_no = 'INV-'+str(order.id),
-                item = item['title'],
-                image = item['image'],
-                quantity = item['quantity'],
-                price = item['price'],
-                total = float(item['quantity']) * float(item['price'])
+                order=order,
+                invoice_no='INV-'+str(order.id),
+                item=item['title'],
+                image=item['image'],
+                quantity=item['quantity'],
+                price=item['price'],
+                total=float(item['quantity']) * float(item['price'])
             )
             # End
         # Process Payment
@@ -335,5 +351,3 @@ def payment_done(request):
 @csrf_exempt
 def payment_canceled(request):
     return render(request, 'shop/payment_fail.html')
-
-
