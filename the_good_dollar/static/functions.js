@@ -81,4 +81,35 @@ const handleAlerts = (position, title, msg, type, boolConfirmBtn, timer) => {
     })
 }
 
+const searchForm = document.getElementById('search-form');
+const searchInput = document.getElementById('search-input');
+const resultsBox = document.getElementById('results-box');
+
+const searchUrl = `${rootUrl}\/shop\/search`;
+
+const sendSearchData = (product) => {
+    $.ajax({
+        type: 'POST',
+        url: searchUrl,
+        data: {
+            'csrfmiddlewaretoken': csrf[0].value,
+            'product': product,
+        },
+        success: (response) => {
+            console.log(response);
+        },
+        error: (error) => {
+            console.log(error);
+        }
+    })
+}
+
+searchInput.addEventListener('keyup', e => {
+    if (resultsBox.classList.contains('not-visible')) {
+        resultsBox.classList.remove('not-visible');
+    }
+    
+    sendSearchData(e.target.value);
+})
+
 getCopyDate()

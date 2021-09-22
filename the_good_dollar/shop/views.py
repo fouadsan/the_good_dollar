@@ -154,6 +154,16 @@ def product_screen(request, slug, _id):
     return render(request, 'shop/product_screen.html', context)
 
 
+# Search
+def search(request):
+    if request.is_ajax():
+        product = request.POST.get('product')
+        qs = Product.objects.filter(title__icontains=(product))
+        print(qs)
+        return JsonResponse({'data': product})
+    
+    return redirect('shop:home-screen')
+
 # Add Product Review
 def add_review(request):
     review_form = ReviewForm(request.POST or None)
@@ -198,9 +208,8 @@ def load_related_products(request):
         return JsonResponse(response)
     return redirect('shop:home-screen')
 
+
 # Add Product To Cart
-
-
 def add_to_cart(request):
     if request.is_ajax():
         return add_to_cart_or_fav(request, "cart_data")
@@ -282,13 +291,13 @@ def checkout_screen(request):
             total_amt += int(item['quantity']) * float(item['price'])
             # OrderItems
             items = CartOrderItems.objects.create(
-                order=order,
-                invoice_no='INV-'+str(order.id),
-                item=item['title'],
-                image=item['image'],
-                quantity=item['quantity'],
-                price=item['price'],
-                total=float(item['quantity']) * float(item['price'])
+                order = order,
+                invoice_no = 'INV-'+str(order.id),
+                item = item['title'],
+                image = item['image'],
+                quantity = item['quantity'],
+                price = item['price'],
+                total = float(item['quantity']) * float(item['price'])
             )
             # End
         # Process Payment
@@ -326,3 +335,5 @@ def payment_done(request):
 @csrf_exempt
 def payment_canceled(request):
     return render(request, 'shop/payment_fail.html')
+
+

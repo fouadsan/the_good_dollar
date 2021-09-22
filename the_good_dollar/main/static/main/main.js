@@ -8,7 +8,7 @@ let idx1 = 0
 let idx2 = 0
 
 
-let interval1 = setInterval(runImgCarousel, 2000);
+let interval1 = setInterval(runImgCarousel, 5000);
 
 function runImgCarousel() {
     idx1++;
@@ -23,7 +23,7 @@ function changeImage() {
         idx1 = img.length - 1
     }
 
-    translateX(imgs, idx1, 500);
+    translateX(imgs, idx1, imgs.clientWidth);
 }
 
 function changeProduct() {

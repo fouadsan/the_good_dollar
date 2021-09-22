@@ -286,6 +286,13 @@ width: 100%;
 	}
 }
 
+li.disabled {
+	cursor: not-allowed;
+}
+li.disabled a {
+	pointer-events: none;
+}
+
 /*---------------------
   Preloader
 -----------------------*/
@@ -610,6 +617,7 @@ width: 100%;
 	border: 1px solid var(--accent-color);
 	width: 180px;
 	z-index: 9;
+	margin-bottom: 1rem;
 	padding: 5px 0;
 	-webkit-transition: all, 0.3s;
 	-moz-transition: all, 0.3s;
@@ -693,19 +701,20 @@ width: 100%;
 }
 
 .header__cart ul li a span {
-	height: 1rem;
-	width: 1rem;
+	height: 0.8rem;
+	width: 0.8rem;
 	background: var(--accent-color);
+	font-family: inherit;
 	font-size: 12px;
 	color: var(--white-color);
 	line-height: 13px;
 	text-align: center;
-	font-weight: 700;
+	font-weight: 600;
 	display: inline-block;
 	border-radius: 50%;
 	position: absolute;
-	top: -8px;
-	right: -12px;
+	top: -6px;
+	right: -7px;
 }
 
 .hamburger__menu__wrapper {
@@ -865,7 +874,7 @@ width: 100%;
 }
 
 
-.hero__search__form input {
+.hero__search__form .search__input {
 	position: absolute;
 	top: 0;
 	width: 70%;
@@ -902,11 +911,28 @@ width: 100%;
 	color: var(--primary-color);    
 }
 
-   
-
 .hero__search__form button::-moz-focus-inner {
 	border: 0;
 	padding: 0;
+}
+
+.hero__search__form .results__card {
+	width: 100%;
+	box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.25);
+	transition: 0.5s;
+	border-radius: 7px;
+	padding: 1rem 1rem;
+	margin: 0 auto;
+}
+
+.hero__search__form .item {
+	text-decoration: none;
+}
+
+.hero__search__form .product__img {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
 }
 
 .hero__item {
@@ -948,21 +974,21 @@ width: 100%;
 
 .banner__carousel {
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-	height: 100%;
+	height: 60vh;
 	width: 100%;
 	overflow: hidden;
   }
   
-  .banner__carousel img {
-	width: 100%;
-	height: 500px;
-	object-fit: cover;
-  }
-
   .banner__carousel .image-container {
 	display: flex;
 	transform: translateX(0);
 	transition: transform 0.5s ease-in-out;
+  }
+
+  .banner__carousel img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
   }
   
   .pub__wrapper {

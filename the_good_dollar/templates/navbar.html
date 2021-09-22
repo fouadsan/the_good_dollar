@@ -22,7 +22,8 @@
             <div class="col-lg-9 col-md-9">
                 <div class="hero__search">
                     <div class="hero__search__form">
-                        <form action="#">
+                        <form id="search-form" autocomplete="off">
+                            {% csrf_token %}
                             <div class="hero__search__categories">
                                 <select class="custom-select" id="inputGroupSelect01">
                                     <option selected>All Categories</option>
@@ -31,14 +32,13 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <input type="text" placeholder="Search for a product ?">
+                            <input class="search__input" type="text" id="search-input" placeholder="Search for a product">
                             <button type="submit" id="search-btn" data-bs-toggle="tooltip" title="Search">Search</button> 
                             <!-- add (data-bs-toggle="tooltip) to button for tooltip" -->
                         </form>
                     </div>
-            
+                    <div id="results-box" class="results__card not-visible"></div>
                 </div>
-
             </div>
         </div>
     </div>
