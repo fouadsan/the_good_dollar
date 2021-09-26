@@ -1,14 +1,17 @@
 import json
+from django.db import models
 
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 
+from .models import SmallPub
 from shop.models import Product
 from shop.utils import get_object
 
 
 def home_screen(request):
-    return render(request, 'main/home_screen.html')
+    qs = SmallPub.objects.all()[:4]
+    return render(request, 'main/home_screen.html', {'qs': qs})
 
 
 # Load Featured Prouducts:

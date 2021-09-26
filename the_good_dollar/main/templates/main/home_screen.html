@@ -34,42 +34,19 @@ Home
       </div>
    </div>
    <div class="row justify-content-center pub__wrapper">
-      <div class="col-lg-3 col-md-6 col-sm-6">
-         <div class="card pub__card">
-            <img
-               src="https://images.unsplash.com/photo-1599561046251-bfb9465b4c44?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1492&q=80"
-               alt="fourth-image" />
-            <p>Explore Thinnest Laptops</p>
-            <a href="{% url 'shop:home-screen' %}"><b>Shop Now <i class="fas fa-arrow-circle-right fa-sm"></i></b></a>
+      {% for data in qs %}
+         <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card pub__card">
+               <img
+                  src="{{ data.image.url }}"
+                  alt="fourth-image" />
+               <p>{{ data.text }}</p>
+               <a href="{% url 'shop:home-screen' %}"><b>Shop Now <i class="fas fa-arrow-circle-right fa-sm"></i></b></a>
+            </div>
          </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6">
-         <div class="card pub__card">
-            <img
-               src="https://images.unsplash.com/photo-1599561046251-bfb9465b4c44?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1492&q=80"
-               alt="fourth-image" />
-            <p>Explore Thinnest Laptops</p>
-            <a href="{% url 'shop:home-screen' %}"><b>Shop Now <i class="fas fa-arrow-circle-right fa-sm"></i></b></a>
-         </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6">
-         <div class="card pub__card">
-            <img
-               src="https://images.unsplash.com/photo-1599561046251-bfb9465b4c44?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1492&q=80"
-               alt="fourth-image" />
-            <p>Explore Thinnest Laptops</p>
-            <a href="{% url 'shop:home-screen' %}"><b>Shop Now <i class="fas fa-arrow-circle-right fa-sm"></i></b></a>
-         </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6">
-         <div class="card pub__card">
-            <img
-               src="https://images.unsplash.com/photo-1599561046251-bfb9465b4c44?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1492&q=80"
-               alt="fourth-image" />
-            <p>Explore Thinnest Laptops</p>
-            <a href="{% url 'shop:home-screen' %}"><b>Shop Now <i class="fas fa-arrow-circle-right fa-sm"></i></b></a>
-         </div>
-      </div>
+      {% empty %}
+         <p class="text-center">Small Pubs Section</p>
+      {% endfor %}
    </div>
    <div class="container featured__wrapper">
       <div class="row">

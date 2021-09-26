@@ -17,21 +17,19 @@ class UserRegisterForm(UserCreationForm):
         self.helper.form_show_labels = False
 
     username = forms.CharField(widget=forms.TextInput(
-        attrs={'class': 'form-control mb-3', 'placeholder': 'Username', 'id': 'Username'}))
+        attrs={'placeholder': 'Username', 'id': 'Username'}))
     email = forms.EmailField(widget=forms.EmailInput(
-        attrs={'class': 'form-control mb-3', 'placeholder': 'Email', 'id': 'Email'}))
+        attrs={'placeholder': 'Email', 'id': 'Email'}))
     password1 = forms.CharField(widget=forms.PasswordInput(
         attrs={
-            'class': 'form-control mb-3',
-            'placeholder': 'Password1',
+            'placeholder': 'Password',
             'id': 'Password1',
         }
 
     ))
     password2 = forms.CharField(widget=forms.PasswordInput(
         attrs={
-            'class': 'form-control mb-3',
-            'placeholder': 'Password2',
+            'placeholder': 'Password Confirmation',
             'id': 'Password2',
         }
 

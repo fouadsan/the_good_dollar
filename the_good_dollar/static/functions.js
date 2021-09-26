@@ -85,6 +85,19 @@ const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 const resultsBox = document.getElementById('results-box');
 
+const select = document.getElementById('category-select');
+let category;
+
+select.addEventListener('change', () => {
+    category = select.options[select.selectedIndex].value;
+    if (category == "All Categories") {
+        category = null;
+    } else {
+        category = parseInt(category);
+        console.log(category);
+    }
+})
+
 const searchUrl = `${rootUrl}\/shop\/search`;
 
 const sendSearchData = (product) => {
@@ -94,9 +107,11 @@ const sendSearchData = (product) => {
         data: {
             'csrfmiddlewaretoken': csrf[0].value,
             'product': product,
+            'category_id': isNaN(category) ? null : category, 
         },
         success: (response) => {
             const resp = response.resp
+        
             if (Array.isArray(resp)) {
                 resultsBox.innerHTML = "";
 
@@ -128,12 +143,19 @@ const sendSearchData = (product) => {
     })
 }
 
-searchInput.addEventListener('keyup', e => {
+searchInput.addEventListener('input', e => {
     if (resultsBox.classList.contains('not-visible')) {
         resultsBox.classList.remove('not-visible');
     }
 
     sendSearchData(e.target.value);
 })
+
+// searchInput.addEventListener('focusout', () => {
+//     if (!resultsBox.classList.contains('not-visible')) {
+//         searchInput.value = "";
+//         resultsBox.classList.add('not-visible');
+//     }
+// })
 
 getCopyDate()

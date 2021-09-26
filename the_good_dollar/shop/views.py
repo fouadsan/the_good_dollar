@@ -159,7 +159,13 @@ def search(request):
     if request.is_ajax():
         res = None
         product = request.POST.get('product')
-        qs = Product.objects.filter(title__icontains=(product))
+        category_id = request.POST.get('category_id')
+        print(category_id)
+        if category_id:
+            qs = Product.objects.filter(title__icontains=(product)).filter(subcategory__category_id=category_id)
+        else:
+            qs = Product.objects.filter(title__icontains=(product))
+
         if len(qs) > 0 and len(product) > 0:
             data = []
             for obj in qs:
