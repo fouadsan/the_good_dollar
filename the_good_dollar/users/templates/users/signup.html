@@ -12,7 +12,7 @@ Signup
     
 {% block content %}
 <!-- Sign-up Page Begin -->
-<div class="container user__content  mt-5">
+<div class="container user__content">
     <div class="signup_wrapper">
         <div class="form-container">
             <div class="header-text">Sign up for free</div>
@@ -22,7 +22,7 @@ Signup
             <div class="form-text">Or sign up with email</div>
             <form class="signup_form" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <label for="name" class="label">Full Name </label>
+                <label for="name" class="label">Username </label>
                 {{ form.username|as_crispy_field }}
                 <label for="email" class="label">Email Address </label>
                 {{ form.email|as_crispy_field }}
@@ -30,17 +30,14 @@ Signup
                 {{ form.password1|as_crispy_field }}
                 <label for="password2" class="label">Password Confirmation</label>
                 {{ form.password2|as_crispy_field }}
-                <input type="submit" value="Get started" name="button" />
+                <button type="submit" class="site-btn">Sign Up</button>
             </form>
             <div class="have-account">
-                Already have an account? <span><a href="{% url 'users:login' %}">Log in</a></span>
+                Already have an account? <span><a href="{% url 'users:login' %}"> <b>Login Instead</b></a></span>
             </div>
         </div>
     </div>
 </div>
-
-
-
 <!-- Sign-up Page End -->
 {% endblock content %}
 
