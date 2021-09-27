@@ -73,7 +73,7 @@ def profile_screen(request):
     if request.is_ajax():
         if form.is_valid():
             instance = form.save()
-            return JsonResponse({
+            return  JsonResponse({
                 'user': instance.user.username,
                 'email': instance.email,
                 'phone': instance.phone,

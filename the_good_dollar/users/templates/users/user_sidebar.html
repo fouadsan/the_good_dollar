@@ -2,7 +2,7 @@
 {% load static %}
 
 <!-- User Sidebar Begin -->
-<div class="list-group user__sidebar">
+<div class="list-group user__sidebar mb-3">
 	<a href="{% url 'users:dashboard' %}" class="list-group-item {% if request.path == '/users/dashboard/' %}active {% endif %}">Dashboard</a>
 	<a href="{% url 'users:profile' %}" class="list-group-item {% if request.path == '/users/profile' %}active {% endif %}">Profile</a>
 	<a href="{% url 'users:orders' %}" class="list-group-item {% if request.path == '/users/orders' %}active {% endif %}">My Orders</a>

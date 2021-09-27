@@ -37,16 +37,11 @@ profileForm.addEventListener('submit', e => {
         success: function (response) {
             console.log(response)
             setTimeout(() => {
-                fnameInput.value = response.first_name
-                lnameInput.value = response.last_name
-                emailInput.value = response.email
-                phoneInput.value = response.phone
-                addressInput.value = response.address
-                cityInput.value = response.city
+                console.log('done');
                 // imageInput.value = response.image 
                 spinnerBox.classList.add('not-visible')
                 saveProfilebox.classList.remove('not-visible')
-                // handleAlerts('center', 'Update', 'Your profile has been updated', 'success', false, 1500)
+                handleAlerts('top-end', 'Update', 'Your profile has been updated', 'success', false, 1500);
             }, 500);
         },
         error: function (error) {

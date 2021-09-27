@@ -59,10 +59,10 @@ Home
             <div class="spinner-border text-danger" role="status" id="main-spinner-box">
             </div>
          </div>
-         <div class="slider" id="slider">
-            <div class="row slide product_cards" id="slide"></div>
-            <button class="ctrl-btn pro-prev" id="prev-feat-btn">Prev</button>
-            <button class="ctrl-btn pro-next" id="next-feat-btn">Next</button>
+         <div class="slider">
+            <div class="row slide product_cards"></div>
+            <button class="ctrl-btn pro-prev" id="prev-feat-btn"><i class="fas fa-arrow-left fa-lg"></i></button>
+            <button class="ctrl-btn pro-next" id="next-feat-btn"><i class="fas fa-arrow-right fa-lg"></i></button>
          </div>
       </div>
    </div>
@@ -87,10 +87,31 @@ Home
             assumenda. Saepe, nulla earum.</div>
       </div>
    </div>
-
-
 </section>
 
+<!--? Marks Start -->
+<section id="clients">
+   <div class="container brands__container">
+         <div class="section-title">
+            <h2>Brands</h2>
+         </div>
+         <div class="slider">
+            <div class="row slide brand__wrapper">
+                  <div class="brand__img col-lg-3 col-md-3 col-md-3 col-6"> <img src="{% static 'assets/img/clients/client-1.png' %}" alt=""></div>
+                  <div class="brand__img col-lg-3 col-md-3 col-md-3 col-6"> <img src="{% static 'assets/img/clients/client-2.png' %}" alt=""></div>
+                  <div class="brand__img col-lg-3 col-md-3 col-md-3 col-6"> <img src="{% static 'assets/img/clients/client-3.png' %}" alt=""></div>
+                  <div class="brand__img col-lg-3 col-md-3 col-md-3 col-6"> <img src="{% static 'assets/img/clients/client-4.png' %}" alt=""></div>
+                  <div class="brand__img col-lg-3 col-md-3 col-md-3 col-6"> <img src="{% static 'assets/img/clients/client-5.png' %}" alt=""></div>
+                  <div class="brand__img col-lg-3 col-md-3 col-md-3 col-6"> <img src="{% static 'assets/img/clients/client-6.png' %}" alt=""></div>
+                  <div class="brand__img col-lg-3 col-md-3 col-md-3 col-6"> <img src="{% static 'assets/img/clients/client-7.png' %}" alt=""></div>
+                  <div class="brand__img col-lg-3 col-md-3 col-md-3 col-6"> <img src="{% static 'assets/img/clients/client-8.png' %}" alt=""></div>
+            </div> 
+            <button class="ctrl-btn brand-prev" id="prev-brand-btn"> <i class="fas fa-arrow-left fa-lg"></i> </button>
+            <button class="ctrl-btn brand-next" id="next-brand-btn"><i class="fas fa-arrow-right fa-lg"></i> </button>
+         </div>  
+   </div>
+</section>
+<!-- Marks End -->
 
 <!-- Main Page End -->
 {% endblock content %}

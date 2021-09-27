@@ -2,10 +2,18 @@ const imgs = document.getElementById('imgs')
 const leftFeatProdBtn = document.getElementById('prev-feat-btn');
 const rightFeatProdBtn = document.getElementById('next-feat-btn');
 
-const img = document.querySelectorAll('#imgs img')
+const leftBrandBtn = document.getElementById('prev-brand-btn');
+const rightBrandBtn = document.getElementById('next-brand-btn');
 
-let idx1 = 0
-let idx2 = 0
+const imgEls = document.querySelectorAll('#imgs img');
+
+const brandEls = document.querySelectorAll('.brand__img');
+
+const brandWrapper = document.querySelector('.brand__wrapper');
+
+let idx1 = 0;
+let idx2 = 0;
+let idx3 = 0;
 
 
 let interval1 = setInterval(runImgCarousel, 5000);
@@ -17,10 +25,10 @@ function runImgCarousel() {
 
 
 function changeImage() {
-    if(idx1 > img.length - 1) {
+    if(idx1 > imgEls.length - 1) {
         idx1 = 0
     } else if(idx1 < 0) {
-        idx1 = img.length - 1
+        idx1 = imgEls.length - 1
     }
 
     translateX(imgs, idx1, imgs.clientWidth);
@@ -41,12 +49,12 @@ function translateX(wrapper, index, width) {
     wrapper.style.transform = `translateX(${-index * width}px)`;
 }
 
-function manualCarousel(btn1, btn2) {
+function manualCarousel(btn1, btn2, func) {
     btn1.addEventListener('click', () => {
-        moveProduct("add");
+        func("add");
     })
     btn2.addEventListener('click', () => {
-        moveProduct("sub");
+        func("sub");
     })
 }
 
@@ -55,5 +63,23 @@ function moveProduct(op) {
     changeProduct();
 }
 
-manualCarousel(rightFeatProdBtn, leftFeatProdBtn);
+function changeBrand() {
+    if(idx3 > brandEls.length - 1) {
+        idx3 = 0
+    } else if(idx3 < 0) {
+        idx3 = brandEls.length - 1
+    }
+
+    translateX(brandWrapper, idx3, brandEls[0].clientWidth);
+}
+
+
+function moveBrand(op) {
+    op == "add" ? idx3++ : idx3--;
+    changeBrand();
+}
+
+
+manualCarousel(rightFeatProdBtn, leftFeatProdBtn, moveProduct);
+manualCarousel(rightBrandBtn, leftBrandBtn, moveBrand);
 

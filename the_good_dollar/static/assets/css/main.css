@@ -1049,13 +1049,8 @@ li.disabled a {
   margin-right: 0;
 }
 
-.featured__wrapper .ctrl {
-  text-align: center;
-  margin-top: 5px;
-}
-
-.featured__wrapper .ctrl-btn {
-  padding: 20px 20px;
+.featured__wrapper .ctrl-btn, .brands__container .ctrl-btn {
+  padding: 10px 10px;
   min-width: 50px;
   background: var(--white-color);
   border: 1px solid #b2b2b2;
@@ -1063,17 +1058,16 @@ li.disabled a {
   text-align: center;
   cursor: pointer;
   outline: none;
-
   position: absolute;
   top: 50%;
   margin-top: -27.5px;
 }
 
-.featured__wrapper .ctrl-btn.pro-prev {
+.featured__wrapper .ctrl-btn.pro-prev, .brands__container .ctrl-btn.brand-prev {
   left: 0;
 }
 
-.featured__wrapper .ctrl-btn.pro-next {
+.featured__wrapper .ctrl-btn.pro-next, .brands__container .ctrl-btn.brand-next {
   right: 0;
 }
 
@@ -2784,10 +2778,6 @@ li.disabled a {
   color: var(--accent-color);
 }
 
-.user__content .user__right__side {
-  margin-left: 3rem;
-}
-
 .user__content .user__right__side .addr__checkmark {
   vertical-align: bottom;
 }
@@ -2827,9 +2817,8 @@ li.disabled a {
 .signup_wrapper .form-container .google-button .button {
   width: 337px;
   height: 70px;
-  font-family: "Noto Sans", sans-serif;
+  font-family: inherit;
   background-color: #5b86e6;
-  box-shadow: 3px 5px 5px rgba(91, 134, 230, 0.5);
   border: none;
   border-radius: 5px;
   color: white;
@@ -2888,15 +2877,10 @@ li.disabled a {
 .signup_wrapper .form-container .signup_form {
   display: flex;
   flex-direction: column;
-  border: 1px solid green !important;
+  justify-content: center;
+  align-items: center;
 }
-.signup_wrapper .form-container .signup_form .label {
-  text-align: left;
-  margin-bottom: 5px;
-  font-size: 16px;
-  line-height: 18px;
-  font-weight: 700;
-}
+
 .signup_wrapper .form-container .signup_form input[type="text"],
 .signup_wrapper .form-container .signup_form input[type="email"],
 .signup_wrapper .form-container .signup_form input[type="password"] {
@@ -3377,14 +3361,6 @@ li.disabled a {
     align-items: center;
   }
 
-  .signup_wrapper .form-container .signup_form .label {
-    text-align: left;
-    margin-bottom: 5px;
-    font-size: 16px;
-    line-height: 18px;
-    font-weight: 700;
-  }
-
   .signup_wrapper .form-container .signup_form input[type="text"],
   .signup_wrapper .form-container .signup_form input[type="email"],
   .signup_wrapper .form-container .signup_form input[type="password"] {
@@ -3523,4 +3499,44 @@ li.disabled a {
   border-radius: 50%;
   padding: auto;
   vertical-align: middle;
+}
+
+
+
+/* branding carousel test */
+
+#clients {
+  padding: 60px 0;
+}
+
+#clients img {
+  max-width: 80%;
+  opacity: 0.5;
+  transition: 0.3s;
+  padding: 15px 0;
+}
+
+#clients img:hover {
+  opacity: 1;
+}
+
+#clients .brands__container .slider {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  margin: auto;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+#clients .brands__container .slider .slide {
+  position: relative;
+  left: 0;
+  flex-wrap: inherit;
+  transform: translateX(0);
+  transition: transform 0.5s ease-in-out;
+}
+
+.brands__container .slider::-webkit-scrollbar {
+  display: none;
 }

@@ -10,6 +10,10 @@
 Login
 {% endblock title %}
     
+<!-- {% verbatim myblock %}
+    {% include 'navbar.html' %}
+{% endverbatim myblock %} -->
+
 {% block content %}
 <!-- Login Page Begin -->
 <div class="container user__content">
@@ -22,11 +26,19 @@ Login
             <div class="form-text">Or login with username</div>
             <form class="signup_form" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.non_field_errors }}
-                <label for="name" class="label">Username </label>
+
+                {% if form.non_field_errors %}
+                    <div class="non-field-errors">
+                        {% for err in form.non_field_errors %}
+                            <div class="alert alert-danger" role="alert">
+                                <p>{{ err }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 {{ form.username|as_crispy_field }}
-                <label for="password" class="label">Password </label>
-                {{ form.password|as_crispy_field }}
+
+                {{ form.password|as_crispy_field }} 
                 
                 <p class="text-muted text-center">Forgot password? <a href="{% url 'users:password_reset' %}" class="f-w-400">Reset</a></p>
                 <button type="submit" class="site-btn">Sign In</button>

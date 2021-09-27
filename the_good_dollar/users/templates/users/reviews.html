@@ -19,43 +19,39 @@ My Reviews
 		</div>
 		<div class="col-md-9">
 			<div class="table-responsive">
-				<table class="table-bordered table">
-					<thead>
-						<tr>
-							<th>Title</th>
-							<th>Image</th>
-							<th>Price</th>
-							<th>Review Text</th>
-							<th>Review Rating</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for review in reviews %}
-						<tr>
-							<td><a href="/product/{{ review.product.slug}}/{{review.product.id }}">{{ review.product.title }}</a></td>
-							<td>
-								<img width="100" src="/media/{{ review.product.productattribute_set.first.image }}" alt="{{ review.product.title }}">
-							</td>
-							<td>{{ review.product.productattribute_set.first.price }}</td>
-							<td>{{ review.review_text }}</td>
-							<td>
-								{% for star in review.review_rating|ljust:review.review_rating %}
-									<i class="fa fa-star text-warning"></i>
-								{% endfor %}
-								({{ review.review_rating }}/5)
-							</td>
-						</tr>
-						{% empty %}
-						<tr>
-							<td></td>
-							<td></td>
-							<td><p><b>You have no reviews </b></p></td>
-							<td></td>
-							<td></td>
-						</tr>
-						{% endfor %}
-					</tbody>
-				</table>
+				{% if reviews %}
+					<table class="table-bordered table">
+						<thead>
+							<tr>
+								<th>Title</th>
+								<th>Image</th>
+								<th>Price</th>
+								<th>Review Text</th>
+								<th>Review Rating</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for review in reviews %}
+							<tr>
+								<td><a href="/product/{{ review.product.slug}}/{{review.product.id }}">{{ review.product.title }}</a></td>
+								<td>
+									<img width="100" src="/media/{{ review.product.productattribute_set.first.image }}" alt="{{ review.product.title }}">
+								</td>
+								<td>{{ review.product.productattribute_set.first.price }}</td>
+								<td>{{ review.review_text }}</td>
+								<td>
+									{% for star in review.review_rating|ljust:review.review_rating %}
+										<i class="fa fa-star text-warning"></i>
+									{% endfor %}
+									({{ review.review_rating }}/5)
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				{% else %}
+					<p class="text-center">You have no product reviews yet.</p>
+				{% endif %}
 			</div>
 		</div>
 	</div>

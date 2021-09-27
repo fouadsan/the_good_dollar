@@ -13,41 +13,39 @@ My Profile
 {% block content %}
 <!-- Profile Page Begin -->
 <main class="container my-4 user__content">
-	<!-- Featured Products -->
 	<h3 class="my-4">Edit Profile</h3>
-	<div class="row">
-		<div class="col-md-3">
+	<div class="row justify-content-center">
+		<div class="col-lg-3 col-md-3 col-sm-12 col-12">
 			{% include 'users/user_sidebar.html' %}
 		</div>
-
-		<div class="col-md-6">
+		<div class="col-lg-6 col-md-6 col-sm-12 col-12">
 			{% if msg %}
 			<p class="text-success">{{ msg }}</p>
 			{% endif %}
-			<form id="profile-form" class="user__right__side" autocomplete="off" >
+			<form id="profile-form" class="user__right__side" autocomplete="off">
 				{% csrf_token %}
 				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="id_first_name" placeholder="First Name" value="{{ form.instance.first_name }}">
+					<input type="text" class="form-control" id="id_first_name" placeholder="Fouad" {% if form.instance.first_name %} value="{{ form.instance.first_name }}" {% endif %}>
 					<label for="id_first_name">First Name</label>
 				</div>
 				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="id_last_name" placeholder="Last Name" value="{{ form.instance.last_name }}">
+					<input type="text" class="form-control" id="id_last_name" placeholder="Benayad" {% if form.instance.last_name %} value="{{ form.instance.last_name }}" {% endif %}>
 					<label for="id_last_name">Last Name</label>
 				</div>
 				<div class="form-floating mb-3">
-					<input type="email" class="form-control" id="id_email" placeholder="fouad@fouad.com" value="{{ form.instance.email }}">
+					<input type="email" class="form-control" id="id_email" placeholder="example@example.com" {% if form.instance.email %} value="{{ form.instance.email }}" {% endif %}>
 					<label for="id_email">Email Address</label>
 				</div>
 				<div class="form-floating mb-3">
-					<input type="number" class="form-control" id="id_phone" placeholder="0551903435" value="{{ form.instance.phone }}">
+					<input type="number" class="form-control" id="id_phone" placeholder="0551903435" {% if form.instance.phone %} value="{{ form.instance.phone }}" {% endif %}>
 					<label for="id_phone">Phone</label>
 				</div>
 				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="id_address" placeholder="123 New York, US" value="{{ form.instance.address }}">
+					<input type="text" class="form-control" id="id_address" placeholder="123 New York, US" {% if form.instance.address %} value="{{ form.instance.address }}" {% endif %}>
 					<label for="id_address">Address</label>
 				</div>
 				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="id_city" placeholder="Setif" value="{{ form.instance.city }}">
+					<input type="text" class="form-control" id="id_city" placeholder="Setif" {% if form.instance.city %} value="{{ form.instance.city }}" {% endif %}>
 					<label for="id_city">City</label>
 				</div>
 				<button type="submit" class="btn site-btn">
@@ -55,13 +53,12 @@ My Profile
 					<div id="spinner-box" class="spinner-border spinner-border-sm text-center not-visible">
 					</div>
 				</button>
-			</form>
-			
-			
-			
+			</form>			
 		</div>
+		<div class="col-md-3"></div>
 	</div>
 </main>
+
 <!-- Profile Page End -->
 {% endblock content %}
 

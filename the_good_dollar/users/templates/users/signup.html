@@ -9,27 +9,27 @@
 {% block title %}
 Signup
 {% endblock title %}
-    
+
 {% block content %}
 <!-- Sign-up Page Begin -->
 <div class="container user__content">
     <div class="signup_wrapper">
         <div class="form-container">
-            <div class="header-text">Sign up for free</div>
+            <div class="header-text">Create New Account</div>
             <div class="google-button">
                 <button class="button">Sign Up with Google</button>
             </div>
             <div class="form-text">Or sign up with email</div>
             <form class="signup_form" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <label for="name" class="label">Username </label>
                 {{ form.username|as_crispy_field }}
-                <label for="email" class="label">Email Address </label>
+
                 {{ form.email|as_crispy_field }}
-                <label for="password1" class="label">Password </label>
+
                 {{ form.password1|as_crispy_field }}
-                <label for="password2" class="label">Password Confirmation</label>
+
                 {{ form.password2|as_crispy_field }}
+
                 <button type="submit" class="site-btn">Sign Up</button>
             </form>
             <div class="have-account">

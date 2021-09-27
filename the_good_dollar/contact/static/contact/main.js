@@ -36,10 +36,10 @@ function sendEmail() {
 
                 }, 1500);
                 console.log(response.msg);
-                // handleAlerts('center', 'Email Status', response.msg, response.type, response.confirmation)
+                handleAlerts('center', 'Email Status', response.msg, response.type, response.confirmation);
             },
             error: function (error) {
-                // handleAlerts('center', 'Error!', 'Oops...something went wrong', 'error', true)
+                handleAlerts('center', 'Error!', 'Oops...something went wrong', 'error', true);
             }
         });
     })

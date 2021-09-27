@@ -60,25 +60,10 @@ function removeArr(arr) {
     return arr;
 }
 
-// Load Element 
-// Load Filters
+// Load and Hide Element 
 function loadHideElements(element1, element2) {
     hideElement(element1);
     showElement(element2);
-}
-
-
-// Poppup Alert Messages
-const handleAlerts = (position, title, msg, type, boolConfirmBtn, timer) => {
-    Swal.fire({
-        position: position,
-        title: title,
-        text: msg,
-        icon: type,
-        showConfirmButton: boolConfirmBtn,
-        timer: timer,
-        confirmButtonText: 'Ok'
-    })
 }
 
 const searchForm = document.getElementById('search-form');
@@ -97,6 +82,24 @@ select.addEventListener('change', () => {
         console.log(category);
     }
 })
+
+// Poppup Alert Messages
+function handleAlerts(position, title, msg, type, boolConfirmBtn, timer) {
+    Swal.fire({
+        position: position,
+        title: title,
+        text: msg,
+        icon: type,
+        showConfirmButton: boolConfirmBtn,
+        timer: timer,
+        confirmButtonText: 'Ok'
+    });
+    // alertBox.innerHTML = `
+    //     <div class="alert alert-${type}" role="alert">
+    //         ${msg}
+    //     </div>
+    // `
+}
 
 const searchUrl = `${rootUrl}\/shop\/search`;
 
@@ -150,12 +153,5 @@ searchInput.addEventListener('input', e => {
 
     sendSearchData(e.target.value);
 })
-
-// searchInput.addEventListener('focusout', () => {
-//     if (!resultsBox.classList.contains('not-visible')) {
-//         searchInput.value = "";
-//         resultsBox.classList.add('not-visible');
-//     }
-// })
 
 getCopyDate()
