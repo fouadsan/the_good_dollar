@@ -1,9 +1,13 @@
 from django.urls import path, include
+from rest_framework import routers
 
 from .views import home_screen, load_products, product_screen, search, load_related_products, add_review, add_to_cart, delete_cart_item, update_cart_item, cart_screen, add_to_wishlist,\
-     delete_wishlist_item, wishlist_screen, checkout_screen, payment_done, payment_canceled
+     delete_wishlist_item, wishlist_screen, checkout_screen, payment_done, payment_canceled, ProductView
 
 app_name = 'shop'
+
+router = routers.DefaultRouter()
+router.register('products', ProductView)
 
 urlpatterns = [
     path('', home_screen, name='home-screen'),
@@ -24,4 +28,5 @@ urlpatterns = [
     path('paypal', include('paypal.standard.ipn.urls')),
     path('payment_done', payment_done, name='payment-done'),
     path('payment_cancelled', payment_canceled, name='payment-cancelled'),
+    path('api', include(router.urls))
 ]

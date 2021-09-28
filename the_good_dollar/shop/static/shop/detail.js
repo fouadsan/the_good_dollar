@@ -2,11 +2,10 @@ function addReview() {
     addReviewUrl =  `${rootUrl}\/shop\/add_review`;
 
     const reviewCardEl = document.querySelector('.reviews__card');
+    const reviewFormWrapper = document.querySelector('.comment-form');    
     const addReviewForm = document.getElementById('add-review-form');
     const ReviewTextEl = document.getElementById('id_review_text');
     const ReviewRatEl = document.getElementById('id_review_rating');
-    const addReviewBtn = document.getElementById('add-review-btn');
-    const addFirstRevEl = document.querySelector('.add__first__review');
 
     const _pId = reviewCardEl.id;
     console.log(_pId)
@@ -37,25 +36,34 @@ function addReview() {
                         <i class="fa fa-star text-warning"></i>
                     `
                 }
-                addFirstRevEl.style.display = "none";
                 reviewCardEl.insertAdjacentHTML('afterbegin', `
-                    <div class="card-body review-list" style="max-height: 400px; overflow: auto;">
-                            <blockquote class="blockquote text-right">
-                                <small>${data.review_text}</small>
-                                <footer class="blockquote-footer">${data.user}
+                    <div class="comment-list review-list">
+                        <div class="single-comment justify-content-between d-flex">
+                        <div class="user justify-content-between d-flex">
+                            <div class="thumb">
+                                <img src="${rootUrl}\/static/assets/img/accounts/default.png" alt="">
+                            </div>
+                            <div class="desc">
+                                <p class="comment">${data.review_text}</p>
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                    <h5>
+                                        <a href="#">${data.user}</a>
+                                    </h5>
                                     ${reviewRatEl.outerHTML}
-                                </footer>
-                            </blockquote>
-                            <hr>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
                     </div>
                 `);
-                addReviewBtn.style.display = "none";
-                $('#review-modal').modal('hide');
-                // handleModalAlerts('success', 'New Object added!');
+                reviewFormWrapper.classList.add('not-visible');
+                handleAlerts('center', 'Success', 'Review Added', 'success', false, '2000');
             },
             error: function () {
                 console.log('oops, something went wrong');
-                // handleModalAlerts('danger', 'oops...something went wrong')
+                handleAlerts('center', 'Error!', 'Oops...something went wrong', 'error', true);
             }
         })
     })

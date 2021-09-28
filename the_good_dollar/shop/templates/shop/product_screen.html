@@ -109,7 +109,7 @@ Product Detail
                                 {% if user.is_authenticated %}
                                 <!-- Product Review -->
 
-                                <div class="modal fade" id="review-modal" tabindex="-1"
+                                <!-- <div class="modal fade" id="review-modal" tabindex="-1"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -132,14 +132,14 @@ Product Detail
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <!-- Product Review End -->
                                 {% endif %}
 
-                                <div class="card reviews__card" id="{{ qs.id }}">
+                                <!-- <div class="card reviews__card" id="{{ qs.id }}">
                                     <div class="card-body review-list" style="max-height: 400px; overflow: auto;">
-                                        <!-- Detail -->
+                                      
                                         {% for review in reviews %}
                                         <figure class="text-center">
                                             <blockquote class="blockquote">
@@ -158,7 +158,65 @@ Product Detail
                                         <p class="add__first__review">Add First Review</p>
                                         {% endfor %}
                                     </div>
+                                </div> -->
+
+
+
+                                <div class="comments-area reviews__card" id="{{ qs.id }}">
+                                    {% for review in reviews %}
+                                       <div class="comment-list review-list">
+                                          <div class="single-comment justify-content-between d-flex">
+                                             <div class="user justify-content-between d-flex">
+                                                <div class="thumb">
+                                                   <img src="{% static 'assets/img/accounts/default.png' %}" alt="">
+                                                </div>
+                                                <div class="desc">
+                                                   <p class="comment">{{ review.review_text }}</p>
+                                                   <div class="d-flex justify-content-between">
+                                                      <div class="d-flex align-items-center">
+                                                         <h5>
+                                                            <a href="#">{{ review.user }}</a>
+                                                         </h5>
+                                                     
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    {% empty %}
+                                       <p>No Review Added Yet.</p>
+                                    {% endfor %}
                                 </div>
+
+                                {% if user.is_authenticated %}
+                                    {% if can_add %}
+                                        <div class="comment-form">
+                                        <form method="post" id="add-review-form" autocomplete="off">
+                                            {% csrf_token %}
+                                       
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                    <textarea class="form-control w-100" name="review_text" id="id_review_text" cols="30" rows="9"
+                                                        placeholder="Type your review here" required>
+                                                    </textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        {{ review_form.review_rating|as_crispy_field }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="site-btn" id="add-btn">Add Review</button>
+                                            </div>
+                                        </form>
+                                        </div>
+                                
+                                    {% endif %}
+                                {% endif %}
 
                             </div>
                         </div>
@@ -198,3 +256,4 @@ Product Detail
 {% block extend_footer %}
 
 {% endblock %}
+

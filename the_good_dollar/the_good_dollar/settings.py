@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_simplejwt',
     # Our own apps,
     'main',
     'shop',
@@ -132,6 +134,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'users:dashboard'
 ACCOUNT_ACTIVATION_DAYS = 7
@@ -148,3 +151,13 @@ DEFAULT_FROM_EMAIL = 'BenayadFouad Team <noreplay@fafopalermo.com>'
 
 PAYPAL_RECEIVER_EMAIL = 'fouadtest@gmail.com'
 PAYPAL_TEST = True
+
+
+REST_FRAMEWORK = {
+
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+
+}

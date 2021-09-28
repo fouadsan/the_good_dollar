@@ -7,15 +7,16 @@ from django.urls import reverse
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from paypal.standard.forms import PayPalPaymentsForm
+from rest_framework import viewsets
 
 from .models import Subcategory, Product, Brand, Size, Color, ProductAttribute, ProductReview
 from users.models import CartOrder, CartOrderItems, AddressBook
 from .forms import ReviewForm
 from .utils import get_object, add_to_cart_or_fav, delete_or_update_from_cart_or_fav, get_items
+from .serializers import ProductSerializer
+
 
 # Shop Home
-
-
 def home_screen(request):
     subcategories = Subcategory.objects.all()
     brands = Brand.objects.all()
@@ -357,3 +358,8 @@ def payment_done(request):
 @csrf_exempt
 def payment_canceled(request):
     return render(request, 'shop/payment_fail.html')
+
+
+class ProductView(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
