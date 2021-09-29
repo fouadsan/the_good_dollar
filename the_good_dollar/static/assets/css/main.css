@@ -3555,75 +3555,80 @@ li.disabled a {
 
 
 
-.comments-area {
+.reviews__area {
 	background: transparent;
 	border-top: 1px solid #eee;
 	padding: 45px 0;
 }
 
 @media (max-width: 414px) {
-	.comments-area {
+	.reviews__area {
 		padding: 50px 8px
 	}
 }
 
-.comments-area h4 {
+.reviews__area h4 {
 	margin-bottom: 35px;
 	font-size: 18px
 }
 
-.comments-area h5 {
+.reviews__area h5 {
 	font-size: 16px;
 	margin-bottom: 0px
 }
 
-.comments-area .comment-list {
+.reviews__area .reviews__list {
 	padding-bottom: 48px
 }
 
-.comments-area .comment-list:last-child {
+.reviews__area .reviews__list:last-child {
 	padding-bottom: 0px
 }
 
-.comments-area .comment-list.left-padding {
+.reviews__area .reviews__list.left-padding {
 	padding-left: 25px
 }
 
 @media (max-width: 413px) {
-	.comments-area .comment-list .single-comment h5 {
+	.reviews__area .reviews__list .single-review h5 {
 		font-size: 12px
 	}
-	.comments-area .comment-list .single-comment .date {
+	.reviews__area .reviews__list .single-review .date {
 		font-size: 11px
 	}
-	.comments-area .comment-list .single-comment .comment {
+	.reviews__area .reviews__list .single-review .review {
 		font-size: 10px
 	}
 }
 
-.comments-area .thumb {
+.user__review {
+  width: 100%;
+}
+
+.reviews__area .thumb {
 	margin-right: 20px
 }
 
-.comments-area .thumb img {
+.reviews__area .thumb img {
 	width: 70px;
-	border-radius: 50%
+	border-radius: 50%;
+  margin-bottom: 0.5rem;
 }
 
-.comments-area .date {
+.reviews__area .date {
 	font-size: 14px;
 	color: #999999;
 	margin-bottom: 0;
 	margin-left: 20px
 }
 
-.comments-area .comment {
+.reviews__area .review {
 	margin-bottom: 10px;
 	color: #777777;
 	font-size: 15px
 }
 
-.comments-area .btn-reply {
+.reviews__area .btn-reply {
 	background-color: transparent;
 	color: #888888;
 	padding: 5px 18px;
@@ -3632,45 +3637,45 @@ li.disabled a {
 	font-weight: 400
 }
 
-.comment-form {
+.review-form {
 	border-top: 1px solid #eee;
 	padding-top: 45px;
 	margin-top: 50px;
 	margin-bottom: 20px
 }
 
-.comment-form .form-group {
+.review-form .form-group {
 	margin-bottom: 30px
 }
 
-.comment-form h4 {
+.review-form h4 {
 	margin-bottom: 40px;
 	font-size: 18px;
 	line-height: 22px
 }
 
-.comment-form .name {
+.review-form .name {
 	padding-left: 0px
 }
 
 @media (max-width: 767px) {
-	.comment-form .name {
+	.review-form .name {
 		padding-right: 0px;
 		margin-bottom: 1rem
 	}
 }
 
-.comment-form .email {
+.review-form .email {
 	padding-right: 0px
 }
 
 @media (max-width: 991px) {
-	.comment-form .email {
+	.review-form .email {
 		padding-left: 0px
 	}
 }
 
-.comment-form .form-control {
+.review-form .form-control {
 	border: 1px solid #f0e9ff;
 	border-radius: 5px;
 	height: 48px;
@@ -3679,42 +3684,53 @@ li.disabled a {
 	background: transparent
 }
 
-.comment-form .form-control:focus {
+.review-form .form-control:focus {
 	outline: 0;
 	box-shadow: none
 }
 
-.comment-form .form-control::placeholder {
+.review-form .form-control::placeholder {
 	font-weight: 300;
 	color: #999999
 }
 
-.comment-form .form-control::placeholder {
+.review-form .form-control::placeholder {
 	color: #777777
 }
 
-.comment-form textarea {
+.review-form textarea {
 	padding-top: 18px;
 	border-radius: 12px;
 	height: 100% !important
 }
 
-.comment-form ::-webkit-input-placeholder {
+.review-form ::-webkit-input-placeholder {
 	font-size: 13px;
 	color: #777
 }
 
-.comment-form ::-moz-placeholder {
+.review-form ::-moz-placeholder {
 	font-size: 13px;
 	color: #777
 }
 
-.comment-form :-ms-input-placeholder {
+.review-form :-ms-input-placeholder {
 	font-size: 13px;
 	color: #777
 }
 
-.comment-form :-moz-placeholder {
+.review-form :-moz-placeholder {
 	font-size: 13px;
 	color: #777
+}
+
+.user__review .desc {
+  width: 100%;
+}
+
+.generic-blockquote {
+  width: 100%;
+  padding: 2.5rem 2rem;
+  background-color: #f9f9ff;
+  border-left: 2px solid var(--accent-color);
 }

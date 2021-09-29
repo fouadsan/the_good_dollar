@@ -40,7 +40,7 @@ Product Detail
                     </div>
                     <div class="product__details__price">${{ qs.productattribute_set.first.price }}</div>
                     <p>{{ qs.detail }}</p>
-                    <a href="#" class="primary-btn">ADD TO CARD <i class="fas fa-shopping-cart fa-lg"></i></a>
+                        <button class="site-btn">ADD TO CARD <i class="fas fa-shopping-cart fa-lg"></i></button>
                     <ul>
                         <li><b>Availability</b> <span>In Stock</span></li>
                         <li><b>Sizes</b>
@@ -162,36 +162,39 @@ Product Detail
 
 
 
-                                <div class="comments-area reviews__card" id="{{ qs.id }}">
+                                <div class="reviews__area reviews__card" id="{{ qs.id }}">
                                     {% for review in reviews %}
-                                       <div class="comment-list review-list">
-                                          <div class="single-comment justify-content-between d-flex">
-                                             <div class="user justify-content-between d-flex">
-                                                <div class="thumb">
-                                                   <img src="{% static 'assets/img/accounts/default.png' %}" alt="">
-                                                </div>
-                                                <div class="desc">
-                                                   <p class="comment">{{ review.review_text }}</p>
-                                                   <div class="d-flex justify-content-between">
-                                                      <div class="d-flex align-items-center">
-                                                         <h5>
+                                       <div class="reviews__list review-list">
+                                            <div class="single-review justify-content-between d-flex">
+                                                <div class="user__review justify-content-between d-flex">
+                                                    <div class="thumb">
+                                                        <img src="{% static 'assets/img/accounts/default.png' %}" alt="">
+                                                        <h5 class="text-center">
                                                             <a href="#">{{ review.user }}</a>
-                                                         </h5>
-                                                     
-                                                      </div>
-                                                   </div>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="desc">
+                                                        <blockquote class="d-flex flex-row justify-content-between generic-blockquote review">
+                                                            <div class="col-lg-9 col-md-8 col-sm-7 col-11">{{ review.review_text }}</div>
+                                                            <div class="col-lg-2 col-md-3 col-sm-4">
+                                                                {% for star in review.review_rating|ljust:review.review_rating %}
+                                                                    <i class="fa fa-star text-warning"></i>
+                                                                {% endfor %}
+                                                            </div>
+                                                        </blockquote>
+                                                        
+                                                    </div>
                                                 </div>
-                                             </div>
-                                          </div>
+                                            </div> 
                                        </div>
                                     {% empty %}
-                                       <p>No Review Added Yet.</p>
+                                       <p id="no-reviews-el">No Review Added Yet.</p>
                                     {% endfor %}
                                 </div>
 
                                 {% if user.is_authenticated %}
                                     {% if can_add %}
-                                        <div class="comment-form">
+                                        <div class="review-form">
                                         <form method="post" id="add-review-form" autocomplete="off">
                                             {% csrf_token %}
                                        

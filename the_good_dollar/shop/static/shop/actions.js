@@ -1,5 +1,8 @@
 const totalAmtEl = document.querySelector('.cart__grand__total');
 
+const cartUrl = shopUrl + "cart_screen";
+const favUrl = shopUrl + "wishlist_screen";
+
 // Filter Data
 function filterData() {
     
@@ -364,7 +367,7 @@ function deleteItemCartOrFav(screen) {
     if (screen == "cart") {
         delItemUrl = `${rootUrl}\/shop\/delete_from_cart`;
         deleteEls = document.querySelectorAll('.delete__cart');
-    }else {
+    }else if (screen == "wishlist"){
         delItemUrl = `${rootUrl}\/shop\/delete_from_wishlist`;
         deleteEls = document.querySelectorAll('.delete__wishlist');
     }
@@ -376,6 +379,7 @@ function deleteItemCartOrFav(screen) {
 
     deleteEls.forEach(deleteEl => {
         deleteEl.addEventListener('click', () => {
+            console.log("delete")
         _pId = deleteEl.id.slice(4)
         $.ajax({
             type: 'GET',
@@ -415,3 +419,8 @@ function deleteItemCartOrFav(screen) {
     });
 }
 
+if (currentUrl == cartUrl) {
+    deleteItemCartOrFav("cart");
+} else if (currentUrl == favUrl) {
+    deleteItemCartOrFav("wishlist");
+}
