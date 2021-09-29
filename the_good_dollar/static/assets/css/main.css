@@ -1051,7 +1051,8 @@ li.disabled a {
   margin-right: 0;
 }
 
-.featured__wrapper .ctrl-btn, .brands__container .ctrl-btn {
+.featured__wrapper .ctrl-btn,
+.brands__container .ctrl-btn {
   padding: 10px 10px;
   min-width: 50px;
   background: var(--white-color);
@@ -1065,11 +1066,13 @@ li.disabled a {
   margin-top: -27.5px;
 }
 
-.featured__wrapper .ctrl-btn.pro-prev, .brands__container .ctrl-btn.brand-prev {
+.featured__wrapper .ctrl-btn.pro-prev,
+.brands__container .ctrl-btn.brand-prev {
   left: 0;
 }
 
-.featured__wrapper .ctrl-btn.pro-next, .brands__container .ctrl-btn.brand-next {
+.featured__wrapper .ctrl-btn.pro-next,
+.brands__container .ctrl-btn.brand-next {
   right: 0;
 }
 
@@ -2816,42 +2819,7 @@ li.disabled a {
 .signup_wrapper .form-container .google-button {
   margin-bottom: 45px;
 }
-.signup_wrapper .form-container .google-button .button {
-  width: 337px;
-  height: 70px;
-  font-family: inherit;
-  background-color: #5b86e6;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  padding: 25px 60px 25px 100px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 400;
-  cursor: pointer;
-  line-height: 22px;
-  position: relative;
-  outline-style: none;
-  transition: background 300ms ease-in-out;
-}
-.signup_wrapper .form-container .google-button .button::before {
-  content: "";
-  background: #ffffff
-    url("https://upload-icon.s3.us-east-2.amazonaws.com/uploads/icons/png/2659939281579738432-32.png")
-    no-repeat center;
-  border-radius: 5px;
-  width: 55px;
-  height: 55px;
-  position: absolute;
-  left: 12px;
-  top: 7px;
-  display: inline-block;
-  margin-right: 40px;
-}
-.signup_wrapper .form-container .google-button .button:hover {
-  background: #7aa0f3;
-}
+
 .signup_wrapper .form-container .form-text {
   text-transform: uppercase;
   color: var(--accent-color);
@@ -3340,12 +3308,6 @@ li.disabled a {
     margin-bottom: 2rem;
   }
 
-  .signup_wrapper .form-container .google-button .button {
-    width: 300px;
-    font-size: 16px;
-    line-height: 1.1rem;
-  }
-
   .signup_wrapper .form-container .form-text::before {
     width: 3rem;
     height: 1px;
@@ -3503,8 +3465,6 @@ li.disabled a {
   vertical-align: middle;
 }
 
-
-
 /* branding carousel test */
 
 #clients {
@@ -3543,62 +3503,50 @@ li.disabled a {
   display: none;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 .reviews__area {
-	background: transparent;
-	border-top: 1px solid #eee;
-	padding: 45px 0;
+  background: transparent;
+  border-top: 1px solid #eee;
+  padding: 45px 0;
 }
 
 @media (max-width: 414px) {
-	.reviews__area {
-		padding: 50px 8px
-	}
+  .reviews__area {
+    padding: 50px 8px;
+  }
 }
 
 .reviews__area h4 {
-	margin-bottom: 35px;
-	font-size: 18px
+  margin-bottom: 35px;
+  font-size: 18px;
 }
 
 .reviews__area h5 {
-	font-size: 16px;
-	margin-bottom: 0px
+  font-size: 16px;
+  margin-bottom: 0px;
 }
 
 .reviews__area .reviews__list {
-	padding-bottom: 48px
+  padding-bottom: 48px;
 }
 
 .reviews__area .reviews__list:last-child {
-	padding-bottom: 0px
+  padding-bottom: 0px;
 }
 
 .reviews__area .reviews__list.left-padding {
-	padding-left: 25px
+  padding-left: 25px;
 }
 
 @media (max-width: 413px) {
-	.reviews__area .reviews__list .single-review h5 {
-		font-size: 12px
-	}
-	.reviews__area .reviews__list .single-review .date {
-		font-size: 11px
-	}
-	.reviews__area .reviews__list .single-review .review {
-		font-size: 10px
-	}
+  .reviews__area .reviews__list .single-review h5 {
+    font-size: 12px;
+  }
+  .reviews__area .reviews__list .single-review .date {
+    font-size: 11px;
+  }
+  .reviews__area .reviews__list .single-review .review {
+    font-size: 10px;
+  }
 }
 
 .user__review {
@@ -3606,122 +3554,122 @@ li.disabled a {
 }
 
 .reviews__area .thumb {
-	margin-right: 20px
+  margin-right: 20px;
 }
 
 .reviews__area .thumb img {
-	width: 70px;
-	border-radius: 50%;
+  width: 70px;
+  border-radius: 50%;
   margin-bottom: 0.5rem;
 }
 
 .reviews__area .date {
-	font-size: 14px;
-	color: #999999;
-	margin-bottom: 0;
-	margin-left: 20px
+  font-size: 14px;
+  color: #999999;
+  margin-bottom: 0;
+  margin-left: 20px;
 }
 
 .reviews__area .review {
-	margin-bottom: 10px;
-	color: #777777;
-	font-size: 15px
+  margin-bottom: 10px;
+  color: #777777;
+  font-size: 15px;
 }
 
 .reviews__area .btn-reply {
-	background-color: transparent;
-	color: #888888;
-	padding: 5px 18px;
-	font-size: 14px;
-	display: block;
-	font-weight: 400
+  background-color: transparent;
+  color: #888888;
+  padding: 5px 18px;
+  font-size: 14px;
+  display: block;
+  font-weight: 400;
 }
 
 .review-form {
-	border-top: 1px solid #eee;
-	padding-top: 45px;
-	margin-top: 50px;
-	margin-bottom: 20px
+  border-top: 1px solid #eee;
+  padding-top: 45px;
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
 
 .review-form .form-group {
-	margin-bottom: 30px
+  margin-bottom: 30px;
 }
 
 .review-form h4 {
-	margin-bottom: 40px;
-	font-size: 18px;
-	line-height: 22px
+  margin-bottom: 40px;
+  font-size: 18px;
+  line-height: 22px;
 }
 
 .review-form .name {
-	padding-left: 0px
+  padding-left: 0px;
 }
 
 @media (max-width: 767px) {
-	.review-form .name {
-		padding-right: 0px;
-		margin-bottom: 1rem
-	}
+  .review-form .name {
+    padding-right: 0px;
+    margin-bottom: 1rem;
+  }
 }
 
 .review-form .email {
-	padding-right: 0px
+  padding-right: 0px;
 }
 
 @media (max-width: 991px) {
-	.review-form .email {
-		padding-left: 0px
-	}
+  .review-form .email {
+    padding-left: 0px;
+  }
 }
 
 .review-form .form-control {
-	border: 1px solid #f0e9ff;
-	border-radius: 5px;
-	height: 48px;
-	padding-left: 18px;
-	font-size: 13px;
-	background: transparent
+  border: 1px solid #f0e9ff;
+  border-radius: 5px;
+  height: 48px;
+  padding-left: 18px;
+  font-size: 13px;
+  background: transparent;
 }
 
 .review-form .form-control:focus {
-	outline: 0;
-	box-shadow: none
+  outline: 0;
+  box-shadow: none;
 }
 
 .review-form .form-control::placeholder {
-	font-weight: 300;
-	color: #999999
+  font-weight: 300;
+  color: #999999;
 }
 
 .review-form .form-control::placeholder {
-	color: #777777
+  color: #777777;
 }
 
 .review-form textarea {
-	padding-top: 18px;
-	border-radius: 12px;
-	height: 100% !important
+  padding-top: 18px;
+  border-radius: 12px;
+  height: 100% !important;
 }
 
 .review-form ::-webkit-input-placeholder {
-	font-size: 13px;
-	color: #777
+  font-size: 13px;
+  color: #777;
 }
 
 .review-form ::-moz-placeholder {
-	font-size: 13px;
-	color: #777
+  font-size: 13px;
+  color: #777;
 }
 
 .review-form :-ms-input-placeholder {
-	font-size: 13px;
-	color: #777
+  font-size: 13px;
+  color: #777;
 }
 
 .review-form :-moz-placeholder {
-	font-size: 13px;
-	color: #777
+  font-size: 13px;
+  color: #777;
 }
 
 .user__review .desc {

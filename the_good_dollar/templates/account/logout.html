@@ -1,0 +1,31 @@
+{% extends './account_base.html' %}
+
+{% load account socialaccount %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Sign Out{% endblock title %}
+
+<!-- Login Page Begin -->
+{% block accounts %}
+<div class="container user__content">
+    <div class="signup_wrapper">
+        <div class="form-container">
+            <div class="header-text">Sign Out</div>
+            <p>Are you sure you want to sign out ?</p>
+            <form class="signup_form" method="POST" action="{% url 'account_logout' %}"
+                enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                {{ field }}
+                {% endfor %}
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <button type="submit" class="site-btn">Sign Out</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock accounts %}
+<!-- Login Page End -->

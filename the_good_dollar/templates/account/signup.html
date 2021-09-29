@@ -1,0 +1,35 @@
+{% extends './account_base.html' %}
+
+{% load account socialaccount %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Sign Up{% endblock title %}
+
+<!-- Login Page Begin -->
+{% block accounts %}
+<div class="container user__content">
+    <div class="signup_wrapper">
+        <div class="form-container">
+            <div class="header-text">Create New Account</div>
+        
+            <div class="form-text">sign up with email</div>
+            <form class="signup_form" id="signup_form" method="post" enctype="multipart/form-data" action="{% url 'account_signup' %}">
+                {% csrf_token %}
+                {% for field in form %}
+                {{ field }}
+                {% endfor %}
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+
+                <button type="submit" class="site-btn">Sign Up</button>
+            </form>
+            <div class="have-account">
+                Already have an account? <span><a href="{% url 'account_login' %}"> <b>Login Instead</b></a></span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock accounts %}
+<!-- Login Page End -->

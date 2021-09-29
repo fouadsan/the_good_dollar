@@ -150,6 +150,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'users:dashboard'
+ACCOUNT_SIGNUP_REDIRECT_URL = 'users:profile'
 ACCOUNT_ACTIVATION_DAYS = 7
 SITE_ID = 2  # In Admin Panel (Sites)
 PASSWORD_RESET_TIMEOUT = 3600
