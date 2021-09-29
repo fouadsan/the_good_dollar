@@ -1,0 +1,57 @@
+{% load account socialaccount %}
+{% load static %}
+{% load i18n %}
+
+<!-- Login Page Begin -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS Files -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+
+    <title>Sign In</title>
+</head>
+<body>
+    <div class="container user__content">
+        <div class="signup_wrapper">
+            <div class="form-container">
+                <div class="header-text">Login Into Your Account</div>
+                <div class="google-button">
+                    <button class="button">Login with Google</button>
+                </div>
+                <div class="form-text">Or login with username</div>
+                <form class="signup_form" method="POST" action="{% url 'account_login' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    {{ field }} 
+                    {% endfor %}
+                    {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+                    <p class="text-muted text-center">Forgot password? <a href="{% url 'account_reset_password' %}"
+                            class="f-w-400">{% trans "Reset" %}</a></p>
+                    <button type="submit" class="site-btn">{% trans "Sign In" %}</button>
+                </form>
+                <div class="have-account">
+                    Don't have an account? <span><a href="{% url 'users:signup' %}"> <b> Sign Up Instead</b></a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- JS Files -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous">
+</script>
+</body>
+</html>
+<!-- Login Page End -->
