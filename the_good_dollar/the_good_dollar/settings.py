@@ -27,6 +27,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django.contrib.sites',
+
+    'rest_framework',
+    'rest_framework_simplejwt',
     # Our own apps,
     'main',
     'shop',
@@ -34,7 +39,11 @@ INSTALLED_APPS = [
     'contact',
     # Third party apps,
     'crispy_forms',
-    'paypal.standard.ipn'
+    'paypal.standard.ipn',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google'
 ]
 
 MIDDLEWARE = [
@@ -64,6 +73,11 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 WSGI_APPLICATION = 'the_good_dollar.wsgi.application'
@@ -135,7 +149,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'users:dashboard'
 ACCOUNT_ACTIVATION_DAYS = 7
-SITE_ID = 1
+SITE_ID = 2  # In Admin Panel (Sites)
 PASSWORD_RESET_TIMEOUT = 3600
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -148,3 +162,26 @@ DEFAULT_FROM_EMAIL = 'BenayadFouad Team <noreplay@fafopalermo.com>'
 
 PAYPAL_RECEIVER_EMAIL = 'fouadtest@gmail.com'
 PAYPAL_TEST = True
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+
+REST_FRAMEWORK = {
+
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+
+}
