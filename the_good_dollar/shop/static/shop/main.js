@@ -342,7 +342,9 @@ function addToWishOrCart(btnEl, class_name, id) {
     let cardinfoEl = btnEl.parentElement;
 
     let _productImgEl = document.getElementById(`product-img-${id}`);
+  
     _productImg = _productImgEl.style.backgroundImage.slice(4, -1).replace(/"/g, "");
+
     let _productName = document.getElementById(`product-name-${id}`).textContent;
     let _currentPrice = document.getElementById(`product-current-price-${id}`).textContent.slice(1);
 

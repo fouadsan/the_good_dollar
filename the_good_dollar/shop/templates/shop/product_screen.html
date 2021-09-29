@@ -40,7 +40,7 @@ Product Detail
                     </div>
                     <div class="product__details__price">${{ qs.productattribute_set.first.price }}</div>
                     <p>{{ qs.detail }}</p>
-                    <a href="#" class="primary-btn">ADD TO CARD <i class="fas fa-shopping-cart fa-lg"></i></a>
+                        <button class="site-btn">ADD TO CARD <i class="fas fa-shopping-cart fa-lg"></i></button>
                     <ul>
                         <li><b>Availability</b> <span>In Stock</span></li>
                         <li><b>Sizes</b>
@@ -109,7 +109,7 @@ Product Detail
                                 {% if user.is_authenticated %}
                                 <!-- Product Review -->
 
-                                <div class="modal fade" id="review-modal" tabindex="-1"
+                                <!-- <div class="modal fade" id="review-modal" tabindex="-1"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -132,14 +132,14 @@ Product Detail
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <!-- Product Review End -->
                                 {% endif %}
 
-                                <div class="card reviews__card" id="{{ qs.id }}">
+                                <!-- <div class="card reviews__card" id="{{ qs.id }}">
                                     <div class="card-body review-list" style="max-height: 400px; overflow: auto;">
-                                        <!-- Detail -->
+                                      
                                         {% for review in reviews %}
                                         <figure class="text-center">
                                             <blockquote class="blockquote">
@@ -158,7 +158,68 @@ Product Detail
                                         <p class="add__first__review">Add First Review</p>
                                         {% endfor %}
                                     </div>
+                                </div> -->
+
+
+
+                                <div class="reviews__area reviews__card" id="{{ qs.id }}">
+                                    {% for review in reviews %}
+                                       <div class="reviews__list review-list">
+                                            <div class="single-review justify-content-between d-flex">
+                                                <div class="user__review justify-content-between d-flex">
+                                                    <div class="thumb">
+                                                        <img src="{% static 'assets/img/accounts/default.png' %}" alt="">
+                                                        <h5 class="text-center">
+                                                            <a href="#">{{ review.user }}</a>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="desc">
+                                                        <blockquote class="d-flex flex-row justify-content-between generic-blockquote review">
+                                                            <div class="col-lg-9 col-md-8 col-sm-7 col-11">{{ review.review_text }}</div>
+                                                            <div class="col-lg-2 col-md-3 col-sm-4">
+                                                                {% for star in review.review_rating|ljust:review.review_rating %}
+                                                                    <i class="fa fa-star text-warning"></i>
+                                                                {% endfor %}
+                                                            </div>
+                                                        </blockquote>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                       </div>
+                                    {% empty %}
+                                       <p id="no-reviews-el">No Review Added Yet.</p>
+                                    {% endfor %}
                                 </div>
+
+                                {% if user.is_authenticated %}
+                                    {% if can_add %}
+                                        <div class="review-form">
+                                        <form method="post" id="add-review-form" autocomplete="off">
+                                            {% csrf_token %}
+                                       
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                    <textarea class="form-control w-100" name="review_text" id="id_review_text" cols="30" rows="9"
+                                                        placeholder="Type your review here" required>
+                                                    </textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        {{ review_form.review_rating|as_crispy_field }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="site-btn" id="add-btn">Add Review</button>
+                                            </div>
+                                        </form>
+                                        </div>
+                                
+                                    {% endif %}
+                                {% endif %}
 
                             </div>
                         </div>
@@ -198,3 +259,4 @@ Product Detail
 {% block extend_footer %}
 
 {% endblock %}
+

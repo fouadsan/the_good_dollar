@@ -1,4 +1,5 @@
 const imgs = document.getElementById('imgs')
+
 const leftFeatProdBtn = document.getElementById('prev-feat-btn');
 const rightFeatProdBtn = document.getElementById('next-feat-btn');
 
