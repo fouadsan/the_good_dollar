@@ -10,7 +10,7 @@ from paypal.standard.forms import PayPalPaymentsForm
 from rest_framework import viewsets
 
 from .models import Subcategory, Product, Brand, Size, Color, ProductAttribute, ProductReview
-from users.models import CartOrder, CartOrderItems, AddressBook
+from user.models import CartOrder, CartOrderItems, AddressBook
 from .forms import ReviewForm
 from .utils import get_object, add_to_cart_or_fav, delete_or_update_from_cart_or_fav, get_items
 from .serializers import ProductSerializer

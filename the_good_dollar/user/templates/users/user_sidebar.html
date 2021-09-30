@@ -1,0 +1,14 @@
+
+{% load static %}
+
+<!-- User Sidebar Begin -->
+<div class="list-group user__sidebar mb-3">
+	<a href="{% url 'user:dashboard' %}" class="list-group-item {% if request.path == '/user/dashboard/' %}active {% endif %}">Dashboard</a>
+	<a href="{% url 'user:profile' %}" class="list-group-item {% if request.path == '/user/profile' %}active {% endif %}">Profile</a>
+	<a href="{% url 'user:orders' %}" class="list-group-item {% if request.path == '/user/orders' %}active {% endif %}">My Orders</a>
+	<a href="{% url 'user:reviews' %}" class="list-group-item {% if request.path == '/user/reviews' %}active {% endif %}">My Reviews</a>
+	<a href="{% url 'user:addressbook' %}" class="list-group-item {% if request.path == '/user/addressbook' %}active {% endif %}">Address Book</a>
+	<a href="{% url 'account_change_password' %}" class="list-group-item">Password Change</a>
+	<a href="{% url 'account_logout' %}" class="text-danger list-group-item">Logout</a>
+</div>
+<!-- User Sidebar End -->

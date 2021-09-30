@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     # Our own apps,
     'main',
     'shop',
-    'users',
+    'user',
     'contact',
     # Third party apps,
     'crispy_forms',
@@ -135,7 +135,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
     BASE_DIR / 'shop' / 'static',
-    BASE_DIR / 'users' / 'static',
+    BASE_DIR / 'account' / 'static',
     BASE_DIR / 'contact' / 'static'
 ]
 
@@ -148,9 +148,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-LOGIN_URL = 'users:login'
-LOGIN_REDIRECT_URL = 'users:dashboard'
-ACCOUNT_SIGNUP_REDIRECT_URL = 'users:profile'
+LOGIN_URL = 'account_login'
+LOGIN_REDIRECT_URL = 'user:dashboard'
+ACCOUNT_SIGNUP_REDIRECT_URL = 'user:profile'
 ACCOUNT_ACTIVATION_DAYS = 7
 SITE_ID = 2  # In Admin Panel (Sites)
 PASSWORD_RESET_TIMEOUT = 3600

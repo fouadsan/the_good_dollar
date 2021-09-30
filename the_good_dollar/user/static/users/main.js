@@ -1,13 +1,13 @@
 
-const userDashUrl = rootUrl + '/users/dashboard/';
-const addrBookUrl = rootUrl + '/users/addressbook/';
+const userDashUrl = rootUrl + '/user/dashboard/';
+const addrBookUrl = rootUrl + '/user/addressbook/';
 
 const chartSpinnerBox = document.getElementById('chart-spinner-box');
 
 let upId;
 
 function ShowOrdersChart() {
-	const chartDataUrl = `${rootUrl}\/users\/orders_data`
+	const chartDataUrl = `${rootUrl}\/user\/orders_data`
 
 	$.ajax({
 		type: 'GET',
@@ -54,6 +54,8 @@ function addAddr() {
 	const mobileEl = document.getElementById('id_mobile');
 	const statusEl = document.getElementById('id_status');
 
+	const noAddressEl = document.querySelector('.no__address');
+
 	createAddrForm.addEventListener('submit', e => {
 		e.preventDefault()
 
@@ -76,6 +78,10 @@ function addAddr() {
 				CardParentEl.classList.add('col-md-4');
 				const newAddrCard = document.createElement('div');
 				newAddrCard.id = `addr-${data.id}`;
+				if (noAddressEl) {
+					noAddressEl.classList.add('not-visible');
+				} 
+				
 				if (data.status) {
 					console.log('yes')
 					newAddrCard.classList.add('card', 'mb-3', 'border-secondary', 'shadow');
@@ -107,6 +113,7 @@ function addAddr() {
 							<i class="fa fa-check-circle fa-2x text-success addr__checkmark" id="check-${data.id}" style="display:none;"></i>
 							<button id="${data.id}" class="btn btn-sm btn-outline-danger" activate__btn>Activate</button>
 							<button type="button" id="edit-${data.id}" class="btn edit__addr" data-bs-toggle="modal" data-bs-target="#update-addr-modal"><i class="fa fa-pen"></i></button>
+							<button type="button" id="del-${data.id}" class="btn del__addr" data-bs-toggle="modal" data-bs-target="#delete-addr-modal"><i class="fa fa-trash"></i></button>
 						</div>
 					`
 				}
@@ -178,6 +185,7 @@ function delAddr() {
 	const deleteAddrForm = document.getElementById('delete-addr-form');
 	const delAddrBtns = document.querySelectorAll('.del__addr');
 	let addrId;
+	console.log(delAddrBtns.length);
 	delAddrBtns.forEach(delBtn => {
 		delBtn.addEventListener('click', () => {
 			addrId = delBtn.id.slice(4);
@@ -200,7 +208,7 @@ function delAddr() {
 			},
 			error: function (error) {
 				// handleAlerts('center', 'Error!', 'Oops...something went wrong', 'error', true)
-			}
+			},
 		});
 	})
 }
