@@ -163,7 +163,8 @@ def search(request):
         category_id = request.POST.get('category_id')
         print(category_id)
         if category_id:
-            qs = Product.objects.filter(title__icontains=(product)).filter(subcategory__category_id=category_id)
+            qs = Product.objects.filter(title__icontains=(product)).filter(
+                subcategory__category_id=category_id)
         else:
             qs = Product.objects.filter(title__icontains=(product))
 

@@ -16,7 +16,7 @@ My Orders
 	<h3 class="my-4 border-bottom pb-1">My Orders</h3>
 	<div class="row">
 		<div class="col-md-3">
-			{% include 'users/user_sidebar.html' %}
+			{% include 'user/user_sidebar.html' %}
 		</div>
 		<div class="col-md-9">
 			{% if orders %}
@@ -33,7 +33,7 @@ My Orders
 						<tbody>
 							{% for order in orders %}
 							<tr>
-								<td><a href="{% url 'users:order-items' order.id %}" class="btn btn-sm btn-dark">{{ order.id }}</a></td>
+								<td><a href="{% url 'user:order-items' order.id %}" class="btn btn-sm btn-dark">{{ order.id }}</a></td>
 								<td>{{ order.total_amt }}</td>
 								<td>{{ order.paid_status }}</td>
 								<td>{{ order.order_dt }}</td>

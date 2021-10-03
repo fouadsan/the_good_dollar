@@ -14,7 +14,7 @@ from shop.models import ProductReview
 
 
 def dashboard_screen(request):
-    return render(request, 'users/dashboard.html')
+    return render(request, 'user/dashboard.html')
 
 
 def get_orders(request):
@@ -38,8 +38,7 @@ def get_orders(request):
 @login_required
 def reviews_screen(request):
     reviews = ProductReview.objects.filter(user=request.user).order_by('-id')
-    return render(request, 'users/reviews.html', {'reviews': reviews})
-
+    return render(request, 'user/reviews.html', {'reviews': reviews})
 
 
 @login_required
@@ -49,7 +48,7 @@ def profile_screen(request):
     if request.is_ajax():
         if form.is_valid():
             instance = form.save()
-            return  JsonResponse({
+            return JsonResponse({
                 'user': instance.user.username,
                 'email': instance.email,
                 'phone': instance.phone,
@@ -65,20 +64,20 @@ def profile_screen(request):
         'form': form,
     }
 
-    return render(request, 'users/profile.html', context)
+    return render(request, 'user/profile.html', context)
 
 
 # Orders
 def orders(request):
     orders = CartOrder.objects.filter(user=request.user).order_by('-id')
-    return render(request, 'users/orders.html', {'orders': orders})
+    return render(request, 'user/orders.html', {'orders': orders})
 
 
 # Order Detail
 def order_items(request, id):
     order = CartOrder.objects.get(pk=id)
     order_items = CartOrderItems.objects.filter(order=order).order_by('-id')
-    return render(request, 'users/order_items.html', {'order_items': order_items})
+    return render(request, 'user/order_items.html', {'order_items': order_items})
 
 
 # AddressBook
@@ -107,7 +106,7 @@ def addressbook_screen(request):
         'addrbook': addrbook,
         'addr_form': addr_form
     }
-    return render(request, 'users/addressbook.html', context)
+    return render(request, 'user/addressbook.html', context)
 
 
 # Activate Address
@@ -117,7 +116,7 @@ def activate_address(request):
         AddressBook.objects.update(status=False)
         AddressBook.objects.filter(id=addr_id).update(status=True)
         return JsonResponse({'bool': True})
-    return redirect('users:addressbook')
+    return redirect('user:addressbook')
 
 
 # Get Addressbook Data
@@ -140,7 +139,7 @@ def delete_address(request, pk):
         obj.delete()
         return JsonResponse({'msg': 'Address has been succesfully deleted'})
 
-    return redirect('users:addressbook')
+    return redirect('user:addressbook')
 
 # Update Addressbook
 
@@ -163,4 +162,4 @@ def update_address(request, pk):
 
         return JsonResponse({'data': data})
 
-    return redirect('users:addressbook')
+    return redirect('user:addressbook')

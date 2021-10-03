@@ -71,6 +71,7 @@ Checkout
                             <p>Order notes<span>*</span></p>
                             <input type="text" placeholder="e.g. notes for delivery.">
                         </div>
+                        <div class="text-center">{{ form.render }}</div>
                     </div>
                     <div class="col-lg-4 col-md-6 checkout__order__wrapper">
                         <div class="checkout__order">
@@ -90,12 +91,10 @@ Checkout
                             </ul>
                             <div class="checkout__order__item__count">Total Items <span>{{ totalitems }}</span></div>
                             <div class="checkout__order__total">Total <span>${{ total_amt }}</span></div>
-                            <button type="submit" class="site-btn">PLACE ORDER</button>
                         </div>
                     </div>
                 </div>
             </form>
-            {{form.render}}
         </div>
     </div>
 </section>
