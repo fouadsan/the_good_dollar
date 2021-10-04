@@ -361,6 +361,7 @@ def payment_canceled(request):
     return render(request, 'shop/payment_fail.html')
 
 
+# API
 class ProductView(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
