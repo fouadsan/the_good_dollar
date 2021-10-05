@@ -89,14 +89,11 @@ Product Detail
                             <div class="tab-pane fade show active" id="specs" role="tabpanel"
                                 aria-labelledby="specs-tab">
                                 <!-- <p>{{ qs.specs }}</p> -->
-                                <dl class="row product__specs">
-                                    <dt class="col-sm-6">Description lists</dt>
-                                    <dd class="col-sm-6">A description list A description list is perfect for defining
-                                        terms.</dd>
-                                    <dt class="col-sm-6">Description lists</dt>
-                                    <dd class="col-sm-6">A description list is perfect for defining terms.</dd>
-
-                                </dl>
+                                <div class="row justify-content-center product__specs">
+                                    <div class="text-center">
+                                        {{ qs.specs|safe }}
+                                    </div>
+                                </div>
                             </div>
                             <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
                                 {% if user.is_authenticated %}

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django_summernote.admin import SummernoteModelAdmin
 
 from .models import Banner, Category, Subcategory, Brand, Color, Size, Product, ProductAttribute, ProductReview
 
@@ -36,13 +37,15 @@ admin.site.register(Color, ColorAdmin)
 admin.site.register(Size)
 
 
-class ProductAdmin(admin.ModelAdmin):
+class ProductSummerAdmin(SummernoteModelAdmin):
     list_display = ('id', 'title', 'subcategory',
                     'brand', 'status', 'is_featured')
     list_editable = ('status', 'is_featured')
 
+    summernote_fields = 'specs'
 
-admin.site.register(Product, ProductAdmin)
+
+admin.site.register(Product, ProductSummerAdmin)
 
 
 class ProductAttributeAdmin(admin.ModelAdmin):

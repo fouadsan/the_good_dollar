@@ -11,6 +11,7 @@ urlpatterns = [
     path('shop/', include('shop.urls')),
     path('user/', include('user.urls')),
     path('contact/', include('contact.urls')),
+    path('summernote/', include('django_summernote.urls')),
 
     path('api-auth/', include('rest_framework.urls')),
     path('api/token/', TokenObtainPairView.as_view()),
