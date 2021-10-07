@@ -1,3 +1,3 @@
 # the_good_dollar
-E commerce website
-https://codepen.io/oguzhan-karacar/pen/eYzNELW
+
+E-commerce web application using Django, Django Rest Framework, Ajax, bootstrap 5.
