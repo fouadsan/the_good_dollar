@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block extend_header %}
-<script src="{% static 'users/main.js' %}" defer></script>
+<script src="{% static 'user/main.js' %}" defer></script>
 {% endblock %}
 
 {% block title %}
@@ -88,7 +88,7 @@ My Addresses
 
 	<div class="row user__content">
 		<div class="col-md-3">
-			{% include 'users/user_sidebar.html' %}
+			{% include 'user/user_sidebar.html' %}
 		</div>
 		<div class="col-md-9">
 			<div class="row addrbook__wrapper user__right__side">

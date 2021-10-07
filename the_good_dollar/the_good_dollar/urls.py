@@ -25,3 +25,7 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
+
+admin.site.index_title = "Admin Panel"
+admin.site.site_title = "TGD"
+admin.site.site_header = "TGD ADMINISTRATION"

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extend_header %}
-<script src="{% static 'users/main.js' %}" defer></script>
+<script src="{% static 'user/main.js' %}" defer></script>
 {% endblock %}
 
 {% block title %}
@@ -16,7 +16,7 @@ Account
 	<h3 class="my-4 border-bottom pb-1">My Dashboard</h3>
 	<div class="row">
 		<div class="col-md-3">
-			{% include 'users/user_sidebar.html' %}
+			{% include 'user/user_sidebar.html' %}
 		</div>
 		<div class="col-md-9">
 			<div class="">
