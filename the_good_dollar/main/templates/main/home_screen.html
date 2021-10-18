@@ -59,35 +59,72 @@ Home
             <div class="spinner-border text-danger" role="status" id="main-spinner-box">
             </div>
          </div>
-         <div class="slider">
+         <div class="slider mb-5">
             <div class="row slide product_cards"></div>
             <button class="ctrl-btn pro-prev" id="prev-feat-btn"><i class="fas fa-arrow-left fa-lg"></i></button>
             <button class="ctrl-btn pro-next" id="next-feat-btn"><i class="fas fa-arrow-right fa-lg"></i></button>
          </div>
-      </div>
-   </div>
-   <div class="row home__products">
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
-               role="tab" aria-controls="home" aria-selected="true">New Arrivals</button>
-         </li>
-         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
-               role="tab" aria-controls="profile" aria-selected="false">Best Sellers</button>
-         </li>
-      </ul>
-      <div class="tab-content" id="myTabContent">
-         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">Lorem ipsum, dolor
-            sit amet consectetur adipisicing elit. Corrupti cumque dolorem obcaecati, exercitationem ipsum quos aperiam
-            totam quae debitis maxime!
+         <div class="d-flex justify-content-center">
+            <a href="{% url 'shop:home-screen' %}" class="site-btn">All Products</a>
          </div>
-         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">Lorem ipsum dolor sit,
-            amet consectetur adipisicing elit. Molestiae beatae numquam sapiente in repellendus iusto voluptatibus
-            assumenda. Saepe, nulla earum.</div>
       </div>
    </div>
 </section>
+
+<!-- service_area_start  -->
+<div class="service_area">
+   <div class="container">
+      <div class="row justify-content-center ">
+         <div class="col-lg-12">
+            <div class="section-title featured__title">
+               <h2>Why Choose Us</h2>
+            </div>
+         </div>
+      </div>
+      <div class="row justify-content-center">
+         <div class="col-lg-4 col-md-6">
+            <div class="single_service">
+               <div class="service_thumb service_icon_bg_1 d-flex align-items-center justify-content-center">
+                  <div class="service_icon">
+                     <img src="{% static 'assets/img/icons/shipping.png' %}" alt="">
+                  </div>
+               </div>
+               <div class="service_content text-center">
+                  <h3>Lorem ipsum</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-4 col-md-6">
+            <div class="single_service active">
+               <div class="service_thumb service_icon_bg_1 d-flex align-items-center justify-content-center">
+                  <div class="service_icon">
+                     <img src="img/service/service_icon_2.png" alt="">
+                  </div>
+               </div>
+               <div class="service_content text-center">
+                  <h3>Lorem ipsum</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-4 col-md-6">
+            <div class="single_service">
+               <div class="service_thumb service_icon_bg_1 d-flex align-items-center justify-content-center">
+                  <div class="service_icon">
+                     <img src="img/service/service_icon_3.png" alt="">
+                  </div>
+               </div>
+               <div class="service_content text-center">
+                  <h3>Lorem ipsum</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- service_area_end -->
 
 <!--? Marks Start -->
 <section id="clients">

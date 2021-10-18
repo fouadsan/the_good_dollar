@@ -592,7 +592,7 @@ li.disabled a {
 }
 
 .header__logo {
-  padding: 1rem 0;
+  padding: 0;
 }
 
 .header__logo a {
@@ -1076,12 +1076,53 @@ li.disabled a {
   right: 0;
 }
 
-.home__products {
-  padding: 1rem;
+/* service area */
+.service_area {
+  padding-top: 241px;
+  padding-bottom: 106px;
 }
 
-.home__products ul {
-  justify-content: center;
+.service_area .single_service {
+  padding: 70px 25px 65px 25px;
+  border: 1px solid #b2b2b2;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.service_area .single_service .service_thumb {
+  height: 140px;
+  width: 160px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  margin: auto;
+}
+
+.service_area .single_service .service_thumb .service_icon img {
+  width: auto;
+}
+
+.service_area .single_service .service_content h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 43px;
+  margin-bottom: 22px;
+}
+
+.service_area .single_service .service_content p {
+  margin-bottom: 0;
+}
+
+.service_area .single_service:hover {
+  -webkit-box-shadow: 0px 16px 35px 0px rgba(0, 0, 2, 0.08);
+  -moz-box-shadow: 0px 16px 35px 0px rgba(0, 0, 2, 0.08);
+  box-shadow: 0px 16px 35px 0px rgba(0, 0, 2, 0.08);
+  border: 1px solid transparent;
 }
 
 /*---------------------
@@ -2183,7 +2224,6 @@ li.disabled a {
 
 .footer {
   background: #f3f6fa;
-  padding-top: 70px;
   padding-bottom: 0;
 }
 
@@ -2206,7 +2246,7 @@ li.disabled a {
 }
 
 .footer__widget {
-  margin-bottom: 30px;
+  margin-top: 30px;
   overflow: hidden;
 }
 
@@ -3108,6 +3148,11 @@ li.disabled a {
     padding-left: 0 !important;
   }
 
+  .service_area {
+    padding-top: 100px;
+    padding-bottom: 40px;
+  }
+
   .filter__item .filter__row span {
     font-size: 0.75rem;
   }
@@ -3178,6 +3223,11 @@ li.disabled a {
 
   .search__results__card {
     width: 100%;
+  }
+
+  .service_area {
+    padding-top: 60px;
+    padding-bottom: 60px;
   }
 
   .sidebar {
