@@ -1,14 +1,7 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
 
-from .models import Banner, Category, Subcategory, Brand, Color, Size, Product, ProductAttribute, ProductReview
-
-
-class BannerAdmin(admin.ModelAdmin):
-    list_display = ('alt_text', 'image_tag')
-
-
-admin.site.register(Banner, BannerAdmin)
+from .models import Category, Subcategory, Brand, Color, Size, Product, ProductAttribute, ProductReview
 
 
 class CategoryAdmin(admin.ModelAdmin):

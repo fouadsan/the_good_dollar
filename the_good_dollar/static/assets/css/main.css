@@ -1116,6 +1116,11 @@ li.disabled a {
 
 .service_area .single_service .service_content p {
   margin-bottom: 0;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box !important;
 }
 
 .service_area .single_service:hover {

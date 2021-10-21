@@ -1,8 +1,18 @@
 from django.contrib import admin
 
-from .models import SmallPub, Viewer
+from .models import Banner, SmallPub, Service, Viewer
+
+
+class BannerAdmin(admin.ModelAdmin):
+    list_display = ('alt_text', 'image_tag')
+
+
+admin.site.register(Banner, BannerAdmin)
+
 
 admin.site.register(SmallPub)
+
+admin.site.register(Service)
 
 
 class ViewerAdmin(admin.ModelAdmin):

@@ -34,13 +34,13 @@ Home
       </div>
    </div>
    <div class="row justify-content-center pub__wrapper">
-      {% for data in qs %}
+      {% for smallpub in smallpubs %}
          <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="card pub__card">
                <img
-                  src="{{ data.image.url }}"
+                  src="{{ smallpub.image.url }}"
                   alt="fourth-image" />
-               <p>{{ data.text }}</p>
+               <p>{{ smallpub.text }}</p>
                <a href="{% url 'shop:home-screen' %}"><b>Shop Now <i class="fas fa-arrow-circle-right fa-sm"></i></b></a>
             </div>
          </div>
@@ -81,47 +81,28 @@ Home
             </div>
          </div>
       </div>
-      <div class="row justify-content-center">
-         <div class="col-lg-4 col-md-6">
-            <div class="single_service">
-               <div class="service_thumb service_icon_bg_1 d-flex align-items-center justify-content-center">
-                  <div class="service_icon">
-                     <img src="{% static 'assets/img/icons/shipping.png' %}" alt="">
+      
+         <div class="row justify-content-center">
+            {% for service in services %}
+               <div class="col-lg-4 col-md-6">
+                  <div class="single_service">
+                     <div class="service_thumb service_icon_bg_1 d-flex align-items-center justify-content-center">
+                        <div class="service_icon">
+                           <img src="{{ service.image.url }}" alt="">
+                        </div>
+                     </div>
+                     <div class="service_content text-center">
+                        <h3>{{ service.title }}</h3>
+                        <p>{{ service.description }}</p>
+                     </div>
                   </div>
                </div>
-               <div class="service_content text-center">
-                  <h3>Lorem ipsum</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>
-               </div>
-            </div>
+            {% empty %}
+               <p class="text-center">Services section</p>
+            {% endfor %}
          </div>
-         <div class="col-lg-4 col-md-6">
-            <div class="single_service active">
-               <div class="service_thumb service_icon_bg_1 d-flex align-items-center justify-content-center">
-                  <div class="service_icon">
-                     <img src="img/service/service_icon_2.png" alt="">
-                  </div>
-               </div>
-               <div class="service_content text-center">
-                  <h3>Lorem ipsum</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>
-               </div>
-            </div>
-         </div>
-         <div class="col-lg-4 col-md-6">
-            <div class="single_service">
-               <div class="service_thumb service_icon_bg_1 d-flex align-items-center justify-content-center">
-                  <div class="service_icon">
-                     <img src="img/service/service_icon_3.png" alt="">
-                  </div>
-               </div>
-               <div class="service_content text-center">
-                  <h3>Lorem ipsum</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>
-               </div>
-            </div>
-         </div>
-      </div>
+      
+         
    </div>
 </div>
 <!-- service_area_end -->
@@ -156,3 +137,4 @@ Home
 {% block extend_footer %}
 
 {% endblock extend_footer %}
+
