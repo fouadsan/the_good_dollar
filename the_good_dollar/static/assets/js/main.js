@@ -60,6 +60,23 @@ function ToTop() {
     }
 }
 
+// fixed navbar
+
+// function scrollNavbar() {
+//     const navbarEl = document.querySelector('.navbar__menu');
+//     window.onscroll = function () { 
+//         "use strict";
+//         if (document.body.scrollTop >= 200 || document.documentElement.scrollTop >= 200 ) {
+//             navbarEl.classList.add("nav-colored");
+//             navbarEl.classList.remove("nav-transparent");
+//         } 
+//         else {
+//             navbarEl.classList.add("nav-transparent");
+//             navbarEl.classList.remove("nav-colored");
+//         }
+//     };
+// }
+
 // Tooltip
 // function toolTip() {
 //     let ancherEls = document.querySelectorAll('a');

@@ -2293,7 +2293,7 @@ li.disabled a {
   padding-left: 20px;
   color: var(--text-color);
   height: 46px;
-  border: 1px solid #ededed;
+  border: 2px solid red;
 }
 
 .footer__widget form button {

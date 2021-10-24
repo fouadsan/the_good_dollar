@@ -9,7 +9,7 @@ from shop.utils import get_object
 def home_screen(request):
     banners = Banner.objects.all()[:4]
     smallpubs = SmallPub.objects.all()[:4]
-    services = Service.objects.all()
+    services = Service.objects.all()[:3]
     context = {
         'banners': banners,
         'smallpubs': smallpubs,
