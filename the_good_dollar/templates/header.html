@@ -75,46 +75,50 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-12 col-12">
-                <div class="header__logo">
-                    <a href="{% url 'main:home-screen' %}"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
+        <div class="header__navbar" id="navbar">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="header__logo">
+                        <a href="{% url 'main:home-screen' %}"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                <nav class="header__menu">
-                    <ul>
-                        <li><a href="{% url 'main:home-screen' %}">Home</a></li>
-                        <li><a href="{% url 'shop:home-screen' %}">Shop</a>
-                            <ul class="header__menu__dropdown">
-                                <li><a href="{% url 'shop:home-screen' %}">Home</a></li>
-                                <li><a href="{% url 'shop:cart-screen' %}">Cart</a></li>
-                                <li><a href="{% url 'shop:checkout-screen' %}">Checkout</a></li>
-                                <li><a href="{% url 'shop:wishlist-screen' %}">Wishlist</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="{% url 'contact:contact' %}">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-lg-3">
-                <div class="header__cart" id="header-cart-lg">
-                    <ul>
-                        <li>
-                            <a href="{% url 'shop:wishlist-screen' %}"><img src="{% static 'assets/img/icons/heart.png' %}" alt="" width="28"> 
-                                <span class="wishlist_num">{{ wishlist_data|length }}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'shop:cart-screen' %}">
-                                <img src="{% static 'assets/img/icons/shopping-cart.png' %}" alt="" width="28">
-                                <span class="cart_num">{{ cart_data|length }}</span>
-                            </a>
-                        </li>
-                    </ul>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                    <nav class="header__menu">
+                        <ul>
+                            <li><a href="{% url 'main:home-screen' %}">Home</a></li>
+                            <li><a href="{% url 'shop:home-screen' %}">Shop</a>
+                                <ul class="header__menu__dropdown">
+                                    <li><a href="{% url 'shop:home-screen' %}">Home</a></li>
+                                    <li><a href="{% url 'shop:cart-screen' %}">Cart</a></li>
+                                    <li><a href="{% url 'shop:checkout-screen' %}">Checkout</a></li>
+                                    <li><a href="{% url 'shop:wishlist-screen' %}">Wishlist</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{% url 'contact:contact' %}">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__cart" id="header-cart-lg">
+                        <ul>
+                            <li>
+                                <a href="{% url 'shop:wishlist-screen' %}"><img src="{% static 'assets/img/icons/heart.png' %}"
+                                        alt="" width="28">
+                                    <span class="wishlist_num">{{ wishlist_data|length }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'shop:cart-screen' %}">
+                                    <img src="{% static 'assets/img/icons/shopping-cart.png' %}" alt="" width="28">
+                                    <span class="cart_num">{{ cart_data|length }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+        
 
     </div>
 </header>

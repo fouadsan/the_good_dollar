@@ -30,6 +30,22 @@ function getHamburger(e) {
     })
 }
 
+// fix navbar
+
+function fixNavbar () {
+    window.onscroll = function() {myFunction()};
+
+    const navbar = document.getElementById("navbar");
+    const sticky = navbar.offsetTop;
+
+    window.onscroll = () => {
+        if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky__navbar")
+        } else {
+            navbar.classList.remove("sticky__navbar");
+        }
+    }
+}
 
 // Back to top
 function backToTop() {
@@ -141,6 +157,7 @@ function applyNiceScroll() {
 
 function start() {
     setPreloader();
+    fixNavbar();
     backToTop();
     mediaQuery.addListener(getHamburger);
     getHamburger(mediaQuery);

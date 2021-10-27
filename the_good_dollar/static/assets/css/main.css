@@ -724,6 +724,21 @@ li.disabled a {
   display: none;
 }
 
+.header__navbar {
+  z-index: 1;
+}
+
+.sticky__navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
