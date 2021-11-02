@@ -39,6 +39,7 @@ function fixNavbar () {
     const sticky = navbar.offsetTop;
 
     window.onscroll = () => {
+        console.log(navbar.offsetTop);
         if (window.pageYOffset >= sticky) {
             navbar.classList.add("sticky__navbar")
         } else {
