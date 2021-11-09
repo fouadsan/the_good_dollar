@@ -39,7 +39,7 @@ function fixNavbar () {
     const sticky = navbar.offsetTop;
 
     window.onscroll = () => {
-        console.log(navbar.offsetTop);
+
         if (window.pageYOffset >= sticky) {
             navbar.classList.add("sticky__navbar")
         } else {
@@ -76,6 +76,7 @@ function ToTop() {
         window.scrollBy(0, -height);
     }
 }
+
 
 // fixed navbar
 
@@ -133,28 +134,28 @@ function applyNiceScroll() {
 }
 
 // 5. Departements dropdown toggler
-// function toggleDepartBtn() {
-//     heroCatAllEl.addEventListener('click', () => {
-//         heroCatAllToggler.classList.contains('fa-bars') ? heroCatAllToggler.classList.replace('fa-bars', 'fa-times') : heroCatAllToggler.classList.replace('fa-times', 'fa-bars');
+function toggleDepartBtn() {
+    heroCatAllEl.addEventListener('click', () => {
+        heroCatAllToggler.classList.contains('fa-bars') ? heroCatAllToggler.classList.replace('fa-bars', 'fa-times') : heroCatAllToggler.classList.replace('fa-times', 'fa-bars');
 
-//         $('.hero__categories ul').slideToggle(400);
+        $('.hero__categories ul').slideToggle(400);
 
-//     })
-// }
+    })
+}
 
 // Departements dropdown 
-// function displayDepartementList() {
-//     const departList = document.querySelector('.hero__categories ul');
-//     if (window.location.href === window.location.origin) {
-//         heroCatAllToggler.classList.remove('fa-bars');
-//         heroCatAllToggler.classList.add('fa-times');
-//         departList.style.display = "block";
+function displayDepartementList() {
+    const departList = document.querySelector('.hero__categories ul');
+    if (window.location.href === window.location.origin) {
+        heroCatAllToggler.classList.remove('fa-bars');
+        heroCatAllToggler.classList.add('fa-times');
+        departList.style.display = "block";
 
-//     } else {
-//         departList.style.display = "none";
-//     }
+    } else {
+        departList.style.display = "none";
+    }
 
-// }
+}
 
 function start() {
     setPreloader();
@@ -165,8 +166,8 @@ function start() {
     // toolTip();
     applyNiceSelect();
     applyNiceScroll();
-    // toggleDepartBtn();
-    // displayDepartementList();
+    toggleDepartBtn();
+    displayDepartementList();
 }
 
 

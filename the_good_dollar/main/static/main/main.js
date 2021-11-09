@@ -1,3 +1,5 @@
+const  bannerTextEl = document.getElementById("banner-text-el");
+
 const imgs = document.getElementById('imgs')
 
 const leftFeatProdBtn = document.getElementById('prev-feat-btn');
@@ -79,6 +81,25 @@ function moveBrand(op) {
     op == "add" ? idx3++ : idx3--;
     changeBrand();
 }
+
+
+function fadeIn(bannerTextEl, time) {
+  bannerTextEl.style.opacity = 0;
+
+  var last = +new Date();
+  var tick = function() {
+    bannerTextEl.style.opacity = +bannerTextEl.style.opacity + (new Date() - last) / time;
+    last = +new Date();
+
+    if (+bannerTextEl.style.opacity < 1) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    }
+  };
+
+  tick();
+}
+
+fadeIn(bannerTextEl, 3000);
 
 
 manualCarousel(rightFeatProdBtn, leftFeatProdBtn, moveProduct);
